@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public abstract class Object3D : IUpdatable
+    public abstract class Object3D
     {
         private double _x = 0;
         private double _y = 0;
