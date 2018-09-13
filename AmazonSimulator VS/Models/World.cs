@@ -9,7 +9,7 @@ namespace Models {
         public World() {
             Object3D r = CreateRobot(0,0,0);
             r.Move(4.6, 0, 13);
-            Object3D r = CreateRobot(0, 0, 0);
+            r = CreateRobot(0, 0, 0);
             r.Move(5.6, 0, 15);
         }
 
