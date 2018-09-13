@@ -11,12 +11,12 @@ namespace Controllers {
         public IDisposable unsubscribe;
     }
     public class SimulationController {
-        private World w;
+        private Model w;
         private List<ObservingClient> views = new List<ObservingClient>();
         private bool running = false;
         private int tickTime = 50;
 
-        public SimulationController(World w) {
+        public SimulationController(Model w) {
             this.w = w;
         }
 
