@@ -9,8 +9,6 @@ namespace Models {
         public World() {
             Object3D r = CreateRobot(0,0,0);
             r.Move(4.6, 0, 13);
-            r = CreateRobot(0, 0, 0);
-            r.Move(5.6, 0, 15);
         }
 
         private Object3D CreateRobot(double x, double y, double z) {
