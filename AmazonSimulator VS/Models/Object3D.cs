@@ -13,9 +13,10 @@ namespace Models
         private double _rX = 0;
         private double _rY = 0;
         private double _rZ = 0;
+        private string _type = "";
 
-        public string type { get; }
         public Guid guid { get; }
+        public string type { get { return _type; } }
         public double x { get { return _x; } }
         public double y { get { return _y; } }
         public double z { get { return _z; } }
@@ -27,7 +28,7 @@ namespace Models
 
         public Object3D(double x, double y, double z, double rotationX, double rotationY, double rotationZ, string type)
         {
-            this.type = type;
+            this._type = type;
             this.guid = Guid.NewGuid();
 
             this._x = x;

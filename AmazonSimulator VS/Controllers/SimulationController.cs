@@ -7,33 +7,33 @@ using Views;
 
 namespace Controllers {
     struct ObservingClient {
-        public ClientView cv;
+        public View vw;
         public IDisposable unsubscribe;
     }
     public class SimulationController {
-        private World w;
+        private Model w;
         private List<ObservingClient> views = new List<ObservingClient>();
         private bool running = false;
         private int tickTime = 50;
 
-        public SimulationController(World w) {
+        public SimulationController(Model w) {
             this.w = w;
         }
 
-        public void AddView(ClientView v) {
+        public void AddView(View v) {
             ObservingClient oc = new ObservingClient();
 
             oc.unsubscribe = this.w.Subscribe(v);
-            oc.cv = v;
+            oc.vw = v;
 
             views.Add(oc);
         }
 
-        public void RemoveView(ClientView v) {
+        public void RemoveView(View v) {
             for(int i = 0; i < views.Count; i++) {
                 ObservingClient currentOC = views[i];
 
-                if(currentOC.cv == v) {
+                if(currentOC.vw == v) {
                     views.Remove(currentOC);
                     currentOC.unsubscribe.Dispose();
                 }
