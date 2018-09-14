@@ -67,11 +67,11 @@ namespace Controllers {
             pickupTask.Add(new double[2] { 30, 30 });
 
             dropoffTask.Add(new double[2] { 30, 30 });
-            dropoffTask.Add(new double[2] { 30, 20 });
+            dropoffTask.Add(new double[2] { 20, 30 });
             dropoffTask.Add(new double[2] { 20, 20 });
-            dropoffTask.Add(new double[2] { 20, 10 });
+            dropoffTask.Add(new double[2] { 10, 20 });
             dropoffTask.Add(new double[2] { 10, 10 });
-            dropoffTask.Add(new double[2] { 10, 0  });
+            dropoffTask.Add(new double[2] { 0, 10  });
             dropoffTask.Add(new double[2] { 0,  0  });
 
 

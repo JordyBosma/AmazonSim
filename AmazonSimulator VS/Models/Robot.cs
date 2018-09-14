@@ -51,26 +51,59 @@ namespace Models
                 currentTask = pickupTask;
             }
 
-            if (currentTask != dropoffTask && currentTask.Count != 1)
+            if (currentTask.Count != 1)
             {
-                if (currentTask.Count != 1)
-                {
-                    pointOne = currentTask[0];
-                    pointTwo = currentTask[1];
-                    SetRoute(pointOne, pointTwo);
-                }
-                else
-                {
-                    currentTask = dropoffTask;
-                }
+                pointOne = currentTask[0];
+                pointTwo = currentTask[1];
+                SetRoute(pointOne, pointTwo);
             }
             else
             {
-                _movementAxis = "";
-                _isMoving = false;
+                if (currentTask == pickupTask)
+                {
+                    currentTask = dropoffTask;
+                }
+                else
+                {
+                    currentTask = null;
+                    _movementAxis = "";
+                    _isMoving = false;
+                }
             }
 
+            //if (currentTask == dropoffTask)
+            //{
+            //    pointOne = currentTask[0];
+            //    pointTwo = currentTask[1];
+            //    SetRoute(pointOne, pointTwo);
+            //}
         }
+
+        /*
+        if (currentTask != dropoffTask && currentTask.Count != 1)
+        {
+            if (currentTask.Count != 1 currentTask != dropoffTask)
+            {
+                pointOne = currentTask[0];
+                pointTwo = currentTask[1];
+                SetRoute(pointOne, pointTwo);
+            }
+            else
+            {
+                currentTask = dropoffTask;
+            }
+            pointOne = currentTask[0];
+            pointTwo = currentTask[1];
+            SetRoute(pointOne, pointTwo);
+        }
+        */
+        /*
+        else
+        {
+            _movementAxis = "";
+            _isMoving = false;
+        }
+        */
 
         public void SetRoute(double[] pointOne, double[] pointTwo)
         {
@@ -108,7 +141,7 @@ namespace Models
                 this.Move(this.x - 0.1, this.y, this.z);
             }
 
-            if (endPos == Math.Round(this.z, 1))
+            if (endPos == Math.Round(this.x, 1))
             {
                 DeletePos();
                 HandleTask();
