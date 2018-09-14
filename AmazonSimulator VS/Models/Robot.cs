@@ -36,17 +36,18 @@ namespace Models
 
         private void MoveToPos()
         {
-            if(endZ == Math.Round(this.z, 1))
-            {
-                _isMoving = false;
-            }
-            else if (endZ > Math.Round(this.z, 1))
+            if (endZ > Math.Round(this.z, 1))
             {
                 this.Move(this.x, this.y, this.z + 0.1);
             }
             else if (endZ < Math.Round(this.z, 1))
             {
                 this.Move(this.x, this.y, this.z - 0.1);
+            }
+
+            if (endZ == Math.Round(this.z, 1))
+            {
+                _isMoving = false;
             }
         }
 
