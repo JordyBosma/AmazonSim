@@ -9,7 +9,7 @@ namespace Views
 {
     abstract public class View : IObserver<Command>
     {
-        
+
         protected WebSocket socket;
 
         //base constructer
@@ -36,7 +36,8 @@ namespace Views
         {
             throw new NotImplementedException();
         }
-        public virtual void OnNext(Command value) {
+        public virtual void OnNext(Command value)
+        {
             SendCommand(value);
         }
     }

@@ -17,12 +17,11 @@ namespace Models {
             //r.Move(4.6, 0, 13);
         }
 
-        public void MoveRobot(double x, double z)
+        public void MoveRobot(double z)
         {
-            foreach (Object3D r in worldObjects)
+            foreach (Robot r in worldObjects)
             {
-                if (r.type == "Robot")
-                r.Move(x, 0, z);
+                r.TaskPos(z);
             }
         }
 
