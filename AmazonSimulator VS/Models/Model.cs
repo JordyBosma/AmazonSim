@@ -15,9 +15,9 @@ namespace Models
         {
             if (!observers.Contains(observer))
             {
-                observers.Add(observer);
-
                 SendCreationCommandsToObserver(observer);
+
+                observers.Add(observer);
             }
             return new Unsubscriber<Command>(observers, observer);
         }

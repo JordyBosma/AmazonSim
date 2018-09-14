@@ -52,5 +52,10 @@ namespace Controllers {
         public void EndSimulation() {
             running = false;
         }
+
+        public void Logic()
+        {
+            ((World)w).MoveRobot(30);
+        }
     }
 }
