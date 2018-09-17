@@ -62,6 +62,7 @@ namespace Models
                 if (currentTask == pickupTask)
                 {
                     currentTask = dropoffTask;
+                    SetRoute(currentTask[0], currentTask[1]);
                 }
                 else
                 {
@@ -70,40 +71,7 @@ namespace Models
                     _isMoving = false;
                 }
             }
-
-            //if (currentTask == dropoffTask)
-            //{
-            //    pointOne = currentTask[0];
-            //    pointTwo = currentTask[1];
-            //    SetRoute(pointOne, pointTwo);
-            //}
         }
-
-        /*
-        if (currentTask != dropoffTask && currentTask.Count != 1)
-        {
-            if (currentTask.Count != 1 currentTask != dropoffTask)
-            {
-                pointOne = currentTask[0];
-                pointTwo = currentTask[1];
-                SetRoute(pointOne, pointTwo);
-            }
-            else
-            {
-                currentTask = dropoffTask;
-            }
-            pointOne = currentTask[0];
-            pointTwo = currentTask[1];
-            SetRoute(pointOne, pointTwo);
-        }
-        */
-        /*
-        else
-        {
-            _movementAxis = "";
-            _isMoving = false;
-        }
-        */
 
         public void SetRoute(double[] pointOne, double[] pointTwo)
         {
