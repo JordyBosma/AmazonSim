@@ -10,18 +10,26 @@
 
 
     <script>
+        /**
+         * parse string to JSON.
+         * @param {string} input a string filled with a JSON.
+         * @return {JSON} Json
+         */
         function parseCommand(input = "") {
             return JSON.parse(input);
         }
 
-        var exampleSocket;
+        //socket: server link
+        var Socket;
 
+        //on page load:
         window.onload = function () {
             var camera, scene, renderer;
             var cameraControls;
 
             var worldObjects = {};
 
+            /** initialize program */
             function init() {
                 camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
                 cameraControls = new THREE.OrbitControls(camera);
@@ -51,44 +59,38 @@
                 scene.add(light);
             }
 
+            /** Triggered on window size chance by javascript */
             function onWindowResize() {
                 camera.aspect = window.innerWidth / window.innerHeight;
                 camera.updateProjectionMatrix();
                 renderer.setSize(window.innerWidth, window.innerHeight);
             }
 
+            /** Render scene */
             function animate() {
                 requestAnimationFrame(animate);
                 cameraControls.update();
                 renderer.render(scene, camera);
             }
 
-            exampleSocket = new WebSocket("ws://" + window.location.hostname + ":" + window.location.port + "/connect_client");
-            exampleSocket.onmessage = function (event) {
+            // Set up socket with link to server:
+            Socket = new WebSocket("ws://" + window.location.hostname + ":" + window.location.port + "/connect_client");
+
+            /**
+             * Processes incoming message
+             * @param {e} event event data form message that came in
+             */
+            Socket.onmessage = function (event) {
                 var command = parseCommand(event.data);
                 console.log(command);
                 if (command.command == "update") {
                     if (Object.keys(worldObjects).indexOf(command.parameters.guid) < 0) {
-                        if (command.parameters.type == "Robot") {
-                            var geometry = new THREE.BoxGeometry(0.9, 0.3, 0.9);
-                            var cubeMaterials = [
-                                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_side.png"), side: THREE.DoubleSide }), //LEFT
-                                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_side.png"), side: THREE.DoubleSide }), //RIGHT
-                                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_top.png"), side: THREE.DoubleSide }), //TOP
-                                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_bottom.png"), side: THREE.DoubleSide }), //BOTTOM
-                                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_front.png"), side: THREE.DoubleSide }), //FRONT
-                                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_front.png"), side: THREE.DoubleSide }), //BACK
-                            ];
-                            var material = new THREE.MeshFaceMaterial(cubeMaterials);
-                            var robot = new THREE.Mesh(geometry, material);
-                            robot.position.y = 0.151;
+                        var model = newModel(command);
+                        var group = new THREE.Group();
+                        group.add(model);
 
-                            var group = new THREE.Group();
-                            group.add(robot);
-
-                            scene.add(group);
-                            worldObjects[command.parameters.guid] = group;
-                        }
+                        scene.add(group);
+                        worldObjects[command.parameters.guid] = group;
                     }
 
                     var object = worldObjects[command.parameters.guid];
@@ -103,6 +105,32 @@
                 }
             }
 
+            function newModel(command) {
+                switch (command.parameters.type) {
+                    case "robot":
+                        var geometry = new THREE.BoxGeometry(0.9, 0.3, 0.9);
+                        var cubeMaterials = [
+                            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_side.png"), side: THREE.DoubleSide }), //LEFT
+                            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_side.png"), side: THREE.DoubleSide }), //RIGHT
+                            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_top.png"), side: THREE.DoubleSide }), //TOP
+                            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_bottom.png"), side: THREE.DoubleSide }), //BOTTOM
+                            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_front.png"), side: THREE.DoubleSide }), //FRONT
+                            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_front.png"), side: THREE.DoubleSide }), //BACK
+                        ];
+                        var material = new THREE.MeshFaceMaterial(cubeMaterials);
+                        var model = new THREE.Mesh(geometry, material);
+                        robot.position.y = 0.151;
+                        return model;
+                    case "case":
+
+                        break;
+                    default:
+
+                        break;
+                }
+            }
+
+            // Start program:
             init();
             animate();
         }
