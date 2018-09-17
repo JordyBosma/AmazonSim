@@ -31,6 +31,7 @@
 
             /** initialize program */
             function init() {
+                // Camera and scene setup:
                 camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
                 cameraControls = new THREE.OrbitControls(camera);
                 camera.position.z = 15;
@@ -39,6 +40,7 @@
                 cameraControls.update();
                 scene = new THREE.Scene();
 
+                // Scene render setup
                 renderer = new THREE.WebGLRenderer({ antialias: true });
                 renderer.setPixelRatio(window.devicePixelRatio);
                 renderer.setSize(window.innerWidth, window.innerHeight + 5);
@@ -46,6 +48,7 @@
 
                 window.addEventListener('resize', onWindowResize, false);
 
+                // Scene plane:
                 var geometry = new THREE.PlaneGeometry(30, 30, 32);
                 var material = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide });
                 var plane = new THREE.Mesh(geometry, material);
@@ -54,6 +57,7 @@
                 plane.position.z = 15;
                 scene.add(plane);
 
+                // Scene light:
                 var light = new THREE.AmbientLight(0x404040);
                 light.intensity = 4;
                 scene.add(light);
@@ -92,22 +96,25 @@
                         scene.add(group);
                         worldObjects[command.parameters.guid] = group;
                     }
-
-                    var object = worldObjects[command.parameters.guid];
-
-                    object.position.x = command.parameters.x;
-                    object.position.y = command.parameters.y;
-                    object.position.z = command.parameters.z;
-
-                    object.rotation.x = command.parameters.rotationX;
-                    object.rotation.y = command.parameters.rotationY;
-                    object.rotation.z = command.parameters.rotationZ;
+                    updateModel(worldObjects[command.parameters.guid], command);
                 }
+            }
+
+            function updateModel(object, command) {
+                //var object = worldObjects[command.parameters.guid];
+
+                object.position.x = command.parameters.x;
+                object.position.y = command.parameters.y;
+                object.position.z = command.parameters.z;
+
+                object.rotation.x = command.parameters.rotationX;
+                object.rotation.y = command.parameters.rotationY;
+                object.rotation.z = command.parameters.rotationZ;
             }
 
             function newModel(command) {
                 switch (command.parameters.type) {
-                    case "robot":
+                    case "Robot":
                         var geometry = new THREE.BoxGeometry(0.9, 0.3, 0.9);
                         var cubeMaterials = [
                             new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_side.png"), side: THREE.DoubleSide }), //LEFT
@@ -119,7 +126,8 @@
                         ];
                         var material = new THREE.MeshFaceMaterial(cubeMaterials);
                         var model = new THREE.Mesh(geometry, material);
-                        robot.position.y = 0.151;
+                        model.position.y = 0.151;
+                        console.log("hi");
                         return model;
                     case "case":
 
