@@ -56,7 +56,8 @@
                 plane.position.x = 15;
                 plane.position.z = 15;
                 scene.add(plane);
-                
+
+                // Skybox:
                 var sphericalSkyboxGeometry = new THREE.SphereGeometry(1000, 32, 32);
                 var sphericalSkyboxMaterial = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/Skybox.jpg"), side: THREE.DoubleSide });
                 var sphericalSkybox = new THREE.Mesh(sphericalSkyboxGeometry, sphericalSkyboxMaterial);
@@ -132,7 +133,6 @@
                         var material = new THREE.MeshFaceMaterial(cubeMaterials);
                         var model = new THREE.Mesh(geometry, material);
                         model.position.y = 0.151;
-                        console.log("hi");
                         return model;
                     case "case":
 
