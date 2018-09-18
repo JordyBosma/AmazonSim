@@ -30,5 +30,12 @@ namespace Models {
             worldObjects.Add(r);
             return r;
         }
+
+        //private Object3D CreateCrate(double x, double y, double z)
+        //{
+        //    Object3D c = new Crate(x, y, z, 0, 0, 0);
+        //    worldObjects.Add(c);
+        //    return c;
+        //}
     }
 }

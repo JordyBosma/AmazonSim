@@ -57,10 +57,22 @@
                 plane.position.z = 15;
                 scene.add(plane);
                 
+                // Spherical skybox:
                 var sphericalSkyboxGeometry = new THREE.SphereGeometry(1000, 32, 32);
                 var sphericalSkyboxMaterial = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/Skybox.jpg"), side: THREE.DoubleSide });
                 var sphericalSkybox = new THREE.Mesh(sphericalSkyboxGeometry, sphericalSkyboxMaterial);
                 scene.add(sphericalSkybox);
+                
+                // Loading FooBar model
+                /*
+                foobar = new THREE.Group();
+                scene.add(foobar);
+                loadOBJModel("models/", "Lamborgini_Aventador.obj","textures/", "Lamborgini_Aventador.mtl", (mesh) => {
+                    mesh.scale.set(0.2, 0.2 , 0.2);
+                    foobar.add(mesh);
+                    gFoobar = foobar;
+                });
+                */
                 
                 // Scene light:
                 var light = new THREE.AmbientLight(0x404040);
@@ -134,14 +146,50 @@
                         model.position.y = 0.151;
                         console.log("hi");
                         return model;
-                    case "case":
-
+                    case "FooBar":
+                    /*
+                        var geometry = new THREE.OBJLoader()
+                            .setPath("models/")
+                            .setMaterials(materials)
+                            .load("Lamborgini_Aventador.obj", function (object) {
+                                scene.add(object);
+                            }, function () { }, function (e) { console.log("Error loading"); console.log(e); });
+                    */
                         break;
+                    case "BarFoo":
+                            
+                            break;
                     default:
 
                         break;
                 }
             }
+            /**
+             * Load an OBJ model from the server
+             * @param {string} modelPath The path to the model on the server
+             * @param {string} modelName The name of the model inside the path (OBJ file)
+             * @param {string} texturePath The path to the texture of the model
+             * @param {string} textureName The name of the texture of the mdoel (MTL File)
+             * @param {function(THREE.Mesh): void} onload The function to be called once the model is loaded and available 
+             * @return {void}
+            */
+            /*
+            function loadOBJModel(modelPath, modelName, texturePath, textureName, onload) {
+                new THREE.MTLLoader()
+                    .setPath(texturePath)
+                    .load(textureName, function (materials) {
+
+                        materials.preload();
+
+                        new THREE.OBJLoader()
+                            .setPath(modelPath)
+                            .setMaterials(materials)
+                            .load(modelName, function (object) {
+                                onload(object);
+                            }, function () { }, function (e) { console.log("Error loading model"); console.log(e) });
+                    });
+            }
+            */
 
             // Start program:
             init();
