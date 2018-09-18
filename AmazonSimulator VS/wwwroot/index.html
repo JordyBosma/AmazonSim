@@ -66,8 +66,8 @@
                 // Loading FooBar model
                 foobar = new THREE.Group();
                 scene.add(foobar);
-                loadOBJModel("models/", "Lamborgini_Aventador.obj","textures/", "Lamborgini_Aventador.mtl", (mesh) => {
-                    mesh.scale.set(1, 1 , 1);
+                loadOBJModel("models/", "flying sacuer.obj", "textures/", "flying sacuer.mtl", (mesh) => {
+                    mesh.scale.set(1, 1, 1);
                     foobar.add(mesh);
                     gFoobar = foobar;
                 });
@@ -144,19 +144,9 @@
                         model.position.y = 0.151;
                         console.log("hi");
                         return model;
-                    case "FooBar":
-                    /*
-                        var geometry = new THREE.OBJLoader()
-                            .setPath("models/")
-                            .setMaterials(materials)
-                            .load("Lamborgini_Aventador.obj", function (object) {
-                                scene.add(object);
-                            }, function () { }, function (e) { console.log("Error loading"); console.log(e); });
-                    */
+                    case "Crate":
+
                         break;
-                    case "BarFoo":
-                            
-                            break;
                     default:
 
                         break;
@@ -196,6 +186,8 @@
 
     <script src="three.min.js"></script>
     <script src="OrbitControls.js"></script>
+    <script src="OBJLoader.js"></script>
+    <script src="MTLLoader.js"></script>
 </body>
 
 </html>

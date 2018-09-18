@@ -7,7 +7,7 @@ namespace Models
 {
     public class Crate : Object3D, IUpdatable
     {
-        public Crate(double x, double y, double z, double rotationX, double rotationY, double rotationZ) : base(x, y, z, rotationX, rotationY, rotationZ, "FooBar")
+        public Crate(double x, double y, double z, double rotationX, double rotationY, double rotationZ) : base(x, y, z, rotationX, rotationY, rotationZ, "Crate")
         {
 
         }

@@ -13,7 +13,7 @@ namespace Models {
             Object3D d = CreateRobot(7.6, 0, 13);
             Object3D e = CreateRobot(8.6, 0, 13);
             Object3D f = CreateRobot(9.6, 0, 13);
-
+            //worldObjects.Add(new Crate(7.6, 5, 13, 0, 0, 0));
             //r.Move(4.6, 0, 13);
         }
 
@@ -22,6 +22,7 @@ namespace Models {
             foreach (Robot r in worldObjects)
             {
                 r.TaskPos(z);
+                //if (r is Robot) { (Robot)r.TaskPos(z)};
             }
         }
 
@@ -30,12 +31,5 @@ namespace Models {
             worldObjects.Add(r);
             return r;
         }
-
-        //private Object3D CreateCrate(double x, double y, double z)
-        //{
-        //    Object3D c = new Crate(x, y, z, 0, 0, 0);
-        //    worldObjects.Add(c);
-        //    return c;
-        //}
     }
 }
