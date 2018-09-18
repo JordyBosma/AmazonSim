@@ -11,20 +11,30 @@ namespace Models
         private List<double[]> dropoffTask;
         private List<double[]> currentTask;
 
-        private double[] pointOne = new double[2];
-        private double[] pointTwo = new double[2];
-
+        private double[] _pointOne = new double[2];
+        private double[] _pointTwo = new double[2];
         private double _endPos = 0;
         private bool _isMoving = false;
+        private bool _isRotating = false;
         private string _movementAxis = "";
+        private int _rotationAxis = 0;
+        private int _newRotationAxis = 0;
+        private int _rotationTick = 0;
+        private double _rotationValue = 0;
 
+        public double[] pointOne { get { return _pointOne; } }
+        public double[] pointTwo { get { return _pointTwo; } }
         public double endPos { get { return _endPos; } }
         public bool isMoving { get { return _isMoving; } }
+        public bool isRotating { get { return _isRotating; } }
         public string movementAxis { get { return _movementAxis; } }
+        public int rotationAxis { get { return _rotationAxis; } }
+        public int newRotationAxis { get { return _newRotationAxis; } }
+        public int rotationTick { get { return _rotationTick; } }
+        public double rotationValue { get { return _rotationValue; } }
 
         public Robot(double x, double y, double z, double rotationX, double rotationY, double rotationZ) : base(x, y, z, rotationX, rotationY, rotationZ, "Robot")
         {
-
         }
 
         public override void Move(double x, double y, double z)
@@ -44,7 +54,7 @@ namespace Models
             HandleTask();
         }
 
-        public void HandleTask()
+        private void HandleTask()
         {
             if (currentTask == null)
             {
@@ -53,8 +63,8 @@ namespace Models
 
             if (currentTask.Count != 1)
             {
-                pointOne = currentTask[0];
-                pointTwo = currentTask[1];
+                _pointOne = currentTask[0];
+                _pointTwo = currentTask[1];
                 SetRoute(pointOne, pointTwo);
             }
             else
@@ -73,27 +83,74 @@ namespace Models
             }
         }
 
-        public void SetRoute(double[] pointOne, double[] pointTwo)
+        private void SetRoute(double[] pointOne, double[] pointTwo)
         {
             if (pointOne[0] == pointTwo[0])
             {
                 _movementAxis = "z";
+                SetRotation(movementAxis);
                 TaskPos(pointTwo[1]);
             }
             else
             {
                 _movementAxis = "x";
+                SetRotation(movementAxis);
                 TaskPos(pointTwo[0]);
             }
         }
 
-        public void TaskPos(double endPos)
+        private void SetRotation(string movmentAxis)
+        {
+            if (movementAxis == "z")
+            {
+                if (pointOne[1] < pointTwo[1])
+                {
+                    _newRotationAxis = 0;
+                }
+                else
+                {
+                    _newRotationAxis = 2;
+                }
+            }
+            else
+            {
+                if (pointOne[0] < pointTwo[0])
+                {
+                    _newRotationAxis = 1;
+                }
+                else
+                {
+                    _newRotationAxis = 3;
+                }
+            }
+
+            int rotation = newRotationAxis - rotationAxis;
+
+            switch (rotation)
+            {
+                case 3:
+                    _rotationValue = -0.5 * (Math.PI);
+                    break;
+                case -3:
+                    _rotationValue = 0.5 * (Math.PI);
+                    break;
+                default:
+                    _rotationValue = rotation * (Math.PI);
+                    break;
+            }
+        }
+
+        private void TaskPos(double endPos)
         {
             _endPos = endPos;
+            if (rotationValue != 0)
+            {
+                _isRotating = true;
+            }
             _isMoving = true;
         }
 
-        public void DeletePos()
+        private void DeletePos()
         {
             currentTask.RemoveAt(0);
         }
@@ -134,17 +191,38 @@ namespace Models
             }
         }
 
+        private void RotateRobot()
+        {
+            if (rotationTick != 10)
+            {
+                Rotate(0, (rotationValue / 10 * rotationTick), 0);
+                _rotationTick++;
+            }
+            else
+            {
+                _isRotating = false;
+                _rotationTick = 0;
+            }
+        }
+
         public override bool Update(int tick)
         {
             if (isMoving == true)
             {
-                if (movementAxis == "x")
+                if (isRotating == true)
                 {
-                    MoveToPosX();
+                    RotateRobot();
                 }
                 else
                 {
-                    MoveToPosZ();
+                    if (movementAxis == "x")
+                    {
+                        MoveToPosX();
+                    }
+                    else
+                    {
+                        MoveToPosZ();
+                    }
                 }
             }
 

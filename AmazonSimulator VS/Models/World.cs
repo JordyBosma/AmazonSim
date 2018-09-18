@@ -8,8 +8,6 @@ namespace Models {
     {
         public World() {
             Object3D a = CreateRobot(0, 0, 0);
-
-            //r.Move(4.6, 0, 13);
         }
 
         public void MoveRobot(RobotTask rt)
