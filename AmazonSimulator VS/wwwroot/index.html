@@ -64,15 +64,13 @@
                 scene.add(sphericalSkybox);
                 
                 // Loading FooBar model
-                /*
                 foobar = new THREE.Group();
                 scene.add(foobar);
                 loadOBJModel("models/", "Lamborgini_Aventador.obj","textures/", "Lamborgini_Aventador.mtl", (mesh) => {
-                    mesh.scale.set(0.2, 0.2 , 0.2);
+                    mesh.scale.set(1, 1 , 1);
                     foobar.add(mesh);
                     gFoobar = foobar;
                 });
-                */
                 
                 // Scene light:
                 var light = new THREE.AmbientLight(0x404040);
@@ -173,7 +171,7 @@
              * @param {function(THREE.Mesh): void} onload The function to be called once the model is loaded and available 
              * @return {void}
             */
-            /*
+
             function loadOBJModel(modelPath, modelName, texturePath, textureName, onload) {
                 new THREE.MTLLoader()
                     .setPath(texturePath)
@@ -189,7 +187,6 @@
                             }, function () { }, function (e) { console.log("Error loading model"); console.log(e) });
                     });
             }
-            */
 
             // Start program:
             init();
