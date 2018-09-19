@@ -17,15 +17,6 @@ namespace Models {
             //r.Move(4.6, 0, 13);
         }
 
-        public void MoveRobot(double z)
-        {
-            foreach (Robot r in worldObjects)
-            {
-                r.TaskPos(z);
-                //if (r is Robot) { (Robot)r.TaskPos(z)};
-            }
-        }
-
         private Object3D CreateRobot(double x, double y, double z) {
             Object3D r = new Robot(x,y,z,0,0,0);
             worldObjects.Add(r);

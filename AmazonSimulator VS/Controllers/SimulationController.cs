@@ -55,7 +55,7 @@ namespace Controllers {
 
         public void Logic()
         {
-            ((World)w).MoveRobot(30);
+
         }
     }
 }
