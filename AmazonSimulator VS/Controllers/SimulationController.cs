@@ -55,6 +55,29 @@ namespace Controllers {
 
         public void Logic()
         {
+			List<double[]> pickupTask = new List<double[]>();
+            List<double[]> dropoffTask = new List<double[]>();
+
+            pickupTask.Add(new double[2] { 0, 0  });
+            pickupTask.Add(new double[2] { 10, 0 });
+            pickupTask.Add(new double[2] { 10, 10 });
+            pickupTask.Add(new double[2] { 20, 10 });
+            pickupTask.Add(new double[2] { 20, 20 });
+            pickupTask.Add(new double[2] { 30, 20 });
+            pickupTask.Add(new double[2] { 30, 30 });
+
+            dropoffTask.Add(new double[2] { 30, 30 });
+            dropoffTask.Add(new double[2] { 20, 30 });
+            dropoffTask.Add(new double[2] { 20, 20 });
+            dropoffTask.Add(new double[2] { 10, 20 });
+            dropoffTask.Add(new double[2] { 10, 10 });
+            dropoffTask.Add(new double[2] { 0, 10  });
+            dropoffTask.Add(new double[2] { 0,  0  });
+
+
+            RobotTask rt = new RobotTask(pickupTask, dropoffTask);
+            ((World)w).MoveRobot(rt);
+			
             //GetOrder(startPoint, pickUpPoint, endPoint, w.GetNodeGrid());
         }
 
