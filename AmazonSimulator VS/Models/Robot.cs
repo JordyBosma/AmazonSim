@@ -21,6 +21,7 @@ namespace Models
         private int _newRotationAxis = 0;
         private int _rotationTick = 0;
         private double _rotationValue = 0;
+        private double _rotation = 0;
 
         public double[] pointOne { get { return _pointOne; } }
         public double[] pointTwo { get { return _pointTwo; } }
@@ -32,6 +33,7 @@ namespace Models
         public int newRotationAxis { get { return _newRotationAxis; } }
         public int rotationTick { get { return _rotationTick; } }
         public double rotationValue { get { return _rotationValue; } }
+        public double rotation { get { return _rotation; } }
 
         public Robot(double x, double y, double z, double rotationX, double rotationY, double rotationZ) : base(x, y, z, rotationX, rotationY, rotationZ, "Robot")
         {
@@ -101,6 +103,7 @@ namespace Models
 
         private void SetRotation(string movmentAxis)
         {
+            _rotationAxis = newRotationAxis;
             if (movementAxis == "z")
             {
                 if (pointOne[1] < pointTwo[1])
@@ -135,7 +138,7 @@ namespace Models
                     _rotationValue = 0.5 * (Math.PI);
                     break;
                 default:
-                    _rotationValue = rotation * (Math.PI);
+                    _rotationValue = rotation * 0.5 * (Math.PI);
                     break;
             }
         }
@@ -148,11 +151,6 @@ namespace Models
                 _isRotating = true;
             }
             _isMoving = true;
-        }
-
-        private void DeletePos()
-        {
-            currentTask.RemoveAt(0);
         }
 
         private void MoveToPosX()
@@ -168,7 +166,7 @@ namespace Models
 
             if (endPos == Math.Round(this.x, 1))
             {
-                DeletePos();
+                currentTask.RemoveAt(0);
                 HandleTask();
             }
         }
@@ -186,21 +184,22 @@ namespace Models
 
             if (endPos == Math.Round(this.z, 1))
             {
-                DeletePos();
+                currentTask.RemoveAt(0);
                 HandleTask();
             }
         }
 
         private void RotateRobot()
         {
-            if (rotationTick != 10)
+            if (rotationTick != 11)
             {
-                Rotate(0, (rotationValue / 10 * rotationTick), 0);
+                Rotate(0, (rotation + (rotationValue / 10) * rotationTick), 0);
                 _rotationTick++;
             }
             else
             {
                 _isRotating = false;
+                _rotation = rotation + rotationValue;
                 _rotationTick = 0;
             }
         }
