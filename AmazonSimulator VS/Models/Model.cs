@@ -57,6 +57,11 @@ namespace Models
 
             return true;
         }
+
+        public void GetNodeGrid()
+        {
+            //grid
+        }
     }
 
     public class Unsubscriber<Command> : IDisposable

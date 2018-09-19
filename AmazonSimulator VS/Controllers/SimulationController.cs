@@ -55,7 +55,19 @@ namespace Controllers {
 
         public void Logic()
         {
-
+            //GetOrder(startPoint, pickUpPoint, endPoint, w.GetNodeGrid());
         }
+
+        /*
+        public RobotComand GetOrder(double[] startPoint, double[] pickUpPoint, double[] endPoint, NodeGrid nodeGrid)
+        {
+            return new RobotCommand(GetPath(startPoint, pickUpPoint, nodeGrid), GetPath(pickUpPoint, endPoint, nodeGrid));
+        }
+
+        public List<double[]> GetPath(double[] firstPoint, double[] secondPoint, NodeGrid nodeGrid)
+        {
+            return null;
+        }
+        */
     }
 }
