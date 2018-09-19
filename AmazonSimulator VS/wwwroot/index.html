@@ -32,7 +32,7 @@
             /** initialize program */
             function init() {
                 // Camera and scene setup:
-                camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
+                camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 10000);
                 cameraControls = new THREE.OrbitControls(camera);
                 camera.position.z = 15;
                 camera.position.y = 5;
@@ -58,10 +58,28 @@
                 scene.add(plane);
                 
                 // Spherical skybox:
-                var sphericalSkyboxGeometry = new THREE.SphereGeometry(1000, 32, 32);
-                var sphericalSkyboxMaterial = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/Skybox.jpg"), side: THREE.DoubleSide });
-                var sphericalSkybox = new THREE.Mesh(sphericalSkyboxGeometry, sphericalSkyboxMaterial);
-                scene.add(sphericalSkybox);
+                //var sphericalSkyboxGeometry = new THREE.SphereGeometry(1000, 32, 32);
+                //var sphericalSkyboxMaterial = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/Skybox3.jpg"), side: THREE.DoubleSide });
+                //var sphericalSkybox = new THREE.Mesh(sphericalSkyboxGeometry, sphericalSkyboxMaterial);
+                //scene.add(sphericalSkybox);
+
+                // Box skybox
+                var imagePrefix = "textures/bkg3_";
+                var directions = ["right", "left", "top", "bot", "front", "back"];
+                var imageSuffix = ".png";
+
+                var materialArray = [];
+                for (var i = 0; i < 6; i++)
+                    materialArray.push(new THREE.MeshBasicMaterial({
+                        map: THREE.ImageUtils.loadTexture(imagePrefix + directions[i] + imageSuffix),
+                        side: THREE.BackSide
+                    }));
+
+                var skyGeometry = new THREE.CubeGeometry(5000, 5000, 5000);
+                var skyMaterial = new THREE.MeshFaceMaterial(materialArray);
+                var skyBox = new THREE.Mesh(skyGeometry, skyMaterial);
+                skyBox.rotation.x += Math.PI / 2;
+                scene.add(skyBox);
                 
                 // Loading FooBar model
                 foobar = new THREE.Group();
