@@ -7,21 +7,35 @@ namespace Models {
     public class World : Model, IUpdatable
     {
         public World() {
-            Object3D a = CreateRobot(0, 0, 0);
+            Object3D robot = CreateObject(0, 0, 0, "Robot");
+            Object3D rocket = CreateObject(15, 0, 5, "Export");
         }
 
         public void MoveRobot(RobotTask rt)
         {
-            foreach (Robot r in worldObjects)
+            foreach (Object3D r in worldObjects)
             {
-                r.GetTask(rt);
+                if (r.type == "Robot")
+                {
+                    ((Robot)r).GetTask(rt);
+                }
             }
         }
         
-        private Object3D CreateRobot(double x, double y, double z) {
-            Object3D r = new Robot(x,y,z,0,0,0);
-            worldObjects.Add(r);
-            return r;
+        private Object3D CreateObject(double x, double y, double z, string type) {
+            switch (type)
+            {
+                case "Robot":
+                    Object3D r = new Robot(x, y, z, 0, 0, 0);
+                    worldObjects.Add(r);
+                    return r;
+                case "Export":
+                    Object3D e = new ExportVehicle(x, y, z, 0, 0, 0);
+                    worldObjects.Add(e);
+                    return e;
+                default:
+                    throw new ArgumentException("there is no model that corresponds with that type");
+            }
         }
     }
 }

@@ -82,13 +82,7 @@
                 scene.add(skyBox);
                 
                 // Loading FooBar model
-                foobar = new THREE.Group();
-                scene.add(foobar);
-                loadOBJModel("models/", "Export_Rocket.obj", "textures/", "Export_Rocket.mtl", (mesh) => {
-                    mesh.scale.set(1, 1, 1);
-                    foobar.add(mesh);
-                    gFoobar = foobar;
-                });
+                
                 
                 // Scene light:
                 var light = new THREE.AmbientLight(0x404040);
@@ -162,6 +156,16 @@
                         model.position.y = 0.151;
                         console.log("hi");
                         return model;
+
+                    case "ExportVehicle":
+                        ExportVehicle = new THREE.Group();
+                        scene.add(ExportVehicle);
+                        loadOBJModel("models/", "Export_Rocket.obj", "textures/", "Export_Rocket.mtl", (mesh) => {
+                            mesh.scale.set(1, 1, 1);
+                            ExportVehicle.add(mesh);
+                            gExportVehicle = ExportVehicle;
+                        });
+                        break;
                     case "Crate":
 
                         break;

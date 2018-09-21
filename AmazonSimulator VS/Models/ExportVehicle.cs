@@ -10,7 +10,6 @@ namespace Models
 
         public ExportVehicle(double x, double y, double z, double rotationX, double rotationY, double rotationZ) : base(x, y, z, rotationX, rotationY, rotationZ, "ExportVehicle")
         {
-
         }
 
         public override void Move(double x, double y, double z)
