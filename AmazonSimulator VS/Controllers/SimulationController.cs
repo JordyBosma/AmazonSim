@@ -76,7 +76,7 @@ namespace Controllers {
 
 
             RobotTask rt = new RobotTask(pickupTask, dropoffTask);
-            ((World)w).MoveRobot(rt);
+            //((World)w).MoveRobot(rt);
         }
     }
 }

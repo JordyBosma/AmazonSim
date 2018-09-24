@@ -7,7 +7,7 @@ namespace Models {
     public class World : Model, IUpdatable
     {
         public World() {
-            Object3D robot = CreateObject(0, 0, 0, "Robot");
+            Object3D robot = CreateObject(15, 0, 15, "Robot");
             Object3D rocket = CreateObject(15, 0, 5, "Export");
         }
 
@@ -17,7 +17,7 @@ namespace Models {
             {
                 if (r.type == "Robot")
                 {
-                    ((Robot)r).GetTask(rt);
+                    ((Robot)r).GiveTask(rt);
                 }
             }
         }

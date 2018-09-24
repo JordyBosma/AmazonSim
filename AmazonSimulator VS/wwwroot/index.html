@@ -56,12 +56,6 @@
                 plane.position.x = 15;
                 plane.position.z = 15;
                 scene.add(plane);
-                
-                // Spherical skybox:
-                //var sphericalSkyboxGeometry = new THREE.SphereGeometry(1000, 32, 32);
-                //var sphericalSkyboxMaterial = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/Skybox3.jpg"), side: THREE.DoubleSide });
-                //var sphericalSkybox = new THREE.Mesh(sphericalSkyboxGeometry, sphericalSkyboxMaterial);
-                //scene.add(sphericalSkybox);
 
                 // Box skybox
                 var imagePrefix = "textures/bkg3_";
@@ -79,10 +73,7 @@
                 var skyMaterial = new THREE.MeshFaceMaterial(materialArray);
                 var skyBox = new THREE.Mesh(skyGeometry, skyMaterial);
                 skyBox.rotation.x += Math.PI / 2;
-                scene.add(skyBox);
-                
-                // Loading FooBar model
-                
+                scene.add(skyBox);                
                 
                 // Scene light:
                 var light = new THREE.AmbientLight(0x404040);
@@ -112,18 +103,22 @@
              * @param {e} event event data form message that came in
              */
             Socket.onmessage = function (event) {
+                console.log("1");
                 var command = parseCommand(event.data);
                 console.log(command);
+                console.log("2");
                 if (command.command == "update") {
                     if (Object.keys(worldObjects).indexOf(command.parameters.guid) < 0) {
-                        var model = newModel(command);
                         var group = new THREE.Group();
-                        group.add(model);
+
+                        newModel(command, group);
 
                         scene.add(group);
                         worldObjects[command.parameters.guid] = group;
                     }
+                    console.log("3");
                     updateModel(worldObjects[command.parameters.guid], command);
+                    console.log("4");
                 }
             }
 
@@ -139,7 +134,7 @@
                 object.rotation.z = command.parameters.rotationZ;
             }
 
-            function newModel(command) {
+            function newModel(command, group) {
                 switch (command.parameters.type) {
                     case "Robot":
                         var geometry = new THREE.BoxGeometry(0.9, 0.3, 0.9);
@@ -155,15 +150,12 @@
                         var model = new THREE.Mesh(geometry, material);
                         model.position.y = 0.151;
                         console.log("hi");
-                        return model;
-
+                        group.add(model);
+                        break;
                     case "ExportVehicle":
-                        ExportVehicle = new THREE.Group();
-                        scene.add(ExportVehicle);
                         loadOBJModel("models/", "Export_Rocket.obj", "textures/", "Export_Rocket.mtl", (mesh) => {
                             mesh.scale.set(1, 1, 1);
-                            ExportVehicle.add(mesh);
-                            gExportVehicle = ExportVehicle;
+                            group.add(mesh);
                         });
                         break;
                     case "Crate":

@@ -49,7 +49,7 @@ namespace Models
             base.Rotate(rotationX, rotationY, rotationZ);
         }
 
-        public void GetTask(Controllers.RobotTask rt)
+        public void GiveTask(Controllers.RobotTask rt)
         {
             pickupTask = rt.pickupTask;
             dropoffTask = rt.dropoffTask;
