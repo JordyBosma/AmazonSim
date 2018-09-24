@@ -14,7 +14,7 @@ namespace Controllers {
         private Model w;
         private List<ObservingClient> views = new List<ObservingClient>();
         private bool running = false;
-        private int tickTime = 50;
+        private int tickTime = 25;
 
         public SimulationController(Model w) {
             this.w = w;

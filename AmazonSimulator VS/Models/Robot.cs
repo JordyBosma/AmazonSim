@@ -157,11 +157,11 @@ namespace Models
         {
             if (endPos > Math.Round(this.x, 1))
             {
-                this.Move(this.x + 0.1, this.y, this.z);
+                this.Move(this.x + 0.05, this.y, this.z);
             }
             else if (endPos < Math.Round(this.x, 1))
             {
-                this.Move(this.x - 0.1, this.y, this.z);
+                this.Move(this.x - 0.05, this.y, this.z);
             }
 
             if (endPos == Math.Round(this.x, 1))
@@ -175,11 +175,11 @@ namespace Models
         {
             if (endPos > Math.Round(this.z, 1))
             {
-                this.Move(this.x, this.y, this.z + 0.1);
+                this.Move(this.x, this.y, this.z + 0.05);
             }
             else if (endPos < Math.Round(this.z, 1))
             {
-                this.Move(this.x, this.y, this.z - 0.1);
+                this.Move(this.x, this.y, this.z - 0.05);
             }
 
             if (endPos == Math.Round(this.z, 1))
@@ -191,9 +191,9 @@ namespace Models
 
         private void RotateRobot()
         {
-            if (rotationTick != 11)
+            if (rotationTick != 21)
             {
-                Rotate(0, (rotation + (rotationValue / 10) * rotationTick), 0);
+                Rotate(0, (rotation + (rotationValue / 20) * rotationTick), 0);
                 _rotationTick++;
             }
             else
