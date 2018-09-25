@@ -17,14 +17,13 @@ namespace Models
 
     public class Node
     {
-        public int x;
+        public double[] posision;
         public int z;
         public List<Node> connections;
 
-        public Node(int x, int z, List<Node> connections)
+        public Node(double[] posision, List<Node> connections)
         {
-            this.x = x;
-            this.z = z;
+            this.posision = posision;
             this.connections = connections;
         }
     }
