@@ -44,6 +44,42 @@ class Rocket extends THREE.Group {
     }
 }
 
+class Sun extends THREE.Group {
+
+    constructor() {
+        super()
+
+        this.init();
+    }
+
+    init() {
+        var SefRef = this;
+
+        loadOBJModel("models/", "Export_Rocket.obj", "textures/", "Export_Rocket.mtl", (mesh) => {
+            mesh.scale.set(1, 1, 1);
+            SefRef.add(mesh);
+        });
+    }
+}
+
+class Earth extends THREE.Group {
+
+    constructor() {
+        super()
+
+        this.init();
+    }
+
+    init() {
+        var SefRef = this;
+
+        loadOBJModel("models/", "Export_Rocket.obj", "textures/", "Export_Rocket.mtl", (mesh) => {
+            mesh.scale.set(1, 1, 1);
+            SefRef.add(mesh);
+        });
+    }
+}
+
 
 /**
  * Load an OBJ model from the server
