@@ -88,57 +88,70 @@ namespace Controllers {
 
         public List<double[]> GetPath(double[] firstPoint, double[] secondPoint, NodeGrid nodeGrid)
         {
+            //Initialization:
             int nodesCount = nodeGrid.nodes.Count;
             double[] dist = new double[nodesCount];
-            double[] prev = new double[nodesCount];
-            int current = 0; //begin punt
-            int[] visited; // 0 = default, not visited, 1 = visited
-            //List<Node> visited = new List<Node>();
-            List<Node> unvisited = nodeGrid.nodes;
-
-            //Initialization:
             for (int i = 0; i < dist.Count(); i++)
             {
                 dist[i] = double.MaxValue;
             }
-            visited = new int[nodesCount];
+            List<Node> prev = new List<Node>(nodesCount);
+            //int current = 0; //begin punt
+            Node currentNode = null;
+            //int[] visited = new int[nodesCount]; // 0 = default, not visited, 1 = visited
+            List<Node> unvisited = nodeGrid.nodes;
 
+            //Begin situasion: 
             for (int i = 0; i < nodesCount; i++)
             {
                 if (nodeGrid.nodes[i].position == firstPoint)
                 {
-                    current = i;
+                    //current = i;
+                    currentNode = unvisited[i];
                     dist[i] = 0;
                     break;
                 }
             }
 
-            while (visited.Contains(0))
+            //Dijkstra alg:
+            while (unvisited.Count() != 0)
             {
                 double shortest = double.MaxValue;
-                for (int i = 0; i < nodesCount; i++)
+                /*for (int i = 0; i < unvisited.Count(); i++)
                 {
-                    if (visited[i] == 0 && dist[i] < shortest)
+                    if (dist[i] < shortest)
                     {
                         current = i;
                         shortest = dist[i];
                     }
-                }
-                visited[current] = 1;
-                double[] currentPosision = nodeGrid.nodes[current].position;
-                foreach (int i in nodeGrid.nodes[current].connections)
-                {
-                    double[] newPosition = nodeGrid.nodes[i].position;
-                    double newdist = dist[current] + Math.Abs(currentPosision[0] - newPosition[0] + currentPosision[1] - newPosition[1]);
-                    if (newdist < dist[i])
+                }*/
+
+                foreach (Node node in unvisited){
+                    if (dist[node.id] < shortest)
                     {
-                        prev[i] = current;
-                        dist[i] = newdist;
+                        currentNode = node;
+                        //current = node.id;
+                        shortest = dist[node.id];
+
+                    }
+                }
+                //visited[current] = 1;
+                unvisited.Remove(currentNode);
+                //double[] currentPosision = nodeGrid.nodes[current].position;
+                foreach (int i in currentNode.connections)
+                {
+                    Node nextNode = nodeGrid.nodes[i];
+                    //double[] newPosition = nodeGrid.nodes[i].position;
+                    double newDist = dist[currentNode.id] + Math.Abs(currentNode.position[0] - nextNode.position[0] + currentNode.position[1] - nextNode.position[1]);
+                    if (newDist < dist[i])
+                    {
+                        prev[i] = nextNode;
+                        dist[i] = newDist;
                     }
                 }
             }
 
-
+            //Get shortestpath:
 
 
             return null;
