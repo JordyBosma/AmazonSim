@@ -37,7 +37,7 @@ class Rocket extends THREE.Group {
     init() {
         var SefRef = this;
 
-        loadOBJModel("models/", "Export_Rocket.obj", "textures/", "Export_Rocket.mtl", (mesh) => {
+        loadOBJModel("models/", "Export_Rocket.obj", "textures/Materials/", "Export_Rocket.mtl", (mesh) => {
             mesh.scale.set(1, 1, 1);
             SefRef.add(mesh);
         });
@@ -55,7 +55,7 @@ class Sun extends THREE.Group {
     init() {
         var SefRef = this;
 
-        loadOBJModel("models/", "Export_Rocket.obj", "textures/", "Export_Rocket.mtl", (mesh) => {
+        loadOBJModel("models/", "Sun.obj", "textures/Materials/", "Sun.mtl", (mesh) => {
             mesh.scale.set(1, 1, 1);
             SefRef.add(mesh);
         });
@@ -73,7 +73,7 @@ class Earth extends THREE.Group {
     init() {
         var SefRef = this;
 
-        loadOBJModel("models/", "Export_Rocket.obj", "textures/", "Export_Rocket.mtl", (mesh) => {
+        loadOBJModel("models/", "Earthchan.obj", "textures/Materials/", "Earthchan.mtl", (mesh) => {
             mesh.scale.set(1, 1, 1);
             SefRef.add(mesh);
         });
