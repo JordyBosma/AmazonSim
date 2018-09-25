@@ -88,8 +88,57 @@ namespace Controllers {
 
         public List<double[]> GetPath(double[] firstPoint, double[] secondPoint, NodeGrid nodeGrid)
         {
-            List<Node> visited = new List<Node>();
+            int nodesCount = nodeGrid.nodes.Count;
+            double[] dist = new double[nodesCount];
+            double[] prev = new double[nodesCount];
+            int current = 0; //begin punt
+            int[] visited; // 0 = default, not visited, 1 = visited
+            //List<Node> visited = new List<Node>();
             List<Node> unvisited = nodeGrid.nodes;
+
+            //Initialization:
+            for (int i = 0; i < dist.Count(); i++)
+            {
+                dist[i] = double.MaxValue;
+            }
+            visited = new int[nodesCount];
+
+            for (int i = 0; i < nodesCount; i++)
+            {
+                if (nodeGrid.nodes[i].position == firstPoint)
+                {
+                    current = i;
+                    dist[i] = 0;
+                    break;
+                }
+            }
+
+            while (visited.Contains(0))
+            {
+                double shortest = double.MaxValue;
+                for (int i = 0; i < nodesCount; i++)
+                {
+                    if (visited[i] == 0 && dist[i] < shortest)
+                    {
+                        current = i;
+                        shortest = dist[i];
+                    }
+                }
+                visited[current] = 1;
+                double[] currentPosision = nodeGrid.nodes[current].position;
+                foreach (int i in nodeGrid.nodes[current].connections)
+                {
+                    double[] newPosition = nodeGrid.nodes[i].position;
+                    double newdist = dist[current] + Math.Abs(currentPosision[0] - newPosition[0] + currentPosision[1] - newPosition[1]);
+                    if (newdist < dist[i])
+                    {
+                        prev[i] = current;
+                        dist[i] = newdist;
+                    }
+                }
+            }
+
+
 
 
             return null;

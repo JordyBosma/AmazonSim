@@ -13,18 +13,26 @@ namespace Models
         {
             nodes = new List<Node>();
         }
+
+        public void NodesAdd(double[] position, List<int> connections)
+        {
+            nodes.Add(new Node(position, connections, nodes.Count()));
+        }
+        
     }
 
     public class Node
     {
-        public double[] posision;
-        public int z;
-        public List<Node> connections;
+        public int id;
+        public double[] position;
+        public List<int> connections;
 
-        public Node(double[] posision, List<Node> connections)
+        public Node(double[] position, List<int> connections, int id)
         {
-            this.posision = posision;
+            this.id = id;
+            this.position = position;
             this.connections = connections;
         }
     }
+
 }

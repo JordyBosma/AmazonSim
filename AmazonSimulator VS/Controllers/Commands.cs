@@ -54,4 +54,9 @@ namespace Controllers
             this._dropoffTask = dropoffTask;
         }
     }
+
+    public static class LogicTask
+    {
+        public static List<double> newRobotTaskRequest;
+    }
 }
