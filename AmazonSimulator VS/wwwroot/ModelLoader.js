@@ -2,17 +2,11 @@
 
     constructor() {
         super();
-        
-        //this._Loadstate = LoadStates.NOT_LOADING;
+
         this.init();
     }
 
     init() {
-        //if (this._Loadstate != LoadStates.NOT_LOADING) {
-        //    return;
-        //}
-
-        //this._Loadstate = LoadStates.LOADING;
 
         var SelfRef = this;
 
@@ -29,7 +23,49 @@
         var model = new THREE.Mesh(geometry, material);
         model.position.y = 0.151;
         SelfRef.add(model);
-
-        //this._Loadstate = LoadStates.LOADED;
     }
+}
+
+class Rocket extends THREE.Group {
+    
+    constructor() {
+        super()
+
+        this.init();
+    }
+
+    init() {
+        var SefRef = this;
+
+        loadOBJModel("models/", "Export_Rocket.obj", "textures/", "Export_Rocket.mtl", (mesh) => {
+            mesh.scale.set(1, 1, 1);
+            SefRef.add(mesh);
+        });
+    }
+}
+
+
+/**
+ * Load an OBJ model from the server
+ * @param {string} modelPath The path to the model on the server
+ * @param {string} modelName The name of the model inside the path (OBJ file)
+ * @param {string} texturePath The path to the texture of the model
+ * @param {string} textureName The name of the texture of the mdoel (MTL File)
+ * @param {function(THREE.Mesh): void} onload The function to be called once the model is loaded and available
+ * @return {void}
+*/
+function loadOBJModel(modelPath, modelName, texturePath, textureName, onload) {
+    new THREE.MTLLoader()
+        .setPath(texturePath)
+        .load(textureName, function (materials) {
+
+            materials.preload();
+
+            new THREE.OBJLoader()
+                .setPath(modelPath)
+                .setMaterials(materials)
+                .load(modelName, function (object) {
+                    onload(object);
+                }, function () { }, function (e) { console.log("Error loading model"); console.log(e) });
+        });
 }
