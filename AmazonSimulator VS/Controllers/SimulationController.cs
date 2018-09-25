@@ -98,6 +98,7 @@ namespace Controllers {
             List<Node> prev = new List<Node>(nodesCount);
             //int current = 0; //begin punt
             Node currentNode = null;
+            Node endNode = null;
             //int[] visited = new int[nodesCount]; // 0 = default, not visited, 1 = visited
             List<Node> unvisited = nodeGrid.nodes;
 
@@ -111,37 +112,27 @@ namespace Controllers {
                     dist[i] = 0;
                     break;
                 }
+                if (nodeGrid.nodes[i].position == secondPoint)
+                {
+                    endNode = nodeGrid.nodes[i];
+                }
             }
 
             //Dijkstra alg:
             while (unvisited.Count() != 0)
             {
                 double shortest = double.MaxValue;
-                /*for (int i = 0; i < unvisited.Count(); i++)
-                {
-                    if (dist[i] < shortest)
-                    {
-                        current = i;
-                        shortest = dist[i];
-                    }
-                }*/
-
                 foreach (Node node in unvisited){
                     if (dist[node.id] < shortest)
                     {
                         currentNode = node;
-                        //current = node.id;
                         shortest = dist[node.id];
-
                     }
                 }
-                //visited[current] = 1;
                 unvisited.Remove(currentNode);
-                //double[] currentPosision = nodeGrid.nodes[current].position;
                 foreach (int i in currentNode.connections)
                 {
                     Node nextNode = nodeGrid.nodes[i];
-                    //double[] newPosition = nodeGrid.nodes[i].position;
                     double newDist = dist[currentNode.id] + Math.Abs(currentNode.position[0] - nextNode.position[0] + currentNode.position[1] - nextNode.position[1]);
                     if (newDist < dist[i])
                     {
@@ -152,9 +143,27 @@ namespace Controllers {
             }
 
             //Get shortestpath:
+            if (prev[endNode.id] != null)
+            {
+                return ShortestPath(endNode, prev);
+            } else
+            {
+                return null;
+            }
+        }
 
+        public List<double[]> ShortestPath(Node next, List<Node> prev)
+        {
+            if (prev[next.id] == null)
+            {
+                return new List<double[]> { next.position };
+            } else
+            {
+                List<double[]> path = ShortestPath(prev[next.id], prev);
+                path.Add(prev[next.id].position);
+                return path;
+            }
 
-            return null;
         }
         
     }
