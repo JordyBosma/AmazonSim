@@ -81,6 +81,8 @@ namespace Models
                     currentTask = null;
                     _movementAxis = "";
                     _isMoving = false;
+                    //task done, new task request:
+                    Controllers.LogicTask.newRobotTaskRequest.Add(new Controllers.RobotRequest(new double[] {x,z}, guid));
                 }
             }
         }

@@ -77,15 +77,30 @@ namespace Controllers {
 
             RobotTask rt = new RobotTask(pickupTask, dropoffTask);
             ((World)w).MoveRobot(rt);
-			
-            //GetOrder(startPoint, pickUpPoint, endPoint, w.GetNodeGrid());
+
+            //logic check loop:
+			while (running)
+            {
+                if (LogicTask.newRobotTaskRequest.Count() != 0)
+                {
+                    foreach (RobotRequest robotRequest in LogicTask.newRobotTaskRequest)  //vgm als er nu tijdens de foreach een taak toegevoegd zou dit een probleem op kunnen lopen.
+                    {
+                        //GetOrder(startPoint, pickUpPoint, endPoint, w.GetNodeGrid());
+                        LogicTask.newRobotTaskRequest.RemoveAt(0);
+                    }
+                }
+            }
+            
+            
         }
 
+        //determen the task and get the path for the task
         public RobotTask GetOrder(double[] startPoint, double[] pickUpPoint, double[] endPoint, NodeGrid nodeGrid)
         {
             return new RobotTask(GetPath(startPoint, pickUpPoint, nodeGrid), GetPath(pickUpPoint, endPoint, nodeGrid));
         }
 
+        //get the path
         public List<double[]> GetPath(double[] firstPoint, double[] secondPoint, NodeGrid nodeGrid)
         {
             //Initialization:

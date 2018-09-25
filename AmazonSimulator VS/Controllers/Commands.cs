@@ -55,8 +55,20 @@ namespace Controllers
         }
     }
 
+    public class RobotRequest
+    {
+        public double[] currentPosision;
+        public Guid id;
+
+        public RobotRequest(double[] Position, Guid id)
+        {
+            currentPosision = Position;
+            this.id = id;
+        }
+    }
+
     public static class LogicTask
     {
-        public static List<double> newRobotTaskRequest;
+        public static List<RobotRequest> newRobotTaskRequest;
     }
 }
