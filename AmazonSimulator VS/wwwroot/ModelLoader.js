@@ -29,7 +29,7 @@
 class Rocket extends THREE.Group {
     
     constructor() {
-        super()
+        super();
 
         this.init();
     }
@@ -47,7 +47,7 @@ class Rocket extends THREE.Group {
 class Sun extends THREE.Group {
 
     constructor() {
-        super()
+        super();
 
         this.init();
     }
@@ -65,7 +65,7 @@ class Sun extends THREE.Group {
 class Earth extends THREE.Group {
 
     constructor() {
-        super()
+        super();
 
         this.init();
     }
@@ -80,28 +80,46 @@ class Earth extends THREE.Group {
     }
 }
 
+class Dome extends THREE.Group {
+
+    constructor() {
+        super();
+
+        this.init();
+    }
+
+    init() {
+        var SefRef = this;
+
+        loadOBJModel("models/", "Dome.obj", "textures/Materials/", "Dome.mtl", /*"Dome_txt.png",*/ (mesh) => {
+            mesh.scale.set(1, 1, 1);
+            SefRef.add(mesh);
+        });
+    }
+}
+
 
 /**
  * Load an OBJ model from the server
- * @param {string} modelPath The path to the model on the server
- * @param {string} modelName The name of the model inside the path (OBJ file)
- * @param {string} texturePath The path to the texture of the model
- * @param {string} textureName The name of the texture of the mdoel (MTL File)
+ * @param {string} objPath The path to the model on the server
+ * @param {string} objName The name of the model inside the path (OBJ file)
+ * @param {string} materialPath The path to the texture of the model
+ * @param {string} materialName The name of the texture of the mdoel (MTL File)
  * @param {function(THREE.Mesh): void} onload The function to be called once the model is loaded and available
  * @return {void}
 */
-function loadOBJModel(modelPath, modelName, texturePath, textureName, onload) {
+function loadOBJModel(objPath, objName, materialPath, materialName, onload) {
     new THREE.MTLLoader()
-        .setPath(texturePath)
-        .load(textureName, function (materials) {
+        .setPath(materialPath)
+        .load(materialName, function (materials) {
 
             materials.preload();
 
             new THREE.OBJLoader()
-                .setPath(modelPath)
+                .setPath(objPath)
                 .setMaterials(materials)
-                .load(modelName, function (object) {
+                .load(objName, function (object) {
                     onload(object);
-                }, function () { }, function (e) { console.log("Error loading model"); console.log(e) });
+                }, function () { }, function (e) { console.log("Error loading model"); console.log(e); });
         });
 }
