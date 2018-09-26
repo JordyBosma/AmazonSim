@@ -99,10 +99,7 @@ namespace Controllers {
         //determen the task and get the path for the task
         public RobotTask GetOrder(double[] startPoint, double[] pickUpPoint, double[] endPoint, NodeGrid nodeGrid)
         {
-            return new RobotTask(DijkstraPathFinding.GetPath(startPoint, pickUpPoint, nodeGrid), DijkstraPathFinding.GetPath(pickUpPoint, endPoint, nodeGrid));
+            return new RobotTask(new DijkstraPathFinding(startPoint, pickUpPoint, nodeGrid).GetPath(), new DijkstraPathFinding(pickUpPoint, endPoint, nodeGrid).GetPath());
         }
-
-        
-        
     }
 }

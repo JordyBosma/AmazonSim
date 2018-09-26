@@ -24,13 +24,16 @@ namespace Utility
 
         public class RobotRequest
         {
-            public double[] currentPosision;
-            public Guid id;
+            private double[] _currentPosision;
+            private Guid _id;
+
+            public double[] currentPosision { get { return _currentPosision; } }
+            public Guid id { get { return _id; } }
 
             public RobotRequest(double[] Position, Guid id)
             {
-                currentPosision = Position;
-                this.id = id;
+                _currentPosision = Position;
+                _id = id;
             }
         }
     }
