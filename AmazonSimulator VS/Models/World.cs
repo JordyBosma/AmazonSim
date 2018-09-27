@@ -10,7 +10,7 @@ namespace Models {
         public World() {
             Object3D robot = CreateObject(0, 0, 0, "Robot");
             Object3D crate = CreateObject(30, 1, 30, "Crate");
-            Object3D rocket = CreateObject(15, 0, 5, "Export");
+            Object3D rocket = CreateObject(0, 0, 0, "Export");
 
             //test robot run
             List<double[]> pickupTask = new List<double[]>();
