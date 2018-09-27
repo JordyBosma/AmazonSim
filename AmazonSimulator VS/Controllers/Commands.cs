@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Models;
 using Newtonsoft.Json;
-using static Utility.RobotData;
 
 namespace Controllers
 {
@@ -39,10 +38,5 @@ namespace Controllers
         public UpdateModel3DCommand(Object3D parameters) : base("update", parameters)
         {
         }
-    }
-
-    public static class LogicTask
-    {
-        public static List<RobotRequest> newRobotTaskRequest;
     }
 }

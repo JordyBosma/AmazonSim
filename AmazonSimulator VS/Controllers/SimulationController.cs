@@ -5,7 +5,6 @@ using System.Threading;
 using Models;
 using Views;
 using Utility;
-using static Utility.RobotData;
 
 namespace Controllers {
     struct ObservingClient {
@@ -55,9 +54,13 @@ namespace Controllers {
             running = false;
         }
 
-        public void Logic()
+        public void StartLogic()
         {
-			List<double[]> pickupTask = new List<double[]>();
+            while (running)
+            {
+                w.Logic();
+            }
+			/*List<double[]> pickupTask = new List<double[]>();
             List<double[]> dropoffTask = new List<double[]>();
 
             pickupTask.Add(new double[2] { 0, 0  });
@@ -78,7 +81,7 @@ namespace Controllers {
 
 
             RobotTask rt = new RobotTask(pickupTask, dropoffTask);
-            ((World)w).MoveRobot(rt);
+            ((World)w).MoveRobot(rt);*/
 
             //logic check loop:
 			/*while (running)
@@ -92,14 +95,12 @@ namespace Controllers {
                     }
                 }
             }*/
-            
-            
         }
 
         //determen the task and get the path for the task
-        public RobotTask GetOrder(double[] startPoint, double[] pickUpPoint, double[] endPoint, NodeGrid nodeGrid)
-        {
-            return new RobotTask(new DijkstraPathFinding(startPoint, pickUpPoint, nodeGrid).GetPath(), new DijkstraPathFinding(pickUpPoint, endPoint, nodeGrid).GetPath());
-        }
+        //public RobotTask GetOrder(double[] startPoint, double[] pickUpPoint, double[] endPoint, NodeGrid nodeGrid)
+        //{
+        //    return new RobotTask(new DijkstraPathFinding(startPoint, pickUpPoint, nodeGrid).GetPath(), new DijkstraPathFinding(pickUpPoint, endPoint, nodeGrid).GetPath());
+        //}
     }
 }
