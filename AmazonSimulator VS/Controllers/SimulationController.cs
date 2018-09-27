@@ -81,7 +81,7 @@ namespace Controllers {
             ((World)w).MoveRobot(rt);
 
             //logic check loop:
-			while (running)
+			/*while (running)
             {
                 if (LogicTask.newRobotTaskRequest.Count() != 0)
                 {
@@ -91,7 +91,7 @@ namespace Controllers {
                         LogicTask.newRobotTaskRequest.RemoveAt(0);
                     }
                 }
-            }
+            }*/
             
             
         }
