@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
+using Utility;
+using static Utility.RobotData;
 
 namespace Models
 {
@@ -49,7 +51,7 @@ namespace Models
             base.Rotate(rotationX, rotationY, rotationZ);
         }
 
-        public void GiveTask(Controllers.RobotTask rt)
+        public void GiveTask(RobotTask rt)
         {
             pickupTask = rt.pickupTask;
             dropoffTask = rt.dropoffTask;
@@ -81,6 +83,8 @@ namespace Models
                     currentTask = null;
                     _movementAxis = "";
                     _isMoving = false;
+                    //task done, new task request:
+                    //Controllers.LogicTask.newRobotTaskRequest.Add(new RobotRequest(new double[] {x,z}, guid));
                 }
             }
         }

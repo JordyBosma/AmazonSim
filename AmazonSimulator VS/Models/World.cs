@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Controllers;
+using static Utility.RobotData;
 
 namespace Models {
     public class World : Model, IUpdatable
