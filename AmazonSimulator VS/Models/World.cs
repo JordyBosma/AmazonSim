@@ -9,6 +9,7 @@ namespace Models {
     {
         public World() {
             Object3D robot = CreateObject(0, 0, 0, "Robot");
+            Object3D crate = CreateObject(30, 1, 30, "Crate");
             Object3D rocket = CreateObject(15, 0, 5, "Export");
 
             //test robot run
@@ -31,7 +32,7 @@ namespace Models {
             dropoffTask.Add(new double[2] { 0, 10 });
             dropoffTask.Add(new double[2] { 0, 0 });
 
-            RobotTask rt = new RobotTask(pickupTask, dropoffTask);
+            RobotTask rt = new RobotTask(pickupTask, dropoffTask, (Crate)crate);
             MoveRobot(rt);
         }
 
@@ -42,6 +43,7 @@ namespace Models {
                 if (r.type == "Robot")
                 {
                     ((Robot)r).GiveTask(rt);
+                    break;
                 }
             }
         }
@@ -57,6 +59,10 @@ namespace Models {
                     Object3D e = new ExportVehicle(x, y, z, 0, 0, 0);
                     worldObjects.Add(e);
                     return e;
+                case "Crate":
+                    Object3D c = new Crate(x, y, z, 0, 0, 0);
+                    worldObjects.Add(c);
+                    return c;
                 default:
                     throw new ArgumentException("there is no model that corresponds with that type");
             }
