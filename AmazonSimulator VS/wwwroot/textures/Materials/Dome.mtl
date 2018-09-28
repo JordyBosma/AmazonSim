@@ -1,22 +1,22 @@
 newmtl Domebody_Shader
 illum 4
-Kd 0.50 0.50 0.50
+Kd 1.00 1.00 1.00
 Ka 0.00 0.00 0.00
 Tf 1.00 1.00 1.00
 map_Kd Dome_blank.png
 Ni 1.00
 newmtl Doorway_Shader
 illum 4
-Kd 0.50 0.50 0.50
+Kd 1.00 1.00 1.00
 Ka 0.00 0.00 0.00
 Tf 1.00 1.00 1.00
 map_Kd Doorway_txt.png
 Ni 1.00
 newmtl Window_Shader
 illum 4
-Kd 0.50 0.50 0.50
+Kd 1.00 1.00 1.00
 Ka 0.00 0.00 0.00
-Tr 0.14 0.14 0.14
+Tr 0.05 0.05 0.05
 Ni 1.00
 Ks 0.50 0.50 0.50
 Ns 18.00

@@ -57,6 +57,7 @@ class Sun extends THREE.Group {
 
         loadOBJModel("models/", "Sun.obj", "textures/Materials/", "Sun.mtl", (mesh) => {
             mesh.scale.set(1, 1, 1);
+            sunLight = new THREE.
             SefRef.add(mesh);
         });
     }
@@ -91,7 +92,7 @@ class Dome extends THREE.Group {
     init() {
         var SefRef = this;
 
-        loadOBJModel("models/", "Dome.obj", "textures/Materials/", "Dome.mtl", /*"Dome_txt.png",*/ (mesh) => {
+        loadOBJModel("models/", "Dome.obj", "textures/Materials/", "Dome.mtl", (mesh) => {
             mesh.scale.set(1, 1, 1);
             SefRef.add(mesh);
         });

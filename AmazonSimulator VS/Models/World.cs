@@ -30,7 +30,7 @@ namespace Models {
                     worldObjects.Add(r);
                     return r;
                 case "Export":
-                    Object3D e = new ExportVehicle(x, y, z, 0, 0, 0);
+                    Object3D e = new ExportVehicle(x, 1000, z, 0, 0, 0);
                     worldObjects.Add(e);
                     return e;
                 default:
