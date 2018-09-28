@@ -11,7 +11,7 @@ namespace Models {
             Object3D robot = CreateObject(0, 0, 0, "Robot");
             Object3D crate = CreateObject(5, 1, 5, "Crate");
             Object3D rocket = CreateObject(0, 0, 0, "Export");
-            Object3D train = CreateObject(-40, 0, -40, "Import");
+            Object3D train = CreateObject(15, 0, 50, "Import");
 
             //test robot run
             List<double[]> pickupTask = new List<double[]>();
@@ -61,7 +61,7 @@ namespace Models {
                     worldObjects.Add(e);
                     return e;
                 case "Import":
-                    Object3D i = new ImportVehicle(x, y, z, 0, 55, 0, worldObjects);
+                    Object3D i = new ImportVehicle(x, y, z, 0, 0.5 * Math.PI, 0, worldObjects);
                     worldObjects.Add(i);
                     return i;
                 case "Crate":
