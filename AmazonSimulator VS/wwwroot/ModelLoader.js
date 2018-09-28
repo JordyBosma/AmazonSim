@@ -55,8 +55,8 @@ class Train extends THREE.Group {
     init() {
         var SelfRef = this;
 
-        loadOBJModel("models/", "Export_Rocket.obj", "textures/Materials/", "Export_Rocket.mtl", (mesh) => {
-            mesh.scale.set(1, 1, 1);
+        loadOBJModel("models/", "ImportTrain.obj", "textures/Materials/", "ImportTrain.mtl", (mesh) => {
+            mesh.scale.set(0.85, 0.85, 0.85);
             SelfRef.add(mesh);
         });
     }
