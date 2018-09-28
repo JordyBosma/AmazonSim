@@ -8,9 +8,10 @@ namespace Utility
 {
     public class ExportVehicleRequest : LogicTask
     {
-        public void RunTask(Model w)
+        public bool RunTask(Model w)
         {
             w.worldObjects.Add(new ExportVehicle());
+            return true;
         }
     }
 }

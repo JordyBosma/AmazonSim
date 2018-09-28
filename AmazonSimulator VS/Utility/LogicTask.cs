@@ -8,6 +8,6 @@ namespace Utility
 {
     public interface LogicTask
     {
-         void RunTask(Model w);
+         bool RunTask(Model w);
     }
 }

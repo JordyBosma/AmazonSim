@@ -71,10 +71,15 @@ namespace Models
         public void Logic()
         {
             GetTasks();
-            while(logicTasks != null)
+            if(logicTasks.Count() != 0)
             {
-                logicTasks.First().RunTask(this);
-                logicTasks.RemoveAt(0);
+                foreach (LogicTask ltsk in logicTasks)
+                {
+                    if (logicTasks.First().RunTask(this))
+                    {
+                        logicTasks.Remove(ltsk);
+                    }
+                }  
             }
         }
 
@@ -84,8 +89,9 @@ namespace Models
             {
                 if(obj is Robot)
                 {
-                    if (((Robot)obj).isMoving)
+                    if (((Robot)obj).isDone)
                     {
+                        ((Robot)obj).SetIsDone();
                         logicTasks.Add(new RobotTaskRequest((Robot)obj));
                     }
                 }
@@ -102,9 +108,9 @@ namespace Models
             }
         }
 
-        private List<System.Timers.Timer> VehicleInboundTimers;
+        protected List<System.Timers.Timer> VehicleInboundTimers = new List<System.Timers.Timer>();
         
-        private void SetVehicleInboundTimer(int interval, LogicTask task)
+        protected void SetVehicleInboundTimer(int interval, LogicTask task)
         {
             // Create a timer with a two second interval.
             System.Timers.Timer aTimer = new System.Timers.Timer(interval);
@@ -113,6 +119,7 @@ namespace Models
             aTimer.Elapsed += (e, v) => {
                 logicTasks.Add(task);
                 aTimer.Dispose();
+                VehicleInboundTimers.Remove(aTimer);
             };
             aTimer.Enabled = true;
         }
