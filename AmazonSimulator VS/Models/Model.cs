@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Utility;
 
 namespace Models
 {
@@ -57,6 +58,32 @@ namespace Models
 
             return true;
         }
+
+        public List<LogicTask> logicTasks = new List<LogicTask>();
+        public void Logic()
+        {
+            GetTasks();
+            while(logicTasks != null)
+            {
+                logicTasks.First().RunTask(this);
+                logicTasks.RemoveAt(0);
+            }
+        }
+
+        public void GetTasks()
+        {
+            foreach (Object3D obj in worldObjects)
+            {
+                if(obj is Robot)
+                {
+                    if (((Robot)obj).isMoving)
+                    {
+                        logicTasks.Add(new RobotTaskRequest(new double[] { obj.x, obj.z }, obj.guid));
+                    }
+                }
+            }
+        }
+
     }
 
     public class Unsubscriber<Command> : IDisposable
