@@ -100,7 +100,8 @@ namespace Models
                     if (((ExportVehicle)obj).isDone)
                     {
                         SendCommandToObservers(new DeleteModel3DCommand(obj));
-                        
+                        worldObjects.Remove(obj);
+
                         int interval = rnd.Next(89, 180) * 1000;
                         SetVehicleInboundTimer(interval, new ExportVehicleRequest());
                     }

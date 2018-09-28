@@ -38,7 +38,7 @@ class Rocket extends THREE.Group {
         var SelfRef = this;
 
         loadOBJModel("models/", "Export_Rocket.obj", "textures/Materials/", "Export_Rocket.mtl", (mesh) => {
-            mesh.scale.set(1, 1, 1);
+            mesh.scale.set(1.5, 1.5, 1.5);
             SelfRef.add(mesh);
         });
     }
