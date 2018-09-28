@@ -11,7 +11,7 @@ namespace Models {
             Object3D robot = CreateObject(0, 0, 0, "Robot");
             Object3D crate = CreateObject(5, 1, 5, "Crate");
             Object3D rocket = CreateObject(0, 0, 0, "Export");
-            Object3D train = CreateObject(15, 0, 50, "Import");
+            Object3D train = CreateObject(15, 0, 49, "Import");
 
             //test robot run
             List<double[]> pickupTask = new List<double[]>();

@@ -16,7 +16,7 @@ namespace Models
         public int exportWeight { get { return _exportWeight; } }
         public bool isDone { get { return _isDone; } }
 
-        public ExportVehicle() : base(48, 400, 1, 0, 0, 0, "ExportVehicle")
+        public ExportVehicle() : base(49, 400, 4, 0, 0, 0, "ExportVehicle")
         {
             Random random = new Random();
             _exportWeight = random.Next(20, 51);
