@@ -59,6 +59,9 @@ namespace Models
             return true;
         }
 
+        // logic here:
+        Random rnd = new Random();
+
         public List<LogicTask> logicTasks = new List<LogicTask>();
         public void Logic()
         {
@@ -78,10 +81,35 @@ namespace Models
                 {
                     if (((Robot)obj).isMoving)
                     {
-                        logicTasks.Add(new RobotTaskRequest(new double[] { obj.x, obj.z }, obj.guid));
+                        logicTasks.Add(new RobotTaskRequest((Robot)obj));
+                    }
+                }
+                if(obj is ExportVehicle)
+                {
+                    if (((ExportVehicle)obj).isDone)
+                    {
+                        SendCommandToObservers(new DeleteModel3DCommand(obj));
+                        
+                        int interval = rnd.Next(89, 180) * 1000;
+                        SetVehicleInboundTimer(interval, new ExportVehicleRequest());
                     }
                 }
             }
+        }
+
+        private List<System.Timers.Timer> VehicleInboundTimers;
+        
+        private void SetVehicleInboundTimer(int interval, LogicTask task)
+        {
+            // Create a timer with a two second interval.
+            System.Timers.Timer aTimer = new System.Timers.Timer(interval);
+            VehicleInboundTimers.Add(aTimer);
+            // Hook up the Elapsed event for the timer. 
+            aTimer.Elapsed += (e, v) => {
+                logicTasks.Add(task);
+                aTimer.Dispose();
+            };
+            aTimer.Enabled = true;
         }
 
     }

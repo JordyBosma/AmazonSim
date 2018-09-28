@@ -115,6 +115,8 @@
                         worldObjects[command.parameters.guid] = group;
                     }
                     updateModel(worldObjects[command.parameters.guid], command);
+                } else if (command.command == "delete") {
+                    scene.remove(worldObjects[command.parameters.guid]);
                 }
             }
 

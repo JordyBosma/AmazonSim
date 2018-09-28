@@ -8,16 +8,12 @@ namespace Utility
 {
     public class RobotTaskRequest : LogicTask
     {
-        private double[] _currentPosision;
-        private Guid _id;
+        private Robot _rqRobot;
+        public Robot rqRobot { get { return _rqRobot; } }
 
-        public double[] currentPosision { get { return _currentPosision; } }
-        public Guid id { get { return _id; } }
-
-        public RobotTaskRequest(double[] Position, Guid id)
+        public RobotTaskRequest(Robot rqRobot)
         {
-            _currentPosision = Position;
-            _id = id;
+            _rqRobot = rqRobot;
         }
 
         public void RunTask(Model w)
