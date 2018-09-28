@@ -9,8 +9,12 @@ namespace Models
 {
     public abstract class Model : IObservable<Command>, IUpdatable
     {
-        protected List<Object3D> worldObjects = new List<Object3D>();
+        protected List<Object3D> _worldObjects = new List<Object3D>();
         protected List<IObserver<Command>> observers = new List<IObserver<Command>>();
+        protected NodeGrid _nodeGrid;
+
+        public List<Object3D> worldObjects { get { return _worldObjects; } }
+        public NodeGrid nodeGrid { get { return _nodeGrid; } }
 
         public IDisposable Subscribe(IObserver<Command> observer)
         {
@@ -59,14 +63,23 @@ namespace Models
             return true;
         }
 
+        // logic here:
+        Random rnd = new Random();
+        public List<TasksForRobot> tasksForRobot = new List<TasksForRobot>();
         public List<LogicTask> logicTasks = new List<LogicTask>();
+
         public void Logic()
         {
             GetTasks();
-            while(logicTasks != null)
+            if(logicTasks.Count() != 0)
             {
-                logicTasks.First().RunTask(this);
-                logicTasks.RemoveAt(0);
+                foreach (LogicTask ltsk in logicTasks)
+                {
+                    if (logicTasks.First().RunTask(this))
+                    {
+                        logicTasks.Remove(ltsk);
+                    }
+                }  
             }
         }
 
@@ -76,12 +89,39 @@ namespace Models
             {
                 if(obj is Robot)
                 {
-                    if (((Robot)obj).isMoving)
+                    if (((Robot)obj).isDone)
                     {
-                        logicTasks.Add(new RobotTaskRequest(new double[] { obj.x, obj.z }, obj.guid));
+                        ((Robot)obj).SetIsDone();
+                        logicTasks.Add(new RobotTaskRequest((Robot)obj));
+                    }
+                }
+                if(obj is ExportVehicle)
+                {
+                    if (((ExportVehicle)obj).isDone)
+                    {
+                        SendCommandToObservers(new DeleteModel3DCommand(obj));
+                        
+                        int interval = rnd.Next(89, 180) * 1000;
+                        SetVehicleInboundTimer(interval, new ExportVehicleRequest());
                     }
                 }
             }
+        }
+
+        protected List<System.Timers.Timer> VehicleInboundTimers = new List<System.Timers.Timer>();
+        
+        protected void SetVehicleInboundTimer(int interval, LogicTask task)
+        {
+            // Create a timer with a two second interval.
+            System.Timers.Timer aTimer = new System.Timers.Timer(interval);
+            VehicleInboundTimers.Add(aTimer);
+            // Hook up the Elapsed event for the timer. 
+            aTimer.Elapsed += (e, v) => {
+                logicTasks.Add(task);
+                aTimer.Dispose();
+                VehicleInboundTimers.Remove(aTimer);
+            };
+            aTimer.Enabled = true;
         }
 
     }

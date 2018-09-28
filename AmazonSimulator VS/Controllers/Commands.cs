@@ -39,4 +39,11 @@ namespace Controllers
         {
         }
     }
+
+    public class DeleteModel3DCommand : Model3DCommand
+    {
+        public DeleteModel3DCommand(Object3D parameters) : base("delete", parameters)
+        {
+        }
+    }
 }
