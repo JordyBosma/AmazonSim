@@ -35,11 +35,47 @@ class Rocket extends THREE.Group {
     }
 
     init() {
-        var SefRef = this;
+        var SelfRef = this;
 
         loadOBJModel("models/", "Export_Rocket.obj", "textures/Materials/", "Export_Rocket.mtl", (mesh) => {
             mesh.scale.set(1, 1, 1);
-            SefRef.add(mesh);
+            SelfRef.add(mesh);
+        });
+    }
+}
+
+class Train extends THREE.Group {
+
+    constructor() {
+        super();
+
+        this.init();
+    }
+
+    init() {
+        var SelfRef = this;
+
+        loadOBJModel("models/", "Export_Rocket.obj", "textures/Materials/", "Export_Rocket.mtl", (mesh) => {
+            mesh.scale.set(1, 1, 1);
+            SelfRef.add(mesh);
+        });
+    }
+}
+
+class Crate extends THREE.Group {
+
+    constructor() {
+        super();
+
+        this.init();
+    }
+
+    init() {
+        var SelfRef = this;
+
+        loadOBJModel("models/", "Crate.obj", "textures/Materials/", "Crate.mtl", (mesh) => {
+            mesh.scale.set(1, 1, 1);
+            SelfRef.add(mesh);
         });
     }
 }
@@ -53,12 +89,12 @@ class Sun extends THREE.Group {
     }
 
     init() {
-        var SefRef = this;
+        var SelfRef = this;
 
         loadOBJModel("models/", "Sun.obj", "textures/Materials/", "Sun.mtl", (mesh) => {
             mesh.scale.set(1, 1, 1);
-            sunLight = new THREE.
-            SefRef.add(mesh);
+            //sunLight = new THREE.Group;
+            SelfRef.add(mesh);
         });
     }
 }
@@ -72,11 +108,11 @@ class Earth extends THREE.Group {
     }
 
     init() {
-        var SefRef = this;
+        var SelfRef = this;
 
         loadOBJModel("models/", "Earthchan.obj", "textures/Materials/", "Earthchan.mtl", (mesh) => {
             mesh.scale.set(1, 1, 1);
-            SefRef.add(mesh);
+            SelfRef.add(mesh);
         });
     }
 }
@@ -90,14 +126,16 @@ class Dome extends THREE.Group {
     }
 
     init() {
-        var SefRef = this;
+        var SelfRef = this;
 
         loadOBJModel("models/", "Dome.obj", "textures/Materials/", "Dome.mtl", (mesh) => {
             mesh.scale.set(1, 1, 1);
-            SefRef.add(mesh);
+            SelfRef.add(mesh);
         });
     }
 }
+
+
 
 
 /**

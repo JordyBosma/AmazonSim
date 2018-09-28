@@ -9,8 +9,9 @@ namespace Models {
     {
         public World() {
             Object3D robot = CreateObject(0, 0, 0, "Robot");
-            Object3D crate = CreateObject(30, 1, 30, "Crate");
+            Object3D crate = CreateObject(5, 1, 5, "Crate");
             Object3D rocket = CreateObject(0, 0, 0, "Export");
+            Object3D train = CreateObject(0, 0, 0, "Import");
 
             //test robot run
             List<double[]> pickupTask = new List<double[]>();
@@ -32,8 +33,8 @@ namespace Models {
             dropoffTask.Add(new double[2] { 0, 10 });
             dropoffTask.Add(new double[2] { 0, 0 });
 
-            RobotTask rt = new RobotTask(pickupTask, dropoffTask, (Crate)crate);
-            MoveRobot(rt);
+            //RobotTask rt = new RobotTask(pickupTask, dropoffTask, (Crate)crate);
+            //MoveRobot(rt);
         }
 
         public void MoveRobot(RobotTask rt)
@@ -56,11 +57,15 @@ namespace Models {
                     worldObjects.Add(r);
                     return r;
                 case "Export":
-                    Object3D e = new ExportVehicle(x, 1000, z, 0, 0, 0);
+                    Object3D e = new ExportVehicle();
                     worldObjects.Add(e);
                     return e;
+                case "Import":
+                    Object3D i = new ImportVehicle(x, y, z, 0, 0, 0, worldObjects);
+                    worldObjects.Add(i);
+                    return i;
                 case "Crate":
-                    Object3D c = new Crate(x, y, z, 0, 0, 0);
+                    Object3D c = new Crate(x, y, z);
                     worldObjects.Add(c);
                     return c;
                 default:

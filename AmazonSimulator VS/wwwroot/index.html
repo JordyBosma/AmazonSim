@@ -50,7 +50,7 @@
 
                 // Scene plane:
                 var geometry = new THREE.PlaneGeometry(4000, 2000, 32);
-                var material = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("/textures/Earthchan.png"), side: THREE.DoubleSide });
+                var material = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("/textures/8k_moon.png"), side: THREE.DoubleSide });
                 var plane = new THREE.Mesh(geometry, material);
                 plane.rotation.x = Math.PI / 2.0;
                 plane.position.x = 15;
@@ -160,11 +160,16 @@
                         group.add(robot);
                         break;
                     case "ExportVehicle":
-                        var rocket = new Rocket(group);
+                        var rocket = new Rocket();
                         group.add(rocket);
                         break;
                     case "Crate":
-
+                        var crate = new Crate();
+                        group.add(crate);
+                        break;
+                    case "ImportVehicle":
+                        //var train = new Train();
+                        //group.add(train);
                         break;
                     default:
 

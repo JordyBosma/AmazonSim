@@ -19,7 +19,18 @@ namespace Models
         public ExportVehicle() : base(30, 400, 30, 0, 0, 0, "ExportVehicle")
         {
             Random random = new Random();
-            _exportWeight = random.Next(20, 50);
+            _exportWeight = random.Next(20, 51);
+        }
+
+        public void LoadWeight(int loadWeight)
+        {
+            _loadedWeight += loadWeight;
+            if (_loadedWeight == exportWeight)
+            {
+                _isMoving = true;
+                _moveDirection = true;
+                this.Move(this.x, this.y + 0.1, this.z);
+            }
         }
 
         public override void Move(double x, double y, double z)

@@ -7,9 +7,26 @@ namespace Models
 {
     public class Crate : Object3D, IUpdatable
     {
-        public Crate(double x, double y, double z, double rotationX, double rotationY, double rotationZ) : base(x, y, z, rotationX, rotationY, rotationZ, "Crate")
-        {
+        private int _weight;
+        private string _invetory;
+        private bool _refined = false;
 
+        public int weight { get { return _weight; } }
+        public string invetory { get { return _invetory; } }
+        public bool refined { get { return _refined; } }
+
+        public Crate(double x, double y, double z) : base(x, y, z, 0, 0, 0, "Crate")
+        {
+            Random random = new Random();
+            int[] pWeights = new int[] { 1, 2, 3, 4, 5, 10 };
+            string[] pInvetory = new string[] {"MoonMilk","Krypto", "Beryllium", "Uranium","Moonrock"};
+            _weight = pWeights[random.Next(6)];
+            _invetory = pInvetory[random.Next(5)];
+        }
+
+        public void Refine()
+        {
+            _refined = true;
         }
 
         public override void Move(double x, double y, double z)
