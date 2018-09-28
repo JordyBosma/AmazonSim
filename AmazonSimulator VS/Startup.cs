@@ -29,7 +29,10 @@ namespace AmazonSimulator_VS
             InstanceCaller.Start();
 
             Configuration = configuration;
-            simulationController.StartLogic();
+            Thread LogicCaller = new Thread(
+                new ThreadStart(simulationController.StartLogic));
+            LogicCaller.Start();
+            //simulationController.StartLogic();
         }
 
         public IConfiguration Configuration { get; }

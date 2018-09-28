@@ -27,6 +27,8 @@ namespace Models
         private double _rotation = 0;
         private bool _moveCrate = false;
 
+        private bool _isDone = false;
+
         public Crate pickupCrate { get { return _pickupCrate; } }
         public double[] pointOne { get { return _pointOne; } }
         public double[] pointTwo { get { return _pointTwo; } }
@@ -39,6 +41,12 @@ namespace Models
         public int rotationTick { get { return _rotationTick; } }
         public double rotationValue { get { return _rotationValue; } }
         public double rotation { get { return _rotation; } }
+
+        public bool isDone { get { return _isDone; } }
+        public void SetIsDone()
+        {
+            _isDone = false;
+        }
 
         public Robot(double x, double y, double z, double rotationX, double rotationY, double rotationZ) : base(x, y, z, rotationX, rotationY, rotationZ, "Robot")
         {
@@ -93,8 +101,7 @@ namespace Models
                     currentTask = null;
                     _movementAxis = "";
                     _isMoving = false;
-                    //task done, new task request:
-                    //Controllers.LogicTask.newRobotTaskRequest.Add(new RobotRequest(new double[] {x,z}, guid));
+                    _isDone = true;
                 }
             }
         }

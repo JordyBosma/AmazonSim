@@ -11,16 +11,19 @@ namespace Utility
         private List<double[]> _pickupTask;
         private List<double[]> _dropoffTask;
         private Crate _pickupCrate;
+        private string _target;
 
         public List<double[]> pickupTask { get { return _pickupTask; } }
         public List<double[]> dropoffTask { get { return _dropoffTask; } }
         public Crate pickupCrate { get { return _pickupCrate; } }
+        public string target { get { return _target; } }
 
-        public RobotTask(List<double[]> pickupTask, List<double[]> dropoffTask, Crate pickupCrate)
+        public RobotTask(List<double[]> pickupTask, List<double[]> dropoffTask, Crate pickupCrate, string target)
         {
             this._pickupTask = pickupTask;
             this._dropoffTask = dropoffTask;
             this._pickupCrate = pickupCrate;
+            this._target = target;
         }
     }
 }

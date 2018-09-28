@@ -8,22 +8,28 @@ namespace Utility
 {
     public class RobotTaskRequest : LogicTask
     {
-        private double[] _currentPosision;
-        private Guid _id;
+        private Robot _rqRobot;
+        public Robot rqRobot { get { return _rqRobot; } }
 
-        public double[] currentPosision { get { return _currentPosision; } }
-        public Guid id { get { return _id; } }
-
-        public RobotTaskRequest(double[] Position, Guid id)
+        public RobotTaskRequest(Robot rqRobot)
         {
-            _currentPosision = Position;
-            _id = id;
+            _rqRobot = rqRobot;
         }
 
-        public void RunTask(Model w)
+        public bool RunTask(Model w)
         {
-            //new RobotTask(new DijkstraPathFinding(startPoint, pickUpPoint, nodeGrid).GetPath(), new DijkstraPathFinding(pickUpPoint, endPoint, nodeGrid).GetPath());
-            throw new NotImplementedException();
+            if (w.tasksForRobot.Count() != 0)
+            {
+                TasksForRobot tsk = w.tasksForRobot.First();
+                w.tasksForRobot.RemoveAt(0);
+                rqRobot.GiveTask(new RobotTask(new DijkstraPathFinding(new double[] { rqRobot.x, rqRobot.z }, tsk.pickUpPoint, w.nodeGrid).GetPath(), new DijkstraPathFinding(tsk.pickUpPoint, tsk.dropOffPoint, w.nodeGrid).GetPath(), tsk.crate, tsk.target));
+                rqRobot.Move(rqRobot.x, rqRobot.y, rqRobot.z);
+                return true;
+            } else
+            {
+                return false;
+            }
+            
         }
     }
 }

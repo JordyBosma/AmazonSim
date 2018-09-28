@@ -32,7 +32,7 @@ namespace Models {
             dropoffTask.Add(new double[2] { 0, 10 });
             dropoffTask.Add(new double[2] { 0, 0 });
 
-            RobotTask rt = new RobotTask(pickupTask, dropoffTask, (Crate)crate);
+            RobotTask rt = new RobotTask(pickupTask, dropoffTask, (Crate)crate, null);
             MoveRobot(rt);
         }
 
