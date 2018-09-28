@@ -95,7 +95,7 @@ class Sun extends THREE.Group {
             mesh.scale.set(1, 1, 1);
             var sunLight = new THREE.DirectionalLight(0xffffff, 0.6);
             mesh.add(sunLight);
-            SefRef.add(mesh);
+            SelfRef.add(mesh);
         });
     }
 }
