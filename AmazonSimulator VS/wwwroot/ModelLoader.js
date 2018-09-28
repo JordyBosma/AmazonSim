@@ -57,6 +57,8 @@ class Sun extends THREE.Group {
 
         loadOBJModel("models/", "Sun.obj", "textures/Materials/", "Sun.mtl", (mesh) => {
             mesh.scale.set(1, 1, 1);
+            var sunLight = new THREE.DirectionalLight(0xffffff, 0.6);
+            mesh.add(sunLight);
             SefRef.add(mesh);
         });
     }
