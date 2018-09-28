@@ -9,8 +9,12 @@ namespace Models
 {
     public abstract class Model : IObservable<Command>, IUpdatable
     {
-        protected List<Object3D> worldObjects = new List<Object3D>();
+        protected List<Object3D> _worldObjects = new List<Object3D>();
         protected List<IObserver<Command>> observers = new List<IObserver<Command>>();
+        protected NodeGrid _nodeGrid;
+
+        public List<Object3D> worldObjects { get { return _worldObjects; } }
+        public NodeGrid nodeGrid { get { return _nodeGrid; } }
 
         public IDisposable Subscribe(IObserver<Command> observer)
         {
@@ -61,8 +65,9 @@ namespace Models
 
         // logic here:
         Random rnd = new Random();
-
+        public List<TasksForRobot> tasksForRobot = new List<TasksForRobot>();
         public List<LogicTask> logicTasks = new List<LogicTask>();
+
         public void Logic()
         {
             GetTasks();

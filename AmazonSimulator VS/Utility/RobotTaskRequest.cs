@@ -18,8 +18,9 @@ namespace Utility
 
         public void RunTask(Model w)
         {
-            //new RobotTask(new DijkstraPathFinding(startPoint, pickUpPoint, nodeGrid).GetPath(), new DijkstraPathFinding(pickUpPoint, endPoint, nodeGrid).GetPath());
-            throw new NotImplementedException();
+            TasksForRobot tsk = w.tasksForRobot.First();
+            w.tasksForRobot.RemoveAt(0);
+            rqRobot.GiveTask(new RobotTask(new DijkstraPathFinding(new double[]{rqRobot.x, rqRobot.z}, tsk.pickUpPoint, w.nodeGrid).GetPath(), new DijkstraPathFinding(tsk.pickUpPoint, tsk.dropOffPoint, w.nodeGrid).GetPath(), tsk.crate, tsk.target));
         }
     }
 }

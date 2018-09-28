@@ -10,7 +10,7 @@ namespace Utility
     {
         public void RunTask(Model w)
         {
-            throw new NotImplementedException();
+            w.worldObjects.Add(new ExportVehicle());
         }
     }
 }
