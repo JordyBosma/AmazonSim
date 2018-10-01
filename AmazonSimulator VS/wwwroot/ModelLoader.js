@@ -64,16 +64,69 @@ class Train extends THREE.Group {
 
 class Crate extends THREE.Group {
 
-    constructor() {
+    constructor(command) {
         super();
 
-        this.init();
+        this.init(command);
     }
 
-    init() {
+    init(command) {
         var SelfRef = this;
+        var CrateInv;
 
-        loadOBJModel("models/", "Crate.obj", "textures/Materials/", "Crate.mtl", (mesh) => {
+        switch (command.parameters.invetory) {
+            
+            case "MoonMilk":
+                if (command.parameters.refined) {
+                    CrateInv = "Crate_Milk_Refined.mtl";
+                }
+                else {
+                    CrateInv = "Crate_Milk.mtl";
+                    //debugger;
+                }
+                break;
+            case "Krypto":
+                if (command.parameters.refined) {
+                    CrateInv = "Crate_Krypto_Refined.mtl";
+                }
+                else {
+                    CrateInv = "Crate_Krypto.mtl";
+                    //debugger;
+                }
+                break;
+            case "Beryllium":
+                if (command.parameters.refined) {
+                    CrateInv = "Crate_Beryl_Refined.mtl";
+                }
+                else {
+                    CrateInv = "Crate_Beryl.mtl";
+                    //debugger;
+                }
+                break;
+            case "Uranium":
+                if (command.parameters.refined) {
+                    CrateInv = "Crate_Uranium_Refined.mtl";
+                }
+                else {
+                    CrateInv = "Crate_Uranium.mtl";
+                    //debugger;
+                }
+                break;
+            case "Moonrock":
+                if (command.parameters.refined) {
+                    CrateInv = "Crate_Moonrock_Refined.mtl";
+                }
+                else {
+                    CrateInv = "Crate_Moonrock.mtl";
+                    //debugger;
+                }
+                break;
+            default:
+                CrateInv = "Crate.mtl";
+                break;
+        }
+
+        loadOBJModel("models/", "Crate.obj", "textures/Materials/", "Crate_Milk.mtl", (mesh) => {
             mesh.scale.set(1, 1, 1);
             SelfRef.add(mesh);
         });
@@ -136,8 +189,6 @@ class Dome extends THREE.Group {
         });
     }
 }
-
-
 
 
 /**
