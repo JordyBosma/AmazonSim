@@ -1,6 +1,6 @@
 # This file uses centimeters as units for non-parametric coordinates.
 
-mtllib Crate.mtl
+mtllib Crate_Moonrock_Refined.mtl
 g Crate:default1
 v -0.500000 0.000000 0.500000
 v 0.500000 0.000000 0.500000
@@ -1085,8 +1085,8 @@ vn 0.645013 0.000000 0.764172
 vn 0.645013 0.000000 0.764172
 vn 0.645013 0.000000 0.764172
 s off
-g Crate:Prop_Crate Crate:pCube2 Crate:polySurface2 Crate1
-usemtl Crate_Shader
+g Crate:pCube2 Crate:polySurface2 Base_Crate
+usemtl Crate_Moonrock_Refined_Shader
 f 1/1/1 16/2/2 32/3/3 25/4/4
 f 3/5/5 13/6/6 35/7/7 36/8/8
 f 26/9/9 27/10/10 15/11/11 7/12/12

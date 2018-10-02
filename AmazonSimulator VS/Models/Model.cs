@@ -102,6 +102,8 @@ namespace Models
                         SendCommandToObservers(new DeleteModel3DCommand(obj));
                         
                         SetVehicleInboundTimer(new ExportVehicleRequest(obj.x,obj.y,obj.z));
+
+                        worldObjects.Remove(obj);
                     }
                 }
             }

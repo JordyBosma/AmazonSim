@@ -77,7 +77,7 @@ namespace Models {
                     worldObjects.Add(e);
                     return e;
                 case "Import":
-                    Object3D i = new ImportVehicle(x, y, z, 0, 55, 0, worldObjects);
+                    Object3D i = new ImportVehicle(x, y, z, 0, 0.5 * Math.PI, 0, worldObjects);
                     worldObjects.Add(i);
                     return i;
                 case "Crate":

@@ -38,7 +38,7 @@ class Rocket extends THREE.Group {
         var SelfRef = this;
 
         loadOBJModel("models/", "Export_Rocket.obj", "textures/Materials/", "Export_Rocket.mtl", (mesh) => {
-            mesh.scale.set(1, 1, 1);
+            mesh.scale.set(1.5, 1.5, 1.5);
             SelfRef.add(mesh);
         });
     }
@@ -64,16 +64,82 @@ class Train extends THREE.Group {
 
 class Crate extends THREE.Group {
 
-    constructor() {
+    constructor(command) {
         super();
 
-        this.init();
+        this.init(command);
     }
 
-    init() {
+    init(command) {
         var SelfRef = this;
+        var CrateMtl;
+        var CrateObj;
 
-        loadOBJModel("models/", "Crate.obj", "textures/Materials/", "Crate.mtl", (mesh) => {
+
+        switch (command.parameters.invetory) {
+            
+            case "MoonMilk":
+                if (command.parameters.refined) {
+                    CrateObj = "Crate_Milk_Refined.obj";
+                    CrateMtl = "Crate_Milk_Refined.mtl";
+                }
+                else {
+                    CrateObj = "Crate_Milk.obj";
+                    CrateMtl = "Crate_Milk.mtl";
+                    //debugger;
+                }
+                break;
+            case "Krypto":
+                if (command.parameters.refined) {
+                    CrateObj = "Crate_Krypto_Refined.obj";
+                    CrateMtl = "Crate_Krypto_Refined.mtl";
+                }
+                else {
+                    CrateObj = "Crate_Krypto.obj";
+                    CrateMtl = "Crate_Krypto.mtl";
+                    //debugger;
+                }
+                break;
+            case "Beryllium":
+                if (command.parameters.refined) {
+                    CrateObj = "Crate_Beryl_Refined.obj";
+                    CrateMtl = "Crate_Beryl_Refined.mtl";
+                }
+                else {
+                    CrateObj = "Crate_Beryl.obj";
+                    CrateMtl = "Crate_Beryl.mtl";
+                    //debugger;
+                }
+                break;
+            case "Uranium":
+                if (command.parameters.refined) {
+                    CrateObj = "Crate_Uranium_Refined.obj";
+                    CrateMtl = "Crate_Uranium_Refined.mtl";
+                }
+                else {
+                    CrateObj = "Crate_Uranium.obj";
+                    CrateMtl = "Crate_Uranium.mtl";
+                    //debugger;
+                }
+                break;
+            case "Moonrock":
+                if (command.parameters.refined) {
+                    CrateObj = "Crate_Moonrock_Refined.obj";
+                    CrateMtl = "Crate_Moonrock_Refined.mtl";
+                }
+                else {
+                    CrateObj = "Crate_Moonrock.obj";
+                    CrateMtl = "Crate_Moonrock.mtl";
+                    //debugger;
+                }
+                break;
+            default:
+                CrateObj = "Crate.obj"
+                CrateMtl = "Crate.mtl";
+                break;
+        }
+
+        loadOBJModel("models/", CrateObj, "textures/Materials/Crates/", CrateMtl, (mesh) => {
             mesh.scale.set(1, 1, 1);
             SelfRef.add(mesh);
         });
@@ -94,7 +160,7 @@ class Sun extends THREE.Group {
         loadOBJModel("models/", "Sun.obj", "textures/Materials/", "Sun.mtl", (mesh) => {
             mesh.scale.set(1, 1, 1);
             var sunLight = new THREE.DirectionalLight(0xffffff, 0.9);
-            var sunRadiance = new THREE.PointLight(0xffa500, 100, 300);
+            var sunRadiance = new THREE.PointLight(0xffa500, 110, 300);
             mesh.add(sunLight, sunRadiance);
             SelfRef.add(mesh);
         });
@@ -136,8 +202,6 @@ class Dome extends THREE.Group {
         });
     }
 }
-
-
 
 
 /**
