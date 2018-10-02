@@ -72,61 +72,74 @@ class Crate extends THREE.Group {
 
     init(command) {
         var SelfRef = this;
-        var CrateInv;
+        var CrateMtl;
+        var CrateObj;
+
 
         switch (command.parameters.invetory) {
             
             case "MoonMilk":
                 if (command.parameters.refined) {
-                    CrateInv = "Crate_Milk_Refined.mtl";
+                    CrateObj = "Crate_Milk_Refined.obj";
+                    CrateMtl = "Crate_Milk_Refined.mtl";
                 }
                 else {
-                    CrateInv = "Crate_Milk.mtl";
+                    CrateObj = "Crate_Milk.obj";
+                    CrateMtl = "Crate_Milk.mtl";
                     //debugger;
                 }
                 break;
             case "Krypto":
                 if (command.parameters.refined) {
-                    CrateInv = "Crate_Krypto_Refined.mtl";
+                    CrateObj = "Crate_Krypto_Refined.obj";
+                    CrateMtl = "Crate_Krypto_Refined.mtl";
                 }
                 else {
-                    CrateInv = "Crate_Krypto.mtl";
+                    CrateObj = "Crate_Krypto.obj";
+                    CrateMtl = "Crate_Krypto.mtl";
                     //debugger;
                 }
                 break;
             case "Beryllium":
                 if (command.parameters.refined) {
-                    CrateInv = "Crate_Beryl_Refined.mtl";
+                    CrateObj = "Crate_Beryl_Refined.obj";
+                    CrateMtl = "Crate_Beryl_Refined.mtl";
                 }
                 else {
-                    CrateInv = "Crate_Beryl.mtl";
+                    CrateObj = "Crate_Beryl.obj";
+                    CrateMtl = "Crate_Beryl.mtl";
                     //debugger;
                 }
                 break;
             case "Uranium":
                 if (command.parameters.refined) {
-                    CrateInv = "Crate_Uranium_Refined.mtl";
+                    CrateObj = "Crate_Uranium_Refined.obj";
+                    CrateMtl = "Crate_Uranium_Refined.mtl";
                 }
                 else {
-                    CrateInv = "Crate_Uranium.mtl";
+                    CrateObj = "Crate_Uranium.obj";
+                    CrateMtl = "Crate_Uranium.mtl";
                     //debugger;
                 }
                 break;
             case "Moonrock":
                 if (command.parameters.refined) {
-                    CrateInv = "Crate_Moonrock_Refined.mtl";
+                    CrateObj = "Crate_Moonrock_Refined.obj";
+                    CrateMtl = "Crate_Moonrock_Refined.mtl";
                 }
                 else {
-                    CrateInv = "Crate_Moonrock.mtl";
+                    CrateObj = "Crate_Moonrock.obj";
+                    CrateMtl = "Crate_Moonrock.mtl";
                     //debugger;
                 }
                 break;
             default:
-                CrateInv = "Crate.mtl";
+                CrateObj = "Crate.obj"
+                CrateMtl = "Crate.mtl";
                 break;
         }
 
-        loadOBJModel("models/", "Crate.obj", "textures/Materials/", "Crate_Milk.mtl", (mesh) => {
+        loadOBJModel("models/", CrateObj, "textures/Materials/Crates/", CrateMtl, (mesh) => {
             mesh.scale.set(1, 1, 1);
             SelfRef.add(mesh);
         });
