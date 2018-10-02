@@ -18,7 +18,12 @@ namespace Models
         {
             nodes.Add(new Node(position, connections, nodes.Count()));
         }
-        
+
+        public void StorageNodesAdd(double[] position, List<int> connections, bool importNode)
+        {
+            nodes.Add(new StorageNode(position, connections, nodes.Count(), importNode));
+        }
+
     }
 
     public class Node
@@ -35,4 +40,26 @@ namespace Models
         }
     }
 
+    public class StorageNode : Node
+    {
+        private Crate _storedCrate;
+        private bool importNode;
+
+        public StorageNode(double[] position, List<int> connections, int id, bool importNode) :base(position, connections, id)
+        {
+            this.importNode = importNode;
+        }
+
+        public void AddCrate(Crate crate)
+        {
+            this._storedCrate = crate;
+        }
+
+        public Crate GetCrate()
+        {
+            Crate returnCrate = this._storedCrate;
+            this._storedCrate = null;
+            return returnCrate;
+        }
+    }
 }

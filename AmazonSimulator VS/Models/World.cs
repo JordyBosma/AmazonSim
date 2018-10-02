@@ -10,20 +10,10 @@ namespace Models {
         public World() {
             Object3D robot = CreateObject(0, 0, 0, "Robot");
             Object3D crate = CreateObject(5, 1, 5, "Crate");
-            //Object3D rocket = CreateObject(0, 0, 0, "Export");
             Object3D train = CreateObject(15, 0, 49, "Import");
-            SetVehicleInboundTimer(new ExportVehicleRequest(30, 400, 30));
-            
-            _nodeGrid.NodesAdd(new double[] { 0, 0 }, new List<int>() { 1, 3 });
-            _nodeGrid.NodesAdd(new double[] { 0, 1 }, new List<int>() { 2, 4, 0 });
-            _nodeGrid.NodesAdd(new double[] { 0, 2 }, new List<int>() { 1, 5 });
-            _nodeGrid.NodesAdd(new double[] { 1, 0 }, new List<int>() { 0, 6, 4 });
-            _nodeGrid.NodesAdd(new double[] { 1, 1 }, new List<int>() { 3, 5, 7 });
-            _nodeGrid.NodesAdd(new double[] { 1, 2 }, new List<int>() { 2, 4, 8 });
-            _nodeGrid.NodesAdd(new double[] { 2, 0 }, new List<int>() { 3, 7 });
-            _nodeGrid.NodesAdd(new double[] { 2, 1 }, new List<int>() { 4, 6, 8 });
-            _nodeGrid.NodesAdd(new double[] { 2, 2 }, new List<int>() { 7, 5,9 });
-            _nodeGrid.NodesAdd(new double[] { 2, 20 }, new List<int>() {8 });
+            SetVehicleInboundTimer(new ExportVehicleRequest(30, 30));
+
+            LoadGrid();
             showGrid = true;
 
             //test robot run
@@ -61,6 +51,20 @@ namespace Models {
                     break;
                 }
             }
+        }
+
+        private void LoadGrid()
+        {
+            _nodeGrid.NodesAdd(new double[] { 0, 0 }, new List<int>() { 1, 3 });
+            _nodeGrid.NodesAdd(new double[] { 0, 1 }, new List<int>() { 2, 4, 0 });
+            _nodeGrid.NodesAdd(new double[] { 0, 2 }, new List<int>() { 1, 5 });
+            _nodeGrid.NodesAdd(new double[] { 1, 0 }, new List<int>() { 0, 6, 4 });
+            _nodeGrid.NodesAdd(new double[] { 1, 1 }, new List<int>() { 3, 5, 7 });
+            _nodeGrid.NodesAdd(new double[] { 1, 2 }, new List<int>() { 2, 4, 8 });
+            _nodeGrid.NodesAdd(new double[] { 2, 0 }, new List<int>() { 3, 7 });
+            _nodeGrid.NodesAdd(new double[] { 2, 1 }, new List<int>() { 4, 6, 8 });
+            _nodeGrid.NodesAdd(new double[] { 2, 2 }, new List<int>() { 7, 5, 9 });
+            _nodeGrid.NodesAdd(new double[] { 2, 20 }, new List<int>() { 8 });
         }
         
         private Object3D CreateObject(double x, double y, double z, string type) {

@@ -18,12 +18,12 @@ namespace Utility
         public double y { get { return _y; } }
         public double z { get { return _z; } }
 
-        public ExportVehicleRequest(double x, double y, double z)
+        public ExportVehicleRequest(double x, double z)
         {
             Random rnd = new Random();
              _interval = rnd.Next(89, 180) * 1000;
             _x = x;
-            _y = y;
+            _y = 400;
             _z = z;
         }
 
