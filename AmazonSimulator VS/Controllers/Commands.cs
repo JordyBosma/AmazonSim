@@ -46,4 +46,11 @@ namespace Controllers
         {
         }
     }
+
+    public class ShowGridCommand : Command
+    {
+        public ShowGridCommand(NodeGrid nodeGrid) : base("grid", nodeGrid)
+        {
+        }
+    }
 }

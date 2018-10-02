@@ -18,25 +18,29 @@ namespace Utility
         public DijkstraPathFinding(double[] firstPoint, double[] secondPoint, NodeGrid nodeGrid)
         {
             int nodesCount = nodeGrid.nodes.Count;
+            prev = new List<Node>();
             dist = new double[nodesCount];
             for (int i = 0; i < dist.Count(); i++)
             {
+                prev.Add(null);
                 dist[i] = double.MaxValue;
             }
-            prev = new List<Node>(nodesCount);
-            unvisited = nodeGrid.nodes;
-            this.nodeGrid = nodeGrid;               //labda
+            unvisited = new List<Node>();
+            foreach (Node node in nodeGrid.nodes)
+            {
+                unvisited.Add(node);
+            }
+            this.nodeGrid = nodeGrid;
 
             //make the begin situasions and find the nodes by the cordienets: 
             for (int i = 0; i < nodesCount; i++)
             {
-                if (nodeGrid.nodes[i].position == firstPoint)
+                if (nodeGrid.nodes[i].position.SequenceEqual(firstPoint))
                 {
                     currentNode = unvisited[i];
                     dist[i] = 0;
-                    break;
                 }
-                if (nodeGrid.nodes[i].position == secondPoint)
+                if (nodeGrid.nodes[i].position.SequenceEqual(secondPoint))
                 {
                     endNode = nodeGrid.nodes[i];
                 }
@@ -80,7 +84,7 @@ namespace Utility
                 double newDist = dist[currentNode.id] + Math.Abs(currentNode.position[0] - nextNode.position[0] + currentNode.position[1] - nextNode.position[1]);
                 if (newDist < dist[i])
                 {
-                    prev[i] = nextNode;
+                    prev[i] = currentNode;
                     dist[i] = newDist;
                 }
             }
@@ -90,12 +94,12 @@ namespace Utility
         {
             if (prev[next.id] == null)
             {
-                return new List<double[]> { next.position };
+                return new List<double[]> { nodeGrid.nodes[next.id].position };
             }
             else
             {
                 List<double[]> path = GetShortestPath(prev[next.id], prev);
-                path.Add(prev[next.id].position);
+                path.Add(nodeGrid.nodes[next.id].position);
                 return path;
             }
 

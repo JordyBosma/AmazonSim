@@ -11,7 +11,8 @@ namespace Models
     {
         protected List<Object3D> _worldObjects = new List<Object3D>();
         protected List<IObserver<Command>> observers = new List<IObserver<Command>>();
-        protected NodeGrid _nodeGrid;
+        protected NodeGrid _nodeGrid = new NodeGrid();
+        protected bool showGrid = false; 
 
         public List<Object3D> worldObjects { get { return _worldObjects; } }
         public NodeGrid nodeGrid { get { return _nodeGrid; } }
@@ -40,6 +41,10 @@ namespace Models
             foreach (Object3D m3d in worldObjects)
             {
                 obs.OnNext(new UpdateModel3DCommand(m3d));
+            }
+            if (showGrid)   //default is off
+            {
+                obs.OnNext(new ShowGridCommand(_nodeGrid));
             }
         }
 
@@ -73,14 +78,9 @@ namespace Models
             GetTasks();
             if(logicTasks.Count() != 0)
             {
-                foreach (LogicTask ltsk in logicTasks)
-                {
-                    if (logicTasks.First().RunTask(this))
-                    {
-                        logicTasks.Remove(ltsk);
-                    }
-                }  
+                logicTasks = logicTasks.Where(x => x.RunTask(this)).ToList();
             }
+
         }
 
         public void GetTasks()
@@ -101,8 +101,7 @@ namespace Models
                     {
                         SendCommandToObservers(new DeleteModel3DCommand(obj));
                         
-                        int interval = rnd.Next(89, 180) * 1000;
-                        SetVehicleInboundTimer(interval, new ExportVehicleRequest());
+                        SetVehicleInboundTimer(new ExportVehicleRequest(obj.x,obj.y,obj.z));
                     }
                 }
             }
@@ -110,9 +109,16 @@ namespace Models
 
         protected List<System.Timers.Timer> VehicleInboundTimers = new List<System.Timers.Timer>();
         
-        protected void SetVehicleInboundTimer(int interval, LogicTask task)
+        protected void SetVehicleInboundTimer(LogicTask task)
         {
-            // Create a timer with a two second interval.
+            //default interval
+            int interval = 0;   
+            // Create a timer with other interval.
+            if (task is ExportVehicleRequest)
+            {
+                interval = ((ExportVehicleRequest)task).interval;
+            } 
+
             System.Timers.Timer aTimer = new System.Timers.Timer(interval);
             VehicleInboundTimers.Add(aTimer);
             // Hook up the Elapsed event for the timer. 

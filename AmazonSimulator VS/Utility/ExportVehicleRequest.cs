@@ -8,10 +8,29 @@ namespace Utility
 {
     public class ExportVehicleRequest : LogicTask
     {
+        private int _interval;
+        private double _x;
+        private double _y;
+        private double _z;
+
+        public int interval { get { return _interval; } }
+        public double x { get { return _x; } }
+        public double y { get { return _y; } }
+        public double z { get { return _z; } }
+
+        public ExportVehicleRequest(double x, double y, double z)
+        {
+            Random rnd = new Random();
+             _interval = rnd.Next(89, 180) * 1000;
+            _x = x;
+            _y = y;
+            _z = z;
+        }
+
         public bool RunTask(Model w)
         {
-            w.worldObjects.Add(new ExportVehicle());
-            return true;
+            w.worldObjects.Add(new ExportVehicle(x,y,z));
+            return false;
         }
     }
 }

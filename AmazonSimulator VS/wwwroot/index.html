@@ -139,9 +139,10 @@
                     updateModel(worldObjects[command.parameters.guid], command);
                 } else if (command.command == "delete") {
                     scene.remove(worldObjects[command.parameters.guid]);
+                } else if (command.command == "grid") {
+                    ShowGrid(command);
                 }
             }
-
             function updateModel(object, command) {
                 //var object = worldObjects[command.parameters.guid];
 
@@ -176,6 +177,23 @@
 
                         break;
                 }
+            }
+
+            function ShowGrid(command) {
+                var gridGroup = new THREE.Group();
+                for (var i = 0; i < command.parameters.nodes.length; i++) {
+                    var geometry = new THREE.CubeGeometry(0.1, 0.1, 0.1);
+                    var material = new THREE.MeshPhongMaterial({ color: 0x00ff00 });
+                    var nodeCube = new THREE.Mesh(geometry, material);
+
+                    var node = command.parameters.nodes[i];
+                    nodeCube.position.x = node.position[0];
+                    nodeCube.position.y = 0.2;
+                    nodeCube.position.z = node.position[1];
+
+                    gridGroup.add(nodeCube);
+                }
+                scene.add(gridGroup);
             }
 
             // Start program:

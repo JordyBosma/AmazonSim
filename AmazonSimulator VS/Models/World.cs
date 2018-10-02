@@ -10,8 +10,23 @@ namespace Models {
         public World() {
             Object3D robot = CreateObject(0, 0, 0, "Robot");
             Object3D crate = CreateObject(5, 1, 5, "Crate");
-            Object3D rocket = CreateObject(0, 0, 0, "Export");
+            //Object3D rocket = CreateObject(0, 0, 0, "Export");
+            SetVehicleInboundTimer(new ExportVehicleRequest(30, 400, 30));
+            SetVehicleInboundTimer(new ExportVehicleRequest(30, 400, 45));
+            SetVehicleInboundTimer(new ExportVehicleRequest(30, 400, 60));
+            SetVehicleInboundTimer(new ExportVehicleRequest(30, 400, 75));
             Object3D train = CreateObject(-40, 0, -40, "Import");
+            _nodeGrid.NodesAdd(new double[] { 0, 0 }, new List<int>() { 1, 3 });
+            _nodeGrid.NodesAdd(new double[] { 0, 1 }, new List<int>() { 2, 4, 0 });
+            _nodeGrid.NodesAdd(new double[] { 0, 2 }, new List<int>() { 1, 5 });
+            _nodeGrid.NodesAdd(new double[] { 1, 0 }, new List<int>() { 0, 6, 4 });
+            _nodeGrid.NodesAdd(new double[] { 1, 1 }, new List<int>() { 3, 5, 7 });
+            _nodeGrid.NodesAdd(new double[] { 1, 2 }, new List<int>() { 2, 4, 8 });
+            _nodeGrid.NodesAdd(new double[] { 2, 0 }, new List<int>() { 3, 7 });
+            _nodeGrid.NodesAdd(new double[] { 2, 1 }, new List<int>() { 4, 6, 8 });
+            _nodeGrid.NodesAdd(new double[] { 2, 2 }, new List<int>() { 7, 5,9 });
+            _nodeGrid.NodesAdd(new double[] { 2, 20 }, new List<int>() {8 });
+            showGrid = true;
 
             //test robot run
             List<double[]> pickupTask = new List<double[]>();
@@ -33,8 +48,9 @@ namespace Models {
             dropoffTask.Add(new double[2] { 0, 10 });
             dropoffTask.Add(new double[2] { 0, 0 });
 
-            //RobotTask rt = new RobotTask(pickupTask, dropoffTask, (Crate)crate);
+            //RobotTask rt = new RobotTask(pickupTask, dropoffTask, (Crate)crate, null);
             //MoveRobot(rt);
+            ((Robot)robot).GiveTask(new RobotTask(new DijkstraPathFinding(new double[] { 0, 0 }, new double[] { 2, 20 }, _nodeGrid).GetPath(), new DijkstraPathFinding(new double[] { 2, 20 }, new double[] { 0, 0 }, _nodeGrid).GetPath(), (Crate)crate, null));
         }
 
         public void MoveRobot(RobotTask rt)
@@ -57,7 +73,7 @@ namespace Models {
                     worldObjects.Add(r);
                     return r;
                 case "Export":
-                    Object3D e = new ExportVehicle();
+                    Object3D e = new ExportVehicle(x,y,z);
                     worldObjects.Add(e);
                     return e;
                 case "Import":
