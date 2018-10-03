@@ -43,6 +43,19 @@ namespace Utility
             foreach (Crate crate in importVehicle.importCrates)
             {
                 w.worldObjects.Add(crate);
+                Object import;
+                foreach (Node node in w.nodeGrid.nodes)
+                {
+                    if (node is OpslagNode)
+                    {
+                        if ((OpslagNode)node).reserved == false) {
+                            import = node;
+                            node.SetCrate(crate);
+                            break;
+                        }
+                    }
+                }
+                w.tasksForRobot.Add(new TaskForRobot(new double[] { crate.x, crate.z }, ((Node)import).position, crate, import));
             }
             return false;
         }
