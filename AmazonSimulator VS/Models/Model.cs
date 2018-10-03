@@ -99,9 +99,9 @@ namespace Models
                 {
                     if (((ExportVehicle)obj).isDone)
                     {
-                        SendCommandToObservers(new DeleteModel3DCommand(obj));          
-                        SetInboundTimer(new ExportVehicleRequest(obj.x,obj.y,obj.z));
+                        SendCommandToObservers(new DeleteModel3DCommand(obj));
                         worldObjects.Remove(obj);
+                        SetInboundTimer(new ExportVehicleRequest(obj.x, obj.z));
                     }
                 }
             }
