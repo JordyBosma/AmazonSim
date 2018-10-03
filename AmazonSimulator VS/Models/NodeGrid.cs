@@ -41,7 +41,7 @@ namespace Models
         }
     }
 
-    public class StorageNode : Node, Target 
+    public class StorageNode : Node, DropOffTarget 
     {
         private Crate _storedCrate;
         private bool importNode;
@@ -85,7 +85,7 @@ namespace Models
             return importNode;
         }
 
-        public void HandelCrate(Crate crate)
+        public void HandelDropOff(Crate crate)
         {
             AddCrate(crate);
         }

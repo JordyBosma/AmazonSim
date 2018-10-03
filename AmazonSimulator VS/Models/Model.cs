@@ -103,6 +103,14 @@ namespace Models
                         worldObjects.Remove(obj);
                         SetInboundTimer(new ExportVehicleRequest(obj.x, obj.z));
                     }
+                } else if (obj is ImportVehicle)
+                {
+                    if (((ImportVehicle)obj).isDone)
+                    {
+                        SendCommandToObservers(new DeleteModel3DCommand(obj));
+                        worldObjects.Remove(obj);
+                        SetInboundTimer(new ImportVehicleRequest(obj.x, obj.y, obj.z, obj.rotationX, obj.rotationY, obj.rotationZ));
+                    }
                 }
             }
         }
@@ -118,9 +126,9 @@ namespace Models
             {
                 interval = ((ExportVehicleRequest)task).interval;
             } 
-            if (task is InportVehicleRequest)
+            if (task is ImportVehicleRequest)
             {
-                interval = ((InportVehicleRequest)task).interval;
+                interval = ((ImportVehicleRequest)task).interval;
             }
 
             System.Timers.Timer aTimer = new System.Timers.Timer(interval);

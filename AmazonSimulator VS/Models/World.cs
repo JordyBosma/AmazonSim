@@ -9,10 +9,10 @@ namespace Models {
     {
         public World() {
             Object3D robot = CreateObject(1, 0, 1, "Robot");
-            Object3D crate = CreateObject(-7, 1, -3, "Crate");
-            Object3D train = CreateObject(15, 0, 49, "Import");
+            Object3D robot2 = CreateObject(1, 0, -1, "Robot");
+            //Object3D crate = CreateObject(-7, 1, -3, "Crate");
             SetInboundTimer(new ExportVehicleRequest(30, 30));
-            SetInboundTimer(new InportVehicleRequest(15, 0, 49, 0, 0.5 * Math.PI, 0));
+            SetInboundTimer(new ImportVehicleRequest(15, 0, 49, 0, 0.5 * Math.PI, 0));
 
             LoadGrid();
             showGrid = true;
@@ -39,7 +39,7 @@ namespace Models {
 
             //RobotTask rt = new RobotTask(pickupTask, dropoffTask, (Crate)crate, null);
             //MoveRobot(rt);
-            ((Robot)robot).GiveTask(new RobotTask(new DijkstraPathFinding(new double[] { 1, 1 }, new double[] { -7, -3 }, _nodeGrid).GetPath(), new DijkstraPathFinding(new double[] { -7, -3 }, new double[] { 1, 1 }, _nodeGrid).GetPath(), (Crate)crate, null));
+            //((Robot)robot).GiveTask(new RobotTask(new DijkstraPathFinding(new double[] { 1, 1 }, new double[] { -7, -3 }, _nodeGrid).GetPath(), new DijkstraPathFinding(new double[] { -7, -3 }, new double[] { 1, 1 }, _nodeGrid).GetPath(), (Crate)crate, null));
         }
 
         public void MoveRobot(RobotTask rt)
