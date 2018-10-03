@@ -10,8 +10,9 @@ namespace Models {
         public World() {
             Object3D robot = CreateObject(0, 0, 0, "Robot");
             //Object3D crate = CreateObject(5, 1, 5, "Crate");
-            Object3D train = CreateObject(15, 0, 49, "Import");
-            SetVehicleInboundTimer(new ExportVehicleRequest(30, 30));
+            //Object3D train = CreateObject(15, 0, 49, "Import");
+            SetInboundTimer(new ExportVehicleRequest(30, 30));
+            SetInboundTimer(new InportVehicleRequest(15, 0, 49, 0, 0.5 * Math.PI, 0));
 
             LoadGrid();
             showGrid = true;
@@ -91,7 +92,7 @@ namespace Models {
                     worldObjects.Add(e);
                     return e;
                 case "Import":
-                    Object3D i = new ImportVehicle(x, y, z, 0, 0.5 * Math.PI, 0, worldObjects);
+                    Object3D i = new ImportVehicle(x, y, z, 0, 0.5 * Math.PI, 0);
                     worldObjects.Add(i);
                     return i;
                 case "Crate":

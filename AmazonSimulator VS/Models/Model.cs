@@ -118,6 +118,10 @@ namespace Models
             {
                 interval = ((ExportVehicleRequest)task).interval;
             } 
+            if (task is InportVehicleRequest)
+            {
+                interval = ((InportVehicleRequest)task).interval;
+            }
 
             System.Timers.Timer aTimer = new System.Timers.Timer(interval);
             InboundTimers.Add(aTimer);

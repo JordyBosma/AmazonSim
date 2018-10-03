@@ -3,61 +3,64 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Utility;
 
 namespace Utility
 {
-    public class InportVehicleRequest
+    public class InportVehicleRequest : LogicTask
     {
         private int _interval;
-        private double _x;
-        private double _y;
-        private double _z;
-        private double _rotationX;
-        private double _rotationY;
-        private double _rotationZ;
+        private ImportVehicle importVehicle;
+        private int cratesBeingHandeld = -1;
 
         public int interval { get { return _interval; } }
-        public double x { get { return _x; } }
-        public double y { get { return _y; } }
-        public double z { get { return _z; } }
-        public double rotationX { get { return _rotationX; } }
-        public double rotationY { get { return _rotationY; } }
-        public double rotationZ { get { return _rotationZ; } }
 
         public InportVehicleRequest(double x, double y, double z, double rotationX, double rotationY, double rotationZ)
         {
             Random rnd = new Random();
-            _interval = rnd.Next(89, 180) * 1000;
-            _x = x;
-            _y = y;
-            _z = z;
-            _rotationX = rotationX;
-            _rotationY = rotationY;
-            _rotationZ = rotationZ;
+            _interval = rnd.Next(10, 20) * 1000;
+            importVehicle = new ImportVehicle(x, y, z, rotationX, rotationY, rotationZ);
         }
 
         public bool RunTask(Model w)
         {
-            ImportVehicle importVehicle = new ImportVehicle(x, y, z, rotationX, rotationY, rotationZ);
-            w.worldObjects.Add(importVehicle);
-            foreach (Crate crate in importVehicle.importCrates)
+            if (cratesBeingHandeld == -1)
             {
-                w.worldObjects.Add(crate);
-                Object import;
-                foreach (Node node in w.nodeGrid.nodes)
+                w.worldObjects.Add(importVehicle);
+                importVehicle.Move(importVehicle.x, importVehicle.y, importVehicle.z);
+                cratesBeingHandeld = importVehicle.importCrates.Count();
+            }
+            if (importVehicle.CheckArrived())
+            {
+                while (cratesBeingHandeld != 0)
                 {
-                    if (node is OpslagNode)
+                    Crate crate = importVehicle.importCrates[cratesBeingHandeld - 1];
+                    Object emptyStorageNode = null;
+                    foreach (Node node in w.nodeGrid.nodes)
                     {
-                        if ((OpslagNode)node).reserved == false) {
-                            import = node;
-                            node.SetCrate(crate);
-                            break;
+
+                        if (node is StorageNode)
+                        {
+                            if (((StorageNode)node).CheckImport() && (!((StorageNode)node).GetReserved() && !((StorageNode)node).CheckCrate()))
+                            {
+                                emptyStorageNode = node;
+                                ((StorageNode)node).ReserveNode();
+                                break;
+                            }
                         }
                     }
+                    if (emptyStorageNode == null)
+                    {
+                        return true;
+                    }
+                    w.tasksForRobot.Add(new TaskForRobot(new double[] { crate.x, crate.z }, ((Node)emptyStorageNode).position, crate, (Target)emptyStorageNode));
+                    w.worldObjects.Add(crate);
+                    cratesBeingHandeld--;
                 }
-                w.tasksForRobot.Add(new TaskForRobot(new double[] { crate.x, crate.z }, ((Node)import).position, crate, import));
+                return false;
             }
-            return false;
+            return true;
+            
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Models
     public class ImportVehicle : Object3D, IUpdatable
     {
         private List<Crate> _importCrates = new List<Crate>(); 
-        private bool _isArrived = false;
+        private bool _isArrived = true;
 
         public List<Crate> importCrates { get { return _importCrates; } }
 
@@ -34,6 +34,11 @@ namespace Models
         public override bool Update(int tick)
         {
             return base.Update(tick);
+        }
+
+        public bool CheckArrived()
+        {
+            return _isArrived;
         }
     }
 }

@@ -11,14 +11,14 @@ namespace Utility
         private double[] _pickUpPoint;
         private double[] _dropOffPoint;
         private Crate _crate;
-        private Object _target;
+        private Target _target;
         
         public double[] pickUpPoint { get { return _pickUpPoint; } }
         public double[] dropOffPoint { get { return _dropOffPoint; } }
         public Crate crate { get { return _crate; } }
-        public Object target { get { return _target; } }
+        public Target target { get { return _target; } }
 
-        public TaskForRobot(double[] pickUpPoint, double[] dropOffPoint, Crate crate, Object target)
+        public TaskForRobot(double[] pickUpPoint, double[] dropOffPoint, Crate crate, Target target)
         {
             _pickUpPoint = pickUpPoint;
             _dropOffPoint = dropOffPoint;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Utility;
 
 namespace Models
 {
@@ -40,13 +41,13 @@ namespace Models
         }
     }
 
-    public class StorageNode : Node
+    public class StorageNode : Node, Target 
     {
         private Crate _storedCrate;
         private bool importNode;
         private bool reserved;
 
-        public StorageNode(double[] position, List<int> connections, int id, bool importNode) :base(position, connections, id)
+        public StorageNode(double[] position, List<int> connections, int id, bool importNode) : base(position, connections, id)
         {
             this.importNode = importNode;
         }
@@ -67,6 +68,26 @@ namespace Models
             Crate returnCrate = this._storedCrate;
             this._storedCrate = null;
             return returnCrate;
+        }
+
+        public bool GetReserved()
+        {
+            return reserved;
+        }
+
+        public bool CheckCrate()
+        {
+            return _storedCrate != null;
+        }
+
+        public bool CheckImport()
+        {
+            return importNode;
+        }
+
+        public void HandelCrate(Crate crate)
+        {
+            AddCrate(crate);
         }
     }
 }
