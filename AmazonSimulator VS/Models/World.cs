@@ -9,21 +9,11 @@ namespace Models {
     {
         public World() {
             Object3D robot = CreateObject(0, 0, 0, "Robot");
-            Object3D crate = CreateObject(5, 1, 5, "Crate");
-            //Object3D rocket = CreateObject(0, 0, 0, "Export");
+            //Object3D crate = CreateObject(5, 1, 5, "Crate");
             Object3D train = CreateObject(15, 0, 49, "Import");
-            SetVehicleInboundTimer(new ExportVehicleRequest(30, 400, 30));
-            
-            _nodeGrid.NodesAdd(new double[] { 0, 0 }, new List<int>() { 1, 3 });
-            _nodeGrid.NodesAdd(new double[] { 0, 1 }, new List<int>() { 2, 4, 0 });
-            _nodeGrid.NodesAdd(new double[] { 0, 2 }, new List<int>() { 1, 5 });
-            _nodeGrid.NodesAdd(new double[] { 1, 0 }, new List<int>() { 0, 6, 4 });
-            _nodeGrid.NodesAdd(new double[] { 1, 1 }, new List<int>() { 3, 5, 7 });
-            _nodeGrid.NodesAdd(new double[] { 1, 2 }, new List<int>() { 2, 4, 8 });
-            _nodeGrid.NodesAdd(new double[] { 2, 0 }, new List<int>() { 3, 7 });
-            _nodeGrid.NodesAdd(new double[] { 2, 1 }, new List<int>() { 4, 6, 8 });
-            _nodeGrid.NodesAdd(new double[] { 2, 2 }, new List<int>() { 7, 5,9 });
-            _nodeGrid.NodesAdd(new double[] { 2, 20 }, new List<int>() {8 });
+            SetVehicleInboundTimer(new ExportVehicleRequest(30, 30));
+
+            LoadGrid();
             showGrid = true;
 
             //test robot run
@@ -48,7 +38,7 @@ namespace Models {
 
             //RobotTask rt = new RobotTask(pickupTask, dropoffTask, (Crate)crate, null);
             //MoveRobot(rt);
-            ((Robot)robot).GiveTask(new RobotTask(new DijkstraPathFinding(new double[] { 0, 0 }, new double[] { 2, 20 }, _nodeGrid).GetPath(), new DijkstraPathFinding(new double[] { 2, 20 }, new double[] { 0, 0 }, _nodeGrid).GetPath(), (Crate)crate, null));
+            //((Robot)robot).GiveTask(new RobotTask(new DijkstraPathFinding(new double[] { 0, 0 }, new double[] { 2, 20 }, _nodeGrid).GetPath(), new DijkstraPathFinding(new double[] { 2, 20 }, new double[] { 0, 0 }, _nodeGrid).GetPath(), (Crate)crate, null));
         }
 
         public void MoveRobot(RobotTask rt)
@@ -61,6 +51,32 @@ namespace Models {
                     break;
                 }
             }
+        }
+
+        private void LoadGrid()
+        {
+            //positive x + z
+            _nodeGrid.NodesAdd(new double[] { 1, 1 }, new List<int>() { 7 }); // central square
+            _nodeGrid.NodesAdd(new double[] { 1, 5 }, new List<int>() { 0, 11 }); //storage lane
+            _nodeGrid.NodesAdd(new double[] { 1, 12 }, new List<int>() { 1 }); //storage lane
+            _nodeGrid.NodesAdd(new double[] { 1, 16 }, new List<int>() { 2 }); // inner boundry square
+            _nodeGrid.NodesAdd(new double[] { 1, 18 }, new List<int>() { 3, 5 }); // outer boundry square
+
+            // outer circle
+            _nodeGrid.NodesAdd(new double[] { 18, 18 }, new List<int>() { 6 }); // corner
+            _nodeGrid.NodesAdd(new double[] { 18, 1 }, new List<int>() {  }); //
+
+            // inner circle
+            _nodeGrid.NodesAdd(new double[] { 16, 1 }, new List<int>() { 8, 6 }); // corner
+            _nodeGrid.NodesAdd(new double[] { 16, 5 }, new List<int>() { 9 }); //storage lane
+            _nodeGrid.NodesAdd(new double[] { 16, 12 }, new List<int>() { 10 }); // storage lane
+            _nodeGrid.NodesAdd(new double[] { 16, 16 }, new List<int>() { 3 });
+
+            //storage lane
+            _nodeGrid.NodesAdd(new double[] { 3, 5 }, new List<int>() { 12 }); // index 11
+            _nodeGrid.NodesAdd(new double[] { 7, 5 }, new List<int>() { 13 });
+            _nodeGrid.NodesAdd(new double[] { 11, 5 }, new List<int>() { 14 });
+            _nodeGrid.NodesAdd(new double[] { 15, 5 }, new List<int>() { 8 }); // index 14
         }
         
         private Object3D CreateObject(double x, double y, double z, string type) {
