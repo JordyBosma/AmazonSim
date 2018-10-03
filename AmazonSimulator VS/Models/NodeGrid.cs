@@ -44,6 +44,7 @@ namespace Models
     {
         private Crate _storedCrate;
         private bool importNode;
+        private bool reserved;
 
         public StorageNode(double[] position, List<int> connections, int id, bool importNode) :base(position, connections, id)
         {
@@ -53,6 +54,12 @@ namespace Models
         public void AddCrate(Crate crate)
         {
             this._storedCrate = crate;
+            reserved = false;
+        }
+
+        public void ReserveNode()
+        {
+            reserved = true;
         }
 
         public Crate GetCrate()

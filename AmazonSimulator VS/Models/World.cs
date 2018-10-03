@@ -9,7 +9,7 @@ namespace Models {
     {
         public World() {
             Object3D robot = CreateObject(0, 0, 0, "Robot");
-            Object3D crate = CreateObject(5, 1, 5, "Crate");
+            //Object3D crate = CreateObject(5, 1, 5, "Crate");
             Object3D train = CreateObject(15, 0, 49, "Import");
             SetVehicleInboundTimer(new ExportVehicleRequest(30, 30));
 
@@ -56,15 +56,27 @@ namespace Models {
         private void LoadGrid()
         {
             //positive x + z
-            _nodeGrid.NodesAdd(new double[] { 1, 1 }, new List<int>() { }); // central square
-            _nodeGrid.NodesAdd(new double[] { 5, 1 }, new List<int>() { 0 });
-            _nodeGrid.NodesAdd(new double[] { 12, 1 }, new List<int>() { 1 }); 
-            _nodeGrid.NodesAdd(new double[] { 16, 1 }, new List<int>() { 2 }); // inner boundry square
-            _nodeGrid.NodesAdd(new double[] { 18, 1 }, new List<int>() { 3, 5 }); // outer boundry square
+            _nodeGrid.NodesAdd(new double[] { 1, 1 }, new List<int>() { 7 }); // central square
+            _nodeGrid.NodesAdd(new double[] { 1, 5 }, new List<int>() { 0, 11 }); //storage lane
+            _nodeGrid.NodesAdd(new double[] { 1, 12 }, new List<int>() { 1 }); //storage lane
+            _nodeGrid.NodesAdd(new double[] { 1, 16 }, new List<int>() { 2 }); // inner boundry square
+            _nodeGrid.NodesAdd(new double[] { 1, 18 }, new List<int>() { 3, 5 }); // outer boundry square
 
             // outer circle
             _nodeGrid.NodesAdd(new double[] { 18, 18 }, new List<int>() { 6 }); // corner
-            _nodeGrid.NodesAdd(new double[] { 1, 18 }, new List<int>() { 3 }); 
+            _nodeGrid.NodesAdd(new double[] { 18, 1 }, new List<int>() {  }); //
+
+            // inner circle
+            _nodeGrid.NodesAdd(new double[] { 16, 1 }, new List<int>() { 8, 6 }); // corner
+            _nodeGrid.NodesAdd(new double[] { 16, 5 }, new List<int>() { 9 }); //storage lane
+            _nodeGrid.NodesAdd(new double[] { 16, 12 }, new List<int>() { 10 }); // storage lane
+            _nodeGrid.NodesAdd(new double[] { 16, 16 }, new List<int>() { 3 });
+
+            //storage lane
+            _nodeGrid.NodesAdd(new double[] { 3, 5 }, new List<int>() { 12 }); // index 11
+            _nodeGrid.NodesAdd(new double[] { 7, 5 }, new List<int>() { 13 });
+            _nodeGrid.NodesAdd(new double[] { 11, 5 }, new List<int>() { 14 });
+            _nodeGrid.NodesAdd(new double[] { 15, 5 }, new List<int>() { 8 }); // index 14
         }
         
         private Object3D CreateObject(double x, double y, double z, string type) {
