@@ -38,7 +38,12 @@ namespace Utility
 
         public bool RunTask(Model w)
         {
-            w.worldObjects.Add(new ImportVehicle(x, y, z, rotationX, rotationY, rotationZ, w.worldObjects));
+            ImportVehicle importVehicle = new ImportVehicle(x, y, z, rotationX, rotationY, rotationZ);
+            w.worldObjects.Add(importVehicle);
+            foreach (Crate crate in importVehicle.importCrates)
+            {
+                w.worldObjects.Add(crate);
+            }
             return false;
         }
     }

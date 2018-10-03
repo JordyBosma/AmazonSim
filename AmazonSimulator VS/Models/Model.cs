@@ -70,7 +70,7 @@ namespace Models
 
         // logic here:
         Random rnd = new Random();
-        public List<TasksForRobot> tasksForRobot = new List<TasksForRobot>();
+        public List<TaskForRobot> tasksForRobot = new List<TaskForRobot>();
         public List<LogicTask> logicTasks = new List<LogicTask>();
 
         public void Logic()
