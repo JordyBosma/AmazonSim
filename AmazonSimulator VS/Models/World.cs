@@ -8,8 +8,8 @@ namespace Models {
     public class World : Model, IUpdatable
     {
         public World() {
-            Object3D robot = CreateObject(0, 0, 0, "Robot");
-            //Object3D crate = CreateObject(5, 1, 5, "Crate");
+            Object3D robot = CreateObject(1, 0, 1, "Robot");
+            Object3D crate = CreateObject(-7, 1, -3, "Crate");
             Object3D train = CreateObject(15, 0, 49, "Import");
             SetVehicleInboundTimer(new ExportVehicleRequest(30, 30));
 
@@ -38,7 +38,7 @@ namespace Models {
 
             //RobotTask rt = new RobotTask(pickupTask, dropoffTask, (Crate)crate, null);
             //MoveRobot(rt);
-            //((Robot)robot).GiveTask(new RobotTask(new DijkstraPathFinding(new double[] { 0, 0 }, new double[] { 2, 20 }, _nodeGrid).GetPath(), new DijkstraPathFinding(new double[] { 2, 20 }, new double[] { 0, 0 }, _nodeGrid).GetPath(), (Crate)crate, null));
+            ((Robot)robot).GiveTask(new RobotTask(new DijkstraPathFinding(new double[] { 1, 1 }, new double[] { -7, -3 }, _nodeGrid).GetPath(), new DijkstraPathFinding(new double[] { -7, -3 }, new double[] { 1, 1 }, _nodeGrid).GetPath(), (Crate)crate, null));
         }
 
         public void MoveRobot(RobotTask rt)
@@ -56,7 +56,7 @@ namespace Models {
         private void LoadGrid()
         {
             //positive x + z
-            _nodeGrid.NodesAdd(new double[] { 1, 1 }, new List<int>() { 7 }); // central square
+            _nodeGrid.NodesAdd(new double[] { 1, 1 }, new List<int>() { 7, 105 }); // central square
             _nodeGrid.NodesAdd(new double[] { 1, 5 }, new List<int>() { 0, 11 }); //storage lane
             _nodeGrid.NodesAdd(new double[] { 1, 12 }, new List<int>() { 1, 23 }); //storage lane
             _nodeGrid.NodesAdd(new double[] { 1, 16 }, new List<int>() { 2, 38 }); // inner boundry square
@@ -64,7 +64,7 @@ namespace Models {
 
             // outer circle
             _nodeGrid.NodesAdd(new double[] { 18, 18 }, new List<int>() { 6 }); // corner
-            _nodeGrid.NodesAdd(new double[] { 18, 1 }, new List<int>() {  }); //
+            _nodeGrid.NodesAdd(new double[] { 18, 1 }, new List<int>() { 111 }); //
 
             // inner circle
             _nodeGrid.NodesAdd(new double[] { 16, 1 }, new List<int>() { 8, 6 }); // corner
@@ -117,7 +117,7 @@ namespace Models {
             _nodeGrid.NodesAdd(new double[] { -18, 1 }, new List<int>() { 40, 42 }); //
 
             // inner circle
-            _nodeGrid.NodesAdd(new double[] { -16, 1 }, new List<int>() { 35 }); // corner
+            _nodeGrid.NodesAdd(new double[] { -16, 1 }, new List<int>() { 35, 77 }); // corner
             _nodeGrid.NodesAdd(new double[] { -16, 5 }, new List<int>() { 42 }); //storage lane
             _nodeGrid.NodesAdd(new double[] { -16, 12 }, new List<int>() { 43 }); // storage lane
             _nodeGrid.NodesAdd(new double[] { -16, 16 }, new List<int>() { 44 });
@@ -159,7 +159,7 @@ namespace Models {
             _nodeGrid.NodesAdd(new double[] { -1, -1 }, new List<int>() { 77, 35 }); // central square 70
             _nodeGrid.NodesAdd(new double[] { -1, -5 }, new List<int>() { 70, 81 }); //storage lane
             _nodeGrid.NodesAdd(new double[] { -1, -12 }, new List<int>() { 71, 93 }); //storage lane
-            _nodeGrid.NodesAdd(new double[] { -1, -16 }, new List<int>() { 72 }); // inner boundry square
+            _nodeGrid.NodesAdd(new double[] { -1, -16 }, new List<int>() { 72, 112 }); // inner boundry square
             _nodeGrid.NodesAdd(new double[] { -1, -18 }, new List<int>() { 73, 75 }); // outer boundry square
 
             // outer circle
@@ -205,7 +205,54 @@ namespace Models {
             _nodeGrid.StorageNodesAdd(new double[] { -15, -14 }, new List<int>() { 96 }, false);
 
 
+            // postive x - z
+            _nodeGrid.NodesAdd(new double[] { 1, -1 }, new List<int>() { 106, 70 }); // central square index 105
+            _nodeGrid.NodesAdd(new double[] { 1, -5 }, new List<int>() { 107, 116 }); //storage lane
+            _nodeGrid.NodesAdd(new double[] { 1, -12 }, new List<int>() { 108, 128 }); //storage lane
+            _nodeGrid.NodesAdd(new double[] { 1, -16 }, new List<int>() { 109, 115 }); // inner boundry square
+            _nodeGrid.NodesAdd(new double[] { 1, -18 }, new List<int>() { 74 }); // outer boundry square
 
+            // outer circle
+            _nodeGrid.NodesAdd(new double[] { 18, -18 }, new List<int>() { 109 }); // corner
+            _nodeGrid.NodesAdd(new double[] { 18, -1 }, new List<int>() { 110, 112 }); //
+
+            // inner circle
+            _nodeGrid.NodesAdd(new double[] { 16, -1 }, new List<int>() { 105, 7 }); // corner
+            _nodeGrid.NodesAdd(new double[] { 16, -5 }, new List<int>() { 112 }); //storage lane
+            _nodeGrid.NodesAdd(new double[] { 16, -12 }, new List<int>() { 113 }); // storage lane
+            _nodeGrid.NodesAdd(new double[] { 16, -16 }, new List<int>() { 114 });
+
+            //storage lane 1
+            _nodeGrid.NodesAdd(new double[] { 3, -5 }, new List<int>() { 117, 120, 121 });
+            _nodeGrid.NodesAdd(new double[] { 7, -5 }, new List<int>() { 118, 122, 123 });
+            _nodeGrid.NodesAdd(new double[] { 11, -5 }, new List<int>() { 119, 124, 125 });
+            _nodeGrid.NodesAdd(new double[] { 15, -5 }, new List<int>() { 113, 126, 127 });
+
+            //storage nodes 1
+            _nodeGrid.StorageNodesAdd(new double[] { 3, -3 }, new List<int>() { 116 }, false);
+            _nodeGrid.StorageNodesAdd(new double[] { 3, -7 }, new List<int>() { 116 }, false);
+            _nodeGrid.StorageNodesAdd(new double[] { 7, -3 }, new List<int>() { 117 }, false);
+            _nodeGrid.StorageNodesAdd(new double[] { 7, -7 }, new List<int>() { 117 }, false);
+            _nodeGrid.StorageNodesAdd(new double[] { 11, -3 }, new List<int>() { 118 }, false);
+            _nodeGrid.StorageNodesAdd(new double[] { 11, -7 }, new List<int>() { 118 }, false);
+            _nodeGrid.StorageNodesAdd(new double[] { 15, -3 }, new List<int>() { 119 }, false);
+            _nodeGrid.StorageNodesAdd(new double[] { 15, -7 }, new List<int>() { 119 }, false);
+
+            //storage lane 2
+            _nodeGrid.NodesAdd(new double[] { 3, -12 }, new List<int>() { 129, 132, 133 });
+            _nodeGrid.NodesAdd(new double[] { 7, -12 }, new List<int>() { 130, 134, 135 });
+            _nodeGrid.NodesAdd(new double[] { 11, -12 }, new List<int>() { 131, 136, 137 });
+            _nodeGrid.NodesAdd(new double[] { 15, -12 }, new List<int>() { 124, 138, 139 });
+
+            //storage nodes 2
+            _nodeGrid.StorageNodesAdd(new double[] { 3, -10 }, new List<int>() { 128 }, false);
+            _nodeGrid.StorageNodesAdd(new double[] { 3, -14 }, new List<int>() { 128 }, false);
+            _nodeGrid.StorageNodesAdd(new double[] { 7, -10 }, new List<int>() { 129 }, false);
+            _nodeGrid.StorageNodesAdd(new double[] { 7, -14 }, new List<int>() { 129 }, false);
+            _nodeGrid.StorageNodesAdd(new double[] { 11, -10 }, new List<int>() { 130 }, false);
+            _nodeGrid.StorageNodesAdd(new double[] { 11, -14 }, new List<int>() { 130 }, false);
+            _nodeGrid.StorageNodesAdd(new double[] { 15, -10 }, new List<int>() { 131 }, false);
+            _nodeGrid.StorageNodesAdd(new double[] { 15, -14 }, new List<int>() { 131 }, false);
         }
         
         private Object3D CreateObject(double x, double y, double z, string type) {
