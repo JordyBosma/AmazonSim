@@ -7,13 +7,13 @@ namespace Models
 {
     public class ImportVehicle : Object3D, IUpdatable
     {
-        private List<Object3D> worldObjects = new List<Object3D>();
-        List<Crate> importCrates = new List<Crate>();
-        private bool _isArrived = false;
+        private List<Crate> _importCrates = new List<Crate>(); 
+        private bool _isArrived = true;
 
-        public ImportVehicle(double x, double y, double z, double rotationX, double rotationY, double rotationZ, List<Object3D> worldObjects) : base(x, y, z, rotationX, rotationY, rotationZ, "ImportVehicle")
+        public List<Crate> importCrates { get { return _importCrates; } }
+
+        public ImportVehicle(double x, double y, double z, double rotationX, double rotationY, double rotationZ) : base(x, y, z, rotationX, rotationY, rotationZ, "ImportVehicle")
         {
-            this.worldObjects = worldObjects;
             LoadCrates();
         }
 
@@ -23,7 +23,6 @@ namespace Models
             {
                 Crate newCrate = new Crate(this.x, this.y, this.z);
                 importCrates.Add(newCrate);
-                this.worldObjects.Add(newCrate);
             }
         }
 
@@ -35,6 +34,11 @@ namespace Models
         public override bool Update(int tick)
         {
             return base.Update(tick);
+        }
+
+        public bool CheckArrived()
+        {
+            return _isArrived;
         }
     }
 }

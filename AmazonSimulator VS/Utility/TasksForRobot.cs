@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace Utility
 {
-    public class TasksForRobot
+    public class TaskForRobot
     {
         private double[] _pickUpPoint;
         private double[] _dropOffPoint;
         private Crate _crate;
-        private Object3D _target;
+        private Target _target;
         
         public double[] pickUpPoint { get { return _pickUpPoint; } }
         public double[] dropOffPoint { get { return _dropOffPoint; } }
         public Crate crate { get { return _crate; } }
-        public Object3D target { get { return _target; } }
+        public Target target { get { return _target; } }
 
-        public TasksForRobot(double[] pickUpPoint, double[] dropOffPoint, Crate crate, Object3D target)
+        public TaskForRobot(double[] pickUpPoint, double[] dropOffPoint, Crate crate, Target target)
         {
             _pickUpPoint = pickUpPoint;
             _dropOffPoint = dropOffPoint;

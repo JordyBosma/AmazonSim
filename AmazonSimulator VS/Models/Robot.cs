@@ -14,7 +14,7 @@ namespace Models
         private List<double[]> currentTask;
 
         private Crate _pickupCrate;
-        private Object3D _target;
+        private Target _target;
         private double[] _pointOne = new double[2];
         private double[] _pointTwo = new double[2];
         private double _endPos = 0;
@@ -31,7 +31,7 @@ namespace Models
         private bool _isDone = false;
 
         public Crate pickupCrate { get { return _pickupCrate; } }
-        public Object3D target { get { return _target; } }
+        public Target target { get { return _target; } }
         public double[] pointOne { get { return _pointOne; } }
         public double[] pointTwo { get { return _pointTwo; } }
         public double endPos { get { return _endPos; } }

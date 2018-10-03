@@ -78,8 +78,8 @@
 
                 // Load Dome
                 var dome = new Dome;
-                dome.position.x = 15;
-                dome.position.z = 15;
+                dome.position.x = 0;
+                dome.position.z = 0;
                 scene.add(dome);
 
                 // Load Earth
@@ -190,6 +190,33 @@
                     nodeCube.position.x = node.position[0];
                     nodeCube.position.y = 0.2;
                     nodeCube.position.z = node.position[1];
+
+                    for (var j = 0; j < node.connections.length; j++) {
+                        var connectedNote = command.parameters.nodes[node.connections[j]];
+                        var nodeConnectionBar;
+                        if (connectedNote.position[0] == node.position[0]) {    //the x values are the same, z values are difference
+                            geometry = new THREE.CubeGeometry(0.05, 0.05, 0.1);
+                            nodeConnectionBar = new THREE.Mesh(geometry, material);
+                            nodeConnectionBar.position.x = nodeCube.position.x;
+                            if (connectedNote.position[1] - node.position[1] > 0) { // positive z difference
+                                nodeConnectionBar.position.z = nodeCube.position.z + 0.1;
+
+                            } else {
+                                nodeConnectionBar.position.z = nodeCube.position.z - 0.1;
+                            }
+                        } else {
+                            geometry = new THREE.CubeGeometry(0.1, 0.05, 0.05);
+                            nodeConnectionBar = new THREE.Mesh(geometry, material);
+                            nodeConnectionBar.position.z = nodeCube.position.z;
+                            if (connectedNote.position[0] - node.position[0] > 0) { // positive x difference
+                                nodeConnectionBar.position.x = nodeCube.position.x + 0.1;
+                            } else {
+                                nodeConnectionBar.position.x = nodeCube.position.x - 0.1;
+                            }
+                        }
+                        nodeConnectionBar.position.y = 0.2;
+                        gridGroup.add(nodeConnectionBar);
+                    }
 
                     gridGroup.add(nodeCube);
                 }

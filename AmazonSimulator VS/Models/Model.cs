@@ -70,7 +70,7 @@ namespace Models
 
         // logic here:
         Random rnd = new Random();
-        public List<TasksForRobot> tasksForRobot = new List<TasksForRobot>();
+        public List<TaskForRobot> tasksForRobot = new List<TaskForRobot>();
         public List<LogicTask> logicTasks = new List<LogicTask>();
 
         public void Logic()
@@ -95,23 +95,21 @@ namespace Models
                         logicTasks.Add(new RobotTaskRequest((Robot)obj));
                     }
                 }
-                if(obj is ExportVehicle)
+                else if(obj is ExportVehicle)
                 {
                     if (((ExportVehicle)obj).isDone)
                     {
                         SendCommandToObservers(new DeleteModel3DCommand(obj));
-                        
-                        SetVehicleInboundTimer(new ExportVehicleRequest(obj.x,obj.y,obj.z));
-
                         worldObjects.Remove(obj);
+                        SetInboundTimer(new ExportVehicleRequest(obj.x, obj.z));
                     }
                 }
             }
         }
 
-        protected List<System.Timers.Timer> VehicleInboundTimers = new List<System.Timers.Timer>();
+        protected List<System.Timers.Timer> InboundTimers = new List<System.Timers.Timer>();
         
-        protected void SetVehicleInboundTimer(LogicTask task)
+        protected void SetInboundTimer(LogicTask task)
         {
             //default interval
             int interval = 0;   
@@ -120,14 +118,18 @@ namespace Models
             {
                 interval = ((ExportVehicleRequest)task).interval;
             } 
+            if (task is InportVehicleRequest)
+            {
+                interval = ((InportVehicleRequest)task).interval;
+            }
 
             System.Timers.Timer aTimer = new System.Timers.Timer(interval);
-            VehicleInboundTimers.Add(aTimer);
+            InboundTimers.Add(aTimer);
             // Hook up the Elapsed event for the timer. 
             aTimer.Elapsed += (e, v) => {
                 logicTasks.Add(task);
                 aTimer.Dispose();
-                VehicleInboundTimers.Remove(aTimer);
+                InboundTimers.Remove(aTimer);
             };
             aTimer.Enabled = true;
         }

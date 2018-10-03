@@ -9,9 +9,9 @@ namespace Controllers
     public abstract class Command
     {
         private string type;
-        private Object parameters;
+        private System.Object parameters;
 
-        public Command(string type, Object parameters)
+        public Command(string type, System.Object parameters)
         {
             this.type = type;
             this.parameters = parameters;
@@ -28,21 +28,21 @@ namespace Controllers
 
     public abstract class Model3DCommand : Command
     {
-        public Model3DCommand(string type, Object3D parameters) : base(type, parameters)
+        public Model3DCommand(string type, Models.Object3D parameters) : base(type, parameters)
         {
         }
     }
 
     public class UpdateModel3DCommand : Model3DCommand
     {
-        public UpdateModel3DCommand(Object3D parameters) : base("update", parameters)
+        public UpdateModel3DCommand(Models.Object3D parameters) : base("update", parameters)
         {
         }
     }
 
     public class DeleteModel3DCommand : Model3DCommand
     {
-        public DeleteModel3DCommand(Object3D parameters) : base("delete", parameters)
+        public DeleteModel3DCommand(Models.Object3D parameters) : base("delete", parameters)
         {
         }
     }
