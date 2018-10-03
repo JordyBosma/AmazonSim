@@ -59,7 +59,7 @@ namespace Models {
             _nodeGrid.NodesAdd(new double[] { 0, 1 }, new List<int>() { 2, 4, 0 });
             _nodeGrid.NodesAdd(new double[] { 0, 2 }, new List<int>() { 1, 5 });
             _nodeGrid.NodesAdd(new double[] { 1, 0 }, new List<int>() { 0, 6, 4 });
-            _nodeGrid.NodesAdd(new double[] { 1, 1 }, new List<int>() { 3, 5, 7 });
+            _nodeGrid.NodesAdd(new double[] { 1, 1 }, new List<int>() { 1, 3, 5, 7 });
             _nodeGrid.NodesAdd(new double[] { 1, 2 }, new List<int>() { 2, 4, 8 });
             _nodeGrid.NodesAdd(new double[] { 2, 0 }, new List<int>() { 3, 7 });
             _nodeGrid.NodesAdd(new double[] { 2, 1 }, new List<int>() { 4, 6, 8 });
