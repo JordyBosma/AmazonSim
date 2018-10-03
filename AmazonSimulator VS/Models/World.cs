@@ -12,7 +12,7 @@ namespace Models {
             Object3D crate = CreateObject(5, 1, 5, "Crate");
             //Object3D rocket = CreateObject(0, 0, 0, "Export");
             Object3D train = CreateObject(15, 0, 49, "Import");
-            SetVehicleInboundTimer(new ExportVehicleRequest(30, 400, 30));
+            SetInboundTimer(new ExportVehicleRequest(30, 400, 30));
             
             _nodeGrid.NodesAdd(new double[] { 0, 0 }, new List<int>() { 1, 3 });
             _nodeGrid.NodesAdd(new double[] { 0, 1 }, new List<int>() { 2, 4, 0 });
