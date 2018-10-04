@@ -10,6 +10,9 @@ namespace Models {
         public World() {
             Object3D robot = CreateObject(1, 0, 1, "Robot");
             Object3D robot2 = CreateObject(1, 0, -1, "Robot");
+            Object3D robot3 = CreateObject(1, 0, 5, "Robot");
+            Object3D robot4 = CreateObject(1, 0, -1, "Robot");
+            Object3D robot5 = CreateObject(1, 0, 5, "Robot");
             //Object3D crate = CreateObject(-7, 1, -3, "Crate");
             SetInboundTimer(new ExportVehicleRequest(30, 30));
             SetInboundTimer(new ImportVehicleRequest(15, 0, 49, 0, 0.5 * Math.PI, 0));

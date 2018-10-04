@@ -100,9 +100,9 @@ namespace Models
                 {
                     currentTask = dropoffTask;
                     _moveCrate = true;
-                    SetRoute(currentTask[0], currentTask[1]);
                     _pickUpTarget.HandelPickUp();
-                    _pickUpTarget = null;
+                    //_pickUpTarget = null;
+                    SetRoute(currentTask[0], currentTask[1]);  
                 }
                 else
                 {
@@ -112,8 +112,8 @@ namespace Models
                     _isDone = true;
                     _moveCrate = false;
                     _dropOffTarget.HandelDropOff(_pickupCrate);
-                    _dropOffTarget = null;
-                    _pickupCrate = null;
+                    //_dropOffTarget = null;
+                    //_pickupCrate = null;
                 }
             }
         }

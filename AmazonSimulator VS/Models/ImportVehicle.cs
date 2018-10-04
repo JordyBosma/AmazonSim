@@ -11,7 +11,7 @@ namespace Models
         private List<Crate> _importCrates = new List<Crate>(); 
         private bool _isArrived = true;
         private bool _isDone = false;
-        private int picktUpCount;
+        private int picktUpCount = 0;
 
         public List<Crate> importCrates { get { return _importCrates; } }
         public bool isDone { get { return _isDone; } }

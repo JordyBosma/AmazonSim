@@ -41,7 +41,7 @@ namespace Models
         }
     }
 
-    public class StorageNode : Node, DropOffTarget 
+    public class StorageNode : Node, PickUpTarget, DropOffTarget
     {
         private Crate _storedCrate;
         private bool importNode;
@@ -50,12 +50,6 @@ namespace Models
         public StorageNode(double[] position, List<int> connections, int id, bool importNode) : base(position, connections, id)
         {
             this.importNode = importNode;
-        }
-
-        public void AddCrate(Crate crate)
-        {
-            this._storedCrate = crate;
-            reserved = false;
         }
 
         public void ReserveNode()
@@ -85,9 +79,15 @@ namespace Models
             return importNode;
         }
 
+        public void HandelPickUp()
+        {
+            reserved = false;
+        }
+
         public void HandelDropOff(Crate crate)
         {
-            AddCrate(crate);
+            this._storedCrate = crate;
+            reserved = false;
         }
     }
 }

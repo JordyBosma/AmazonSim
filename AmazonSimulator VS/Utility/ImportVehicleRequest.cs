@@ -32,9 +32,9 @@ namespace Utility
             }
             if (importVehicle.CheckArrived())
             {
-                while (cratesBeingHandeld != 0)
+                while (importVehicle.importCrates.Count() != 0)
                 {
-                    Crate crate = importVehicle.importCrates[cratesBeingHandeld - 1];
+                    Crate crate = importVehicle.importCrates[importVehicle.importCrates.Count() - 1];
                     Node emptyStorageNode = null;
                     foreach (Node node in w.nodeGrid.nodes)
                     {
@@ -55,7 +55,7 @@ namespace Utility
                     }
                     w.tasksForRobot.Add(new TaskForRobot(new double[] { -1, -1 }, ((Node)emptyStorageNode).position, crate, (PickUpTarget)importVehicle, (DropOffTarget)emptyStorageNode));
                     w.worldObjects.Add(crate);
-                    cratesBeingHandeld--;
+                    importVehicle.importCrates.RemoveAt(importVehicle.importCrates.Count() - 1);
                 }
                 return false;
             }
