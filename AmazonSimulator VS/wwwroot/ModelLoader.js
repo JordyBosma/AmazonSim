@@ -1,4 +1,6 @@
-﻿class Robot extends THREE.Group {
+﻿"use strict";
+
+class Robot extends THREE.Group {
 
     constructor() {
         super();
@@ -12,12 +14,12 @@
 
         var geometry = new THREE.BoxGeometry(0.9, 0.3, 0.9);
         var cubeMaterials = [
-            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_side.png"), side: THREE.DoubleSide }), //LEFT
-            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_side.png"), side: THREE.DoubleSide }), //RIGHT
-            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_top.png"), side: THREE.DoubleSide }), //TOP
-            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_bottom.png"), side: THREE.DoubleSide }), //BOTTOM
-            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_front.png"), side: THREE.DoubleSide }), //FRONT
-            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_front.png"), side: THREE.DoubleSide }), //BACK
+            new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load("textures/robot_side.png"), side: THREE.DoubleSide }), //LEFT
+            new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load("textures/robot_side.png"), side: THREE.DoubleSide }), //RIGHT
+            new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load("textures/robot_top.png"), side: THREE.DoubleSide }), //TOP
+            new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load("textures/robot_bottom.png"), side: THREE.DoubleSide }), //BOTTOM
+            new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load("textures/robot_front.png"), side: THREE.DoubleSide }), //FRONT
+            new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load("textures/robot_front.png"), side: THREE.DoubleSide }), //BACK
         ];
         var material = new THREE.MeshFaceMaterial(cubeMaterials);
         var model = new THREE.Mesh(geometry, material);
@@ -27,7 +29,7 @@
 }
 
 class Rocket extends THREE.Group {
-    
+
     constructor() {
         super();
 
@@ -77,7 +79,7 @@ class Crate extends THREE.Group {
 
 
         switch (command.parameters.invetory) {
-            
+
             case "MoonMilk":
                 if (command.parameters.refined) {
                     CrateObj = "Crate_Milk_Refined.obj";
@@ -159,9 +161,6 @@ class Sun extends THREE.Group {
 
         loadOBJModel("models/", "Sun.obj", "textures/Materials/", "Sun.mtl", (mesh) => {
             mesh.scale.set(1, 1, 1);
-            //var sunLight = new THREE.DirectionalLight(0xffffff, 0.9);
-            //var sunRadiance = new THREE.PointLight(0xffa500, 110, 300);
-            //mesh.add(sunLight, sunRadiance);
             SelfRef.add(mesh);
         });
     }
@@ -225,6 +224,19 @@ function loadOBJModel(objPath, objName, materialPath, materialName, onload) {
                 .setMaterials(materials)
                 .load(objName, function (object) {
                     onload(object);
+                    //Cast shadows
+                    if (objName != "Sun.obj") {
+                        object.traverse(function (child) {
+                            if (objName != "Dome.obj") {
+                                child.castShadow = true;
+                                child.receiveShadow = true;
+                            }
+                            else {
+                                child.castShadow = true;
+                                child.receiveShadow = false;
+                            }
+                        });
+                    }
                 }, function () { }, function (e) { console.log("Error loading model"); console.log(e); });
         });
 }
