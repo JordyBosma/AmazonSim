@@ -50,10 +50,8 @@ namespace Models
 
         public bool Update(int tick)
         {
-            for (int i = 0; i < worldObjects.Count; i++)            //fix dit!!!!!!!!!!!!!!!!!!!!
+            worldObjects.Where(u =>
             {
-                Object3D u = worldObjects[i];
-
                 if (u is IUpdatable)
                 {
                     bool needsCommand = ((IUpdatable)u).Update(tick);
@@ -63,8 +61,8 @@ namespace Models
                         SendCommandToObservers(new UpdateModel3DCommand(u));
                     }
                 }
-            }
-
+                return false;
+            }).ToList();
             return true;
         }
 
