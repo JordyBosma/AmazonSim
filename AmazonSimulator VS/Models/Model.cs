@@ -50,7 +50,7 @@ namespace Models
 
         public bool Update(int tick)
         {
-            for (int i = 0; i < worldObjects.Count; i++)
+            for (int i = 0; i < worldObjects.Count; i++)            //fix dit!!!!!!!!!!!!!!!!!!!!
             {
                 Object3D u = worldObjects[i];
 
@@ -108,6 +108,25 @@ namespace Models
                     SendCommandToObservers(new DeleteModel3DCommand(obj));
                     worldObjects.Remove(obj);
                     SetInboundTimer(new ImportVehicleRequest(obj.x, obj.y, obj.z, obj.rotationX, obj.rotationY, obj.rotationZ));
+                }
+            } else if (obj is Crate)
+            {
+                if (((Crate)obj).isDone)
+                {
+                    SendCommandToObservers(new DeleteModel3DCommand(obj));
+                    worldObjects.Remove(obj);
+                }
+            } else if (obj is Refinery)
+            {
+                List<Crate> refinedCrates = (Refinery)obj.GetRefinedList();
+                if (refinedCrates.Count() != null)
+                {
+                    refinedCrates.Where(x =>
+                    {
+                        logicTasks.Add(new PickUpRefinedCrateRequest((PickUpTarget)obj, x));
+                        refinedCrates.Remove(x);
+                        return false;
+                    });
                 }
             }
             return true;
