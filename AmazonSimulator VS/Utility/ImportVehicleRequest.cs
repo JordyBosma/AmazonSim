@@ -7,7 +7,7 @@ using Utility;
 
 namespace Utility
 {
-    public class InportVehicleRequest : LogicTask
+    public class ImportVehicleRequest : LogicTask
     {
         private int _interval;
         private ImportVehicle importVehicle;
@@ -15,7 +15,7 @@ namespace Utility
 
         public int interval { get { return _interval; } }
 
-        public InportVehicleRequest(double x, double y, double z, double rotationX, double rotationY, double rotationZ)
+        public ImportVehicleRequest(double x, double y, double z, double rotationX, double rotationY, double rotationZ)
         {
             Random rnd = new Random();
             _interval = rnd.Next(10, 20) * 1000;
@@ -32,16 +32,16 @@ namespace Utility
             }
             if (importVehicle.CheckArrived())
             {
-                while (cratesBeingHandeld != 0)
+                while (importVehicle.importCrates.Count() != 0)
                 {
-                    Crate crate = importVehicle.importCrates[cratesBeingHandeld - 1];
-                    Object emptyStorageNode = null;
+                    Crate crate = importVehicle.importCrates[importVehicle.importCrates.Count() - 1];
+                    Node emptyStorageNode = null;
                     foreach (Node node in w.nodeGrid.nodes)
                     {
 
                         if (node is StorageNode)
                         {
-                            if (((StorageNode)node).CheckImport() && (!((StorageNode)node).GetReserved() && !((StorageNode)node).CheckCrate()))
+                            if (((StorageNode)node).CheckImport() && !((StorageNode)node).GetReserved())
                             {
                                 emptyStorageNode = node;
                                 ((StorageNode)node).ReserveNode();
@@ -53,9 +53,9 @@ namespace Utility
                     {
                         return true;
                     }
-                    w.tasksForRobot.Add(new TaskForRobot(new double[] { crate.x, crate.z }, ((Node)emptyStorageNode).position, crate, (Target)emptyStorageNode));
+                    w.tasksForRobot.Add(new TaskForRobot(new double[] { -1, -1 }, ((Node)emptyStorageNode).position, crate, (PickUpTarget)importVehicle, (DropOffTarget)emptyStorageNode));
                     w.worldObjects.Add(crate);
-                    cratesBeingHandeld--;
+                    importVehicle.importCrates.RemoveAt(importVehicle.importCrates.Count() - 1);
                 }
                 return false;
             }
