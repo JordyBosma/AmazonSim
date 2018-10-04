@@ -24,7 +24,6 @@ namespace Models
         {
             nodes.Add(new StorageNode(position, connections, nodes.Count(), importNode));
         }
-
     }
 
     public class Node
