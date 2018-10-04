@@ -40,7 +40,7 @@ namespace Models
         }
     }
 
-    public class StorageNode : Node, Target 
+    public class StorageNode : Node, PickUpTarget, DropOffTarget
     {
         private Crate _storedCrate;
         private bool importNode;
@@ -51,12 +51,6 @@ namespace Models
             this.importNode = importNode;
         }
 
-        public void AddCrate(Crate crate)
-        {
-            this._storedCrate = crate;
-            reserved = false;
-        }
-
         public void ReserveNode()
         {
             reserved = true;
@@ -64,9 +58,7 @@ namespace Models
 
         public Crate GetCrate()
         {
-            Crate returnCrate = this._storedCrate;
-            this._storedCrate = null;
-            return returnCrate;
+            return _storedCrate;
         }
 
         public bool GetReserved()
@@ -84,9 +76,14 @@ namespace Models
             return importNode;
         }
 
-        public void HandelCrate(Crate crate)
+        public void HandelPickUp()
         {
-            AddCrate(crate);
+            reserved = false;
+        }
+
+        public void HandelDropOff(Crate crate)
+        {
+            this._storedCrate = crate;
         }
     }
 }

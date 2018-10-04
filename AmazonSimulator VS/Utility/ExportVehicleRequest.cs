@@ -22,7 +22,6 @@ namespace Utility
         {
             Random rnd = new Random();
             _interval = rnd.Next(89, 180) * 1000;
-            //_interval = rnd.Next(20, 30) * 1000;
             _x = x;
             _y = 400;
             _z = z;

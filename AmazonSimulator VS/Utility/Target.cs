@@ -6,8 +6,13 @@ using Models;
 
 namespace Utility
 {
-    public interface Target
+    public interface DropOffTarget
     {
-        void HandelCrate(Crate crate);
+        void HandelDropOff(Crate crate);
+    }
+
+    public interface PickUpTarget
+    {
+        void HandelPickUp();
     }
 }
