@@ -24,6 +24,12 @@ namespace Models
             _invetory = pInvetory[random.Next(5)];
         }
 
+        public Crate(double x, double y, double z, int weight, string invetory) : base(x, y, z, 0, 0, 0, "Crate")
+        {
+            this._weight = weight;
+            this._invetory = invetory;
+        }
+
         public void Refine()
         {
             _refined = true;
