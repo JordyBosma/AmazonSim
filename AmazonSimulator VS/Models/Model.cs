@@ -85,8 +85,6 @@ namespace Models
 
         public bool GetTasks(Object3D obj)
         {
-            //foreach (Object3D obj in worldObjects)
-            //{
             if(obj is Robot)
             {
                 if (((Robot)obj).isDone)
@@ -112,7 +110,6 @@ namespace Models
                     SetInboundTimer(new ImportVehicleRequest(obj.x, obj.y, obj.z, obj.rotationX, obj.rotationY, obj.rotationZ));
                 }
             }
-            //}
             return true;
         }
 

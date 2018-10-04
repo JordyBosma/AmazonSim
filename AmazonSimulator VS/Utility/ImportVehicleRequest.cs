@@ -41,7 +41,7 @@ namespace Utility
 
                         if (node is StorageNode)
                         {
-                            if (((StorageNode)node).CheckImport() && (!((StorageNode)node).GetReserved() && !((StorageNode)node).CheckCrate()))
+                            if (((StorageNode)node).CheckImport() && !((StorageNode)node).GetReserved())
                             {
                                 emptyStorageNode = node;
                                 ((StorageNode)node).ReserveNode();

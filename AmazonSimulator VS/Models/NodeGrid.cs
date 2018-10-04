@@ -59,9 +59,7 @@ namespace Models
 
         public Crate GetCrate()
         {
-            Crate returnCrate = this._storedCrate;
-            this._storedCrate = null;
-            return returnCrate;
+            return _storedCrate;
         }
 
         public bool GetReserved()
@@ -87,7 +85,6 @@ namespace Models
         public void HandelDropOff(Crate crate)
         {
             this._storedCrate = crate;
-            reserved = false;
         }
     }
 }
