@@ -10,10 +10,12 @@ namespace Models
         private int _weight;
         private string _invetory;
         private bool _refined = false;
+        private bool _isDone = false;
 
         public int weight { get { return _weight; } }
         public string invetory { get { return _invetory; } }
         public bool refined { get { return _refined; } }
+        public bool isDone { get { return _isDone; } }
 
         public Crate(double x, double y, double z) : base(x, y, z, 0, 0, 0, "Crate")
         {
@@ -24,15 +26,16 @@ namespace Models
             _invetory = pInvetory[random.Next(5)];
         }
 
-        public Crate(double x, double y, double z, int weight, string invetory) : base(x, y, z, 0, 0, 0, "Crate")
+        public Crate(double x, double y, double z, int weight, string invetory, bool refined) : base(x, y, z, 0, 0, 0, "Crate")
         {
             this._weight = weight;
             this._invetory = invetory;
+            this._refined = refined;
         }
 
         public void Refine()
         {
-            _refined = true;
+            _isDone = true;
         }
 
         public override void Move(double x, double y, double z)
