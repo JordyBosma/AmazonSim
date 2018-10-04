@@ -101,7 +101,8 @@ namespace Models
                     worldObjects.Remove(obj);
                     SetInboundTimer(new ExportVehicleRequest(obj.x, obj.z));
                 }
-            } else if (obj is ImportVehicle)
+            }
+            else if (obj is ImportVehicle)
             {
                 if (((ImportVehicle)obj).isDone)
                 {
@@ -109,14 +110,16 @@ namespace Models
                     worldObjects.Remove(obj);
                     SetInboundTimer(new ImportVehicleRequest(obj.x, obj.y, obj.z, obj.rotationX, obj.rotationY, obj.rotationZ));
                 }
-            } else if (obj is Crate)
+            }
+            else if (obj is Crate)
             {
                 if (((Crate)obj).isDone)
                 {
                     SendCommandToObservers(new DeleteModel3DCommand(obj));
                     worldObjects.Remove(obj);
                 }
-            } else if (obj is Refinery)
+            }
+            else if (obj is Refinery)
             {
                 List<Crate> refinedCrates = ((Refinery)obj).GetRefinedList();
                 if (refinedCrates.Count() != 0)
@@ -126,7 +129,7 @@ namespace Models
                         logicTasks.Add(new PickUpRefinedCrateRequest((PickUpTarget)obj, x));
                         refinedCrates.Remove(x);
                         return false;
-                    });
+                    }).ToList();
                 }
             }
             return true;
