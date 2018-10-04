@@ -118,8 +118,8 @@ namespace Models
                 }
             } else if (obj is Refinery)
             {
-                List<Crate> refinedCrates = (Refinery)obj.GetRefinedList();
-                if (refinedCrates.Count() != null)
+                List<Crate> refinedCrates = ((Refinery)obj).GetRefinedList();
+                if (refinedCrates.Count() != 0)
                 {
                     refinedCrates.Where(x =>
                     {

@@ -12,7 +12,7 @@ namespace Utility
         private List<Crate> unrefined = new List<Crate>();
         private List<Crate> refined = new List<Crate>();
         private int refinedCratesCount = 0;
-        private int tick = 0;
+        private int _tick = 0;
 
         public Refinery(double x, double y, double z, double rotationX, double rotationY, double rotationZ) : base(x, y, z, rotationX, rotationY, rotationZ, "Refinery")
         {
@@ -26,7 +26,6 @@ namespace Utility
         public void HandelDropOff(Crate crate)
         {
             unrefined.Add(crate);
-
         }
 
         public void HandelPickUp()
@@ -38,7 +37,7 @@ namespace Utility
         {
             int weight = unrefined[0].weight;
             string type = unrefined[0].type;
-            Crate refinedCrate = new Crate(18, 0, 18, weight, type, true);
+            Crate refinedCrate = new Crate(1, 0, 1, weight, type, true);
             refined.Add(refinedCrate);
             unrefined[0].Refine();
             unrefined.RemoveAt(0);
@@ -48,15 +47,15 @@ namespace Utility
         {
             if(unrefined.Count() != 0 && refinedCratesCount < 5)
             {
-                tick++;
-                if(tick == 100)
+                _tick++;
+                if(_tick == 100)
                 {
                     RefineCrate();
                     refinedCratesCount++;
-                    tick = 0;
+                    _tick = 0;
                 }
             }
-            return false;
+            return base.Update(tick);
         }
     }
 }
