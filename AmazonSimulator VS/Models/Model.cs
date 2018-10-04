@@ -78,7 +78,6 @@ namespace Models
             {
                 logicTasks = logicTasks.Where(x => x != null ? x.RunTask(this) : false).ToList();
             }
-
         }
 
         public bool GetTasks(Object3D obj)

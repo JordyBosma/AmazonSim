@@ -270,8 +270,18 @@ namespace Models {
             _nodeGrid.NodesAdd(new double[] { 18, -12 }, new List<int>() { 110, 114 });
             _nodeGrid.NodesAdd(new double[] { 18, 5 }, new List<int>() { 147, 8 });
             _nodeGrid.NodesAdd(new double[] { 18, 12 }, new List<int>() { 5, 9});
+
+            foreach (Node n in nodeGrid.nodes)
+            {
+                if(n is StorageNode)
+                {
+                    CreateObject(n.position[0], 0 , n.position[1], "Shelf");
+                }
+            }
         }
         
+        
+
         private Object3D CreateObject(double x, double y, double z, string type) {
             switch (type)
             {
@@ -291,6 +301,10 @@ namespace Models {
                     Object3D c = new Crate(x, y, z);
                     worldObjects.Add(c);
                     return c;
+                case "Shelf":
+                    Object3D s = new StationaryObject(x, y, z, 0, 0, 0, "Shelf");
+                    worldObjects.Add(s);
+                    return s;
                 default:
                     throw new ArgumentException("there is no model that corresponds with that type");
             }
