@@ -18,7 +18,7 @@ namespace Utility
         public ImportVehicleRequest(double x, double y, double z, double rotationX, double rotationY, double rotationZ)
         {
             Random rnd = new Random();
-            _interval = rnd.Next(10, 20) * 1000;
+            _interval = rnd.Next(30, 70) * 1000;
             importVehicle = new ImportVehicle(x, y, z, rotationX, rotationY, rotationZ);
         }
 
@@ -51,15 +51,15 @@ namespace Utility
                     }
                     if (emptyStorageNode == null)
                     {
-                        return true;
+                        return false;
                     }
                     w.tasksForRobot.Add(new TaskForRobot(new double[] { -1, -1 }, ((Node)emptyStorageNode).position, crate, (PickUpTarget)importVehicle, (DropOffTarget)emptyStorageNode));
                     w.worldObjects.Add(crate);
                     importVehicle.importCrates.RemoveAt(importVehicle.importCrates.Count() - 1);
                 }
-                return false;
+                return true;
             }
-            return true;
+            return false;
             
         }
     }

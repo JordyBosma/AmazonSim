@@ -32,7 +32,7 @@ namespace Utility
             ExportVehicle exportVehicle = new ExportVehicle(x, y, z);
             w.worldObjects.Add(exportVehicle);
             exportVehicle.Move(exportVehicle.x, exportVehicle.y, exportVehicle.z);
-            return false;
+            return true;
         }
     }
 }

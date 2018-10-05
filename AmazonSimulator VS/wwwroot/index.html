@@ -134,7 +134,7 @@
 
                 // Load Scene light:
                 var light = new THREE.AmbientLight(0x404040);
-                light.intensity = 0.3;
+                light.intensity = 1;
                 scene.add(light);
             }
 
@@ -153,7 +153,8 @@
             }
 
             // Set up socket with link to server:
-            Socket = new WebSocket("ws://" + window.location.hostname + ":" + window.location.port + "/connect_client");
+            //Socket = new WebSocket("ws://" + window.location.hostname + ":" + window.location.port + "/connect_client");
+            Socket = new ReconnectingWebSocket("ws://" + window.location.hostname + ":" + window.location.port + "/connect_client");
 
             /**
              * Processes incoming message
@@ -161,7 +162,7 @@
              */
             Socket.onmessage = function (event) {
                 var command = parseCommand(event.data);
-                console.log(command);
+                //console.log(command);
                 if (command.command == "update") {
                     if (Object.keys(worldObjects).indexOf(command.parameters.guid) < 0) {
                         var group = new THREE.Group();
@@ -267,7 +268,7 @@
             animate();
         }
     </script>
-
+    <script src="reconnecting-websocket.min.js"></script>
     <script src="three.min.js"></script>
     <script src="OrbitControls.js"></script>
     <script src="OBJLoader.js"></script>
