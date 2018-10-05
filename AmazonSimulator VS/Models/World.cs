@@ -278,19 +278,19 @@ namespace Models {
             _nodeGrid.NodesAdd(new double[] { 1, -25 }, new List<int>() { 153 }); // export dropoff
             _nodeGrid.NodesAdd(new double[] { -1, -25 }, new List<int>() { 74 });
 
-            _nodeGrid.NodesAdd(new double[] { 20, -1 }, new List<int>() { 111 });
-            _nodeGrid.NodesAdd(new double[] { 20, -3 }, new List<int>() { 162 });
-            _nodeGrid.NodesAdd(new double[] { 20, -5 }, new List<int>() { 144 });
-            _nodeGrid.NodesAdd(new double[] { 20, -7 }, new List<int>() { 163 });
-            _nodeGrid.NodesAdd(new double[] { 20, 1 }, new List<int>() { 6 });
-            _nodeGrid.NodesAdd(new double[] { 20, 3 }, new List<int>() { 164 });
-            _nodeGrid.NodesAdd(new double[] { 20, 5 }, new List<int>() { 146 });
-            _nodeGrid.NodesAdd(new double[] { 20, 7 }, new List<int>() { 165 });
+            //_nodeGrid.NodesAdd(new double[] { 20, -1 }, new List<int>() { 111 });
+            //_nodeGrid.NodesAdd(new double[] { 20, -3 }, new List<int>() { 162 });
+            //_nodeGrid.NodesAdd(new double[] { 20, -5 }, new List<int>() { 144 });
+            //_nodeGrid.NodesAdd(new double[] { 20, -7 }, new List<int>() { 163 });
+            //_nodeGrid.NodesAdd(new double[] { 20, 1 }, new List<int>() { 6 });
+            //_nodeGrid.NodesAdd(new double[] { 20, 3 }, new List<int>() { 164 });
+            //_nodeGrid.NodesAdd(new double[] { 20, 5 }, new List<int>() { 146 });
+            //_nodeGrid.NodesAdd(new double[] { 20, 7 }, new List<int>() { 165 });
 
-            _nodeGrid.NodesAdd(new double[] { 18, -3 }, new List<int>() { 144 }); //index 162
-            _nodeGrid.NodesAdd(new double[] { 18, -7 }, new List<int>() { 145 });
-            _nodeGrid.NodesAdd(new double[] { 18, 3 }, new List<int>() { 6 }); //index 164
-            _nodeGrid.NodesAdd(new double[] { 18, 7 }, new List<int>() {  146 });
+            //_nodeGrid.NodesAdd(new double[] { 18, -3 }, new List<int>() { 144 }); //index 162
+            //_nodeGrid.NodesAdd(new double[] { 18, -7 }, new List<int>() { 145 });
+            //_nodeGrid.NodesAdd(new double[] { 18, 3 }, new List<int>() { 6 }); //index 164
+            //_nodeGrid.NodesAdd(new double[] { 18, 7 }, new List<int>() {  146 });
 
             foreach (Node n in nodeGrid.nodes)
             {
