@@ -35,9 +35,7 @@ namespace Utility
 
         public void RefineCrate()
         {
-            int weight = unrefined[0].weight;
-            string inventory = unrefined[0].invetory;
-            Crate refinedCrate = new Crate(-1, 0, 1, weight, inventory, true);
+            Crate refinedCrate = new Crate(-1, 0, 1, unrefined[0].weight, unrefined[0].invetory, true);
             refined.Add(refinedCrate);
             unrefined[0].Refine();
             unrefined.RemoveAt(0);
