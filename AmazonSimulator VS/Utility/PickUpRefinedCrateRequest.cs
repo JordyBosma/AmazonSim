@@ -36,12 +36,12 @@ namespace Utility
             }
             if (emptyStorageNode == null)
             {
-                return true;
+                return false;
             }
             w.tasksForRobot.Add(new TaskForRobot(new double[] { 18, 18 }, ((Node)emptyStorageNode).position, crate, refinery, (DropOffTarget)emptyStorageNode));
             w.worldObjects.Add(crate);
             crate.Move(crate.x, crate.y, crate.z);
-            return false;
+            return true;
         }
     }
 }

@@ -88,7 +88,7 @@ namespace Models
                 currentTask = pickupTask;
             }
 
-            if (currentTask.Count != 1)
+            if (currentTask.Count > 1)
             {
                 _pointOne = currentTask[0];
                 _pointTwo = currentTask[1];
