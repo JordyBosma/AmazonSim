@@ -9,12 +9,12 @@ namespace Models {
     {
         public World() {
             Object3D robot = CreateObject(1, 0, 1, "Robot");
-            ((Robot)robot).SetIsDone();
+            //((Robot)robot).SetIsDone();
             Object3D robot2 = CreateObject(1, 0, -1, "Robot");
             Object3D robot3 = CreateObject(1, 0, 5, "Robot");
             Object3D robot4 = CreateObject(1, 0, -1, "Robot");
             Object3D robot5 = CreateObject(1, 0, 5, "Robot");
-            Object3D crate = CreateObject(-7, 1, -3, "Crate");
+            //Object3D crate = CreateObject(-7, 1, -3, "Crate");
             SetInboundTimer(new ExportVehicleRequest(30, 30));
             SetInboundTimer(new ImportVehicleRequest(15, 0, 49, 0, 0.5 * Math.PI, 0));
             Refinery refinery = new Refinery(0, 0, 0, 0, 0, 0);
@@ -71,7 +71,7 @@ namespace Models {
 
             // outer circle
             _nodeGrid.NodesAdd(new double[] { 18, 18 }, new List<int>() { 147 }); // corner
-            _nodeGrid.NodesAdd(new double[] { 18, 1 }, new List<int>() { 111 }); //
+            _nodeGrid.NodesAdd(new double[] { 18, 1 }, new List<int>() { 111, 158 }); //
 
             // inner circle
             _nodeGrid.NodesAdd(new double[] { 16, 1 }, new List<int>() { 8, 6 }); // corner
@@ -221,7 +221,7 @@ namespace Models {
 
             // outer circle
             _nodeGrid.NodesAdd(new double[] { 18, -18 }, new List<int>() { 109 }); // corner
-            _nodeGrid.NodesAdd(new double[] { 18, -1 }, new List<int>() { 144, 112 }); //
+            _nodeGrid.NodesAdd(new double[] { 18, -1 }, new List<int>() { 162, 112, 154 });
 
             // inner circle
             _nodeGrid.NodesAdd(new double[] { 16, -1 }, new List<int>() { 105, 7 }); // corner
@@ -266,10 +266,10 @@ namespace Models {
             _nodeGrid.NodesAdd(new double[] { -18, -12 }, new List<int>() { 140, 79 });
             _nodeGrid.NodesAdd(new double[] { -18, 5 }, new List<int>() { 143, 43 });
             _nodeGrid.NodesAdd(new double[] { -18, 12 }, new List<int>() { 40, 44 });
-            _nodeGrid.NodesAdd(new double[] { 18, -5 }, new List<int>() { 145, 113 });
+            _nodeGrid.NodesAdd(new double[] { 18, -5 }, new List<int>() { 163, 113, 156 });
             _nodeGrid.NodesAdd(new double[] { 18, -12 }, new List<int>() { 110, 114 });
-            _nodeGrid.NodesAdd(new double[] { 18, 5 }, new List<int>() { 6, 8 });
-            _nodeGrid.NodesAdd(new double[] { 18, 12 }, new List<int>() { 146, 9 });
+            _nodeGrid.NodesAdd(new double[] { 18, 5 }, new List<int>() { 164, 8, 160 });
+            _nodeGrid.NodesAdd(new double[] { 18, 12 }, new List<int>() { 165, 9 });
 
             _nodeGrid.NodesAdd(new double[] { -1, 25 }, new List<int>() { 149 }); // import index 148
             _nodeGrid.NodesAdd(new double[] { 1, 25 }, new List<int>() { 4 });
@@ -278,19 +278,19 @@ namespace Models {
             _nodeGrid.NodesAdd(new double[] { 1, -25 }, new List<int>() { 153 }); // export dropoff
             _nodeGrid.NodesAdd(new double[] { -1, -25 }, new List<int>() { 74 });
 
-            //_nodeGrid.NodesAdd(new double[] { 20, -1 }, new List<int>() { 111 });
-            //_nodeGrid.NodesAdd(new double[] { 20, -3 }, new List<int>() { 162 });
-            //_nodeGrid.NodesAdd(new double[] { 20, -5 }, new List<int>() { 144 });
-            //_nodeGrid.NodesAdd(new double[] { 20, -7 }, new List<int>() { 163 });
-            //_nodeGrid.NodesAdd(new double[] { 20, 1 }, new List<int>() { 6 });
-            //_nodeGrid.NodesAdd(new double[] { 20, 3 }, new List<int>() { 164 });
-            //_nodeGrid.NodesAdd(new double[] { 20, 5 }, new List<int>() { 146 });
-            //_nodeGrid.NodesAdd(new double[] { 20, 7 }, new List<int>() { 165 });
+            _nodeGrid.NodesAdd(new double[] { 20, -1 }, new List<int>() { 111 }); // index 154
+            _nodeGrid.NodesAdd(new double[] { 20, -3 }, new List<int>() { 162 });
+            _nodeGrid.NodesAdd(new double[] { 20, -5 }, new List<int>() { 144 });
+            _nodeGrid.NodesAdd(new double[] { 20, -7 }, new List<int>() { 163 });
+            _nodeGrid.NodesAdd(new double[] { 20, 1 }, new List<int>() { 6 });
+            _nodeGrid.NodesAdd(new double[] { 20, 3 }, new List<int>() { 164 });
+            _nodeGrid.NodesAdd(new double[] { 20, 5 }, new List<int>() { 146 });
+            _nodeGrid.NodesAdd(new double[] { 20, 7 }, new List<int>() { 165 });
 
-            //_nodeGrid.NodesAdd(new double[] { 18, -3 }, new List<int>() { 144 }); //index 162
-            //_nodeGrid.NodesAdd(new double[] { 18, -7 }, new List<int>() { 145 });
-            //_nodeGrid.NodesAdd(new double[] { 18, 3 }, new List<int>() { 6 }); //index 164
-            //_nodeGrid.NodesAdd(new double[] { 18, 7 }, new List<int>() {  146 });
+            _nodeGrid.NodesAdd(new double[] { 18, -3 }, new List<int>() { 144, 155 }); //index 162
+            _nodeGrid.NodesAdd(new double[] { 18, -7 }, new List<int>() { 145, 157 });
+            _nodeGrid.NodesAdd(new double[] { 18, 3 }, new List<int>() { 6, 159 }); //index 164
+            _nodeGrid.NodesAdd(new double[] { 18, 7 }, new List<int>() { 146, 161 });
 
             foreach (Node n in nodeGrid.nodes)
             {
