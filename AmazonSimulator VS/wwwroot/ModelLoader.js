@@ -24,6 +24,7 @@ class Robot extends THREE.Group {
         var material = new THREE.MeshFaceMaterial(cubeMaterials);
         var model = new THREE.Mesh(geometry, material);
         model.position.y = 0.151;
+        model.castShadow = true;
         SelfRef.add(model);
     }
 }
@@ -214,6 +215,15 @@ class Dome extends THREE.Group {
         var SelfRef = this;
 
         loadOBJModel("models/", "Dome.obj", "textures/Materials/", "Dome.mtl", (mesh) => {
+            //var intensity = 1.7;
+            //var reach = 16;
+
+            //var domeLight = new THREE.SpotLight(0xffffff, intensity, reach);
+            //domeLight.position.set(9, 10, -9);
+            //domeLight.target.position.set(domeLight.position.x, 0, domeLight.position.z);
+            //dome.add(domeLight.target, domeLight);
+            //scene.add(dome);
+
             mesh.scale.set(1, 1, 1);
             SelfRef.add(mesh);
         });
@@ -245,13 +255,13 @@ function loadOBJModel(objPath, objName, materialPath, materialName, onload) {
                     //Cast shadows
                     if (objName != "Sun.obj") {
                         object.traverse(function (child) {
-                            if (objName != "Dome.obj") {
+                            if (objName == "Dome.obj") {
                                 child.castShadow = true;
-                                child.receiveShadow = true;
+                                child.receiveShadow = false;
                             }
                             else {
                                 child.castShadow = true;
-                                child.receiveShadow = false;
+                                child.receiveShadow = true;
                             }
                         });
                     }

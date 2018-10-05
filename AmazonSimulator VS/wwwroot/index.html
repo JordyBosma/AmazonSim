@@ -94,9 +94,10 @@
                 dome.position.x = 0;
                 dome.position.z = 0;
                 // Load domelight
-                var domeLight = new THREE.PointLight(0xffffff, 20, 1);
-                domeLight.position.set(0, 8, 0);
-                dome.add(domeLight);
+                var domeLight = new THREE.SpotLight(0xffffff, 1.7, 16);
+                domeLight.position.set(9, 10, -9);
+                domeLight.target.position.set(domeLight.position.x, 0, domeLight.position.z);
+                dome.add(domeLight.target, domeLight);
                 scene.add(dome);
 
                 // Load Earth
@@ -106,20 +107,23 @@
                 earth.position.y = 300;
                 scene.add(earth);
 
-                // Load Sun
+                // Create sun
                 var sun = new Sun;
                 sun.position.x = -500;
                 sun.position.z = -500;
                 sun.position.y = 300;
+
                 // Create Sunlight
                 var sunlight = new THREE.DirectionalLight(0xffffff, 0.5);
-                sunlight.shadowCameraVisible = true; //Debug purposes
                 sunlight.target.position.set(0, 0, 0);
+
+                // Create sunlight shadows
                 sunlight.castShadow = true;
                 sunlight.shadowDarkness = 0.5;
                 sunlight.shadowMapWidth = sunlight.shadowMapHeight = 2048;
+                sunlight.bias = -0.001;
 
-                var d = 1000;
+                var d = 25;
 
                 sunlight.shadowCameraLeft = -d;
                 sunlight.shadowCameraRight = d;
@@ -129,13 +133,20 @@
                 sunlight.shadowCameraNear = 0.1;
                 sunlight.shadowCameraFar = 10000;
 
+                // Create sun glow
+                var sunGlow = new THREE.SpotLight(0xffffff, 2.5, 100);
+                sunGlow.position.set(-200, 170, -200);
+                sunGlow.target.position.set(sun.position.x, sun.position.y + 400, sun.position.z);
+
+                // Load sun and its lights
                 sun.add(sunlight);
                 scene.add(sun);
+                scene.add(sunGlow.target, sunGlow);
 
                 // Load Scene light:
-                var light = new THREE.AmbientLight(0x404040);
-                light.intensity = 1;
-                scene.add(light);
+                var ambientLight = new THREE.AmbientLight(0x404040);
+                ambientLight.intensity = 0.8;
+                scene.add(ambientLight);
             }
 
             /** Triggered on window size chance by javascript */
