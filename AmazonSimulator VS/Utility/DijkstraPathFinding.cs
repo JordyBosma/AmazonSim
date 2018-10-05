@@ -62,7 +62,7 @@ namespace Utility
             }
             else
             {
-                return null;
+                return new List<double[]>();
             }
         }
 
