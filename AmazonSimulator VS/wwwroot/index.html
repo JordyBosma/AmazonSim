@@ -63,13 +63,13 @@
                 plane.receiveShadow = true;
                 scene.add(plane);
 
-                // Load FooBar cube
-                var Foo = new THREE.CubeGeometry(50, 50, 50);
-                var Bar = new THREE.MeshPhongMaterial({ color: 0xffffff });
-                var FooBar = new THREE.Mesh(Foo, Bar);
-                FooBar.position.set(100, 50, 100);
-                FooBar.castShadow = true;
-                scene.add(FooBar);
+                //// Load FooBar cube
+                //var Foo = new THREE.CubeGeometry(50, 50, 50);
+                //var Bar = new THREE.MeshPhongMaterial({ color: 0xffffff });
+                //var FooBar = new THREE.Mesh(Foo, Bar);
+                //FooBar.position.set(100, 50, 100);
+                //FooBar.castShadow = true;
+                //scene.add(FooBar);
 
                 // Load Box skybox
                 var imagePrefix = "textures/bkg3_";
@@ -94,8 +94,8 @@
                 dome.position.x = 0;
                 dome.position.z = 0;
                 // Load domelight
-                var domeLight = new THREE.PointLight(0xffffff, 50, 1);
-                domeLight.position.set(0, 15, 0);
+                var domeLight = new THREE.PointLight(0xffffff, 20, 1);
+                domeLight.position.set(0, 8, 0);
                 dome.add(domeLight);
                 scene.add(dome);
 
@@ -111,13 +111,13 @@
                 sun.position.x = -500;
                 sun.position.z = -500;
                 sun.position.y = 300;
-                //sun.castShadow = true;
                 // Create Sunlight
                 var sunlight = new THREE.DirectionalLight(0xffffff, 0.5);
                 sunlight.shadowCameraVisible = true; //Debug purposes
+                sunlight.position.set(sun.position);
                 sunlight.target.position.set(0, 0, 0);
                 sunlight.castShadow = true;
-                sunlight.shadowDarkness = 0.4;
+                sunlight.shadowDarkness = 0.5;
                 sunlight.shadowMapWidth = sunlight.shadowMapHeight = 2048;
 
                 var d = 1000;
