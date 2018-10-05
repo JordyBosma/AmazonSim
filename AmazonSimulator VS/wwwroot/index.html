@@ -114,6 +114,7 @@
                 // Create Sunlight
                 var sunlight = new THREE.DirectionalLight(0xffffff, 0.5);
                 sunlight.shadowCameraVisible = true; //Debug purposes
+                sunlight.position.set(sun.position);
                 sunlight.target.position.set(0, 0, 0);
                 sunlight.castShadow = true;
                 sunlight.shadowDarkness = 0.5;
