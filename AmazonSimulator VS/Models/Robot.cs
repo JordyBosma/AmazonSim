@@ -111,7 +111,6 @@ namespace Models
                     _isMoving = false;
                     _isDone = true;
                     _moveCrate = false;
-                    //_pickupCrate.Move(dropOffTarget.)
                     _dropOffTarget.HandelDropOff(_pickupCrate);
                     //_dropOffTarget = null;
                     //_pickupCrate = null;
