@@ -74,9 +74,23 @@ namespace Models
         public void Logic()
         {
             worldObjects.Where(x => GetTasks(x)).ToList();
-            if(logicTasks.Count() != 0)
+            if (logicTasks.Count() != 0)
             {
-                logicTasks = logicTasks.Where(x => x != null ? x.RunTask(this) : false).ToList();
+                //logicTasks.AddRange(logicTasks.Where(x => if (x != null) { logicTasks.Remove(x); return x.RunTask(this); } else { return false; } ).ToList());
+                logicTasks.AddRange(logicTasks.Where(x => TryRunTask(x)).ToList());
+            }
+        }
+
+        public bool TryRunTask(LogicTask task)
+        {
+            if (task == null)
+            {
+                logicTasks.Remove(null);
+                return false;
+            } else
+            {
+                logicTasks.Remove(task);
+                return task.RunTask(this);
             }
         }
 
@@ -153,8 +167,8 @@ namespace Models
             // Hook up the Elapsed event for the timer. 
             aTimer.Elapsed += (e, v) => {
                 logicTasks.Add(task);
-                aTimer.Dispose();
                 InboundTimers.Remove(aTimer);
+                aTimer.Dispose();
             };
             aTimer.Enabled = true;
         }
