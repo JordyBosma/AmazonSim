@@ -14,7 +14,8 @@ namespace Models
         private List<double[]> currentTask;
 
         private Crate _pickupCrate;
-        private Target _target;
+        private DropOffTarget _dropOffTarget;
+        private PickUpTarget _pickUpTarget;
         private double[] _pointOne = new double[2];
         private double[] _pointTwo = new double[2];
         private double _endPos = 0;
@@ -28,10 +29,11 @@ namespace Models
         private double _rotation = 0;
         private bool _moveCrate = false;
 
-        private bool _isDone = false;
+        private bool _isDone = true;
 
         public Crate pickupCrate { get { return _pickupCrate; } }
-        public Target target { get { return _target; } }
+        public DropOffTarget dropOffTarget { get { return _dropOffTarget; } }
+        public PickUpTarget pickUpTarget { get { return _pickUpTarget; } }
         public double[] pointOne { get { return _pointOne; } }
         public double[] pointTwo { get { return _pointTwo; } }
         public double endPos { get { return _endPos; } }
@@ -74,7 +76,8 @@ namespace Models
             pickupTask = rt.pickupTask;
             dropoffTask = rt.dropoffTask;
             _pickupCrate = rt.pickupCrate;
-            _target = rt.target;
+            _pickUpTarget = rt.pickUpTarget;
+            _dropOffTarget = rt.dropOffTarget;
             HandleTask();
         }
 
@@ -97,7 +100,9 @@ namespace Models
                 {
                     currentTask = dropoffTask;
                     _moveCrate = true;
-                    SetRoute(currentTask[0], currentTask[1]);
+                    _pickUpTarget.HandelPickUp();
+                    //_pickUpTarget = null;
+                    SetRoute(currentTask[0], currentTask[1]);  
                 }
                 else
                 {
@@ -105,6 +110,10 @@ namespace Models
                     _movementAxis = "";
                     _isMoving = false;
                     _isDone = true;
+                    _moveCrate = false;
+                    _dropOffTarget.HandelDropOff(_pickupCrate);
+                    //_dropOffTarget = null;
+                    //_pickupCrate = null;
                 }
             }
         }

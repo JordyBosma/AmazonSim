@@ -75,36 +75,42 @@ namespace Models
 
         public void Logic()
         {
-            GetTasks();
+            worldObjects.Where(x => GetTasks(x)).ToList();
             if(logicTasks.Count() != 0)
             {
-                logicTasks = logicTasks.Where(x => x.RunTask(this)).ToList();
+                logicTasks = logicTasks.Where(x => x != null ? x.RunTask(this) : false).ToList();
             }
 
         }
 
-        public void GetTasks()
+        public bool GetTasks(Object3D obj)
         {
-            foreach (Object3D obj in worldObjects)
+            if(obj is Robot)
             {
-                if(obj is Robot)
+                if (((Robot)obj).isDone)
                 {
-                    if (((Robot)obj).isDone)
-                    {
-                        ((Robot)obj).SetIsDone();
-                        logicTasks.Add(new RobotTaskRequest((Robot)obj));
-                    }
-                }
-                else if(obj is ExportVehicle)
-                {
-                    if (((ExportVehicle)obj).isDone)
-                    {
-                        SendCommandToObservers(new DeleteModel3DCommand(obj));
-                        worldObjects.Remove(obj);
-                        SetInboundTimer(new ExportVehicleRequest(obj.x, obj.z));
-                    }
+                    ((Robot)obj).SetIsDone();
+                    logicTasks.Add(new RobotTaskRequest((Robot)obj));
                 }
             }
+            else if(obj is ExportVehicle)
+            {
+                if (((ExportVehicle)obj).isDone)
+                {
+                    SendCommandToObservers(new DeleteModel3DCommand(obj));
+                    worldObjects.Remove(obj);
+                    SetInboundTimer(new ExportVehicleRequest(obj.x, obj.z));
+                }
+            } else if (obj is ImportVehicle)
+            {
+                if (((ImportVehicle)obj).isDone)
+                {
+                    SendCommandToObservers(new DeleteModel3DCommand(obj));
+                    worldObjects.Remove(obj);
+                    SetInboundTimer(new ImportVehicleRequest(obj.x, obj.y, obj.z, obj.rotationX, obj.rotationY, obj.rotationZ));
+                }
+            }
+            return true;
         }
 
         protected List<System.Timers.Timer> InboundTimers = new List<System.Timers.Timer>();
@@ -118,9 +124,9 @@ namespace Models
             {
                 interval = ((ExportVehicleRequest)task).interval;
             } 
-            if (task is InportVehicleRequest)
+            if (task is ImportVehicleRequest)
             {
-                interval = ((InportVehicleRequest)task).interval;
+                interval = ((ImportVehicleRequest)task).interval;
             }
 
             System.Timers.Timer aTimer = new System.Timers.Timer(interval);
