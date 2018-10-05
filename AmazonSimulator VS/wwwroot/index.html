@@ -89,57 +89,33 @@
                 skyBox.rotation.x += Math.PI / 2;
                 scene.add(skyBox);
 
-                // Load Dome
+                // Load Dome and its lights
                 var dome = new Dome;
                 dome.position.x = 0;
                 dome.position.z = 0;
-                // Load domelight
-                var domeLight = new THREE.SpotLight(0xffffff, 1.7, 16);
-                domeLight.position.set(9, 10, -9);
-                domeLight.target.position.set(domeLight.position.x, 0, domeLight.position.z);
-                dome.add(domeLight.target, domeLight);
+
+                dome.receiveShadow = true;
                 scene.add(dome);
 
                 // Load Earth
                 var earth = new Earth;
-                earth.position.x = 500;
-                earth.position.z = 500;
-                earth.position.y = 300;
+                earth.position.x = -1200;
+                earth.position.z = -1100;
+                earth.position.y = 150;
                 scene.add(earth);
 
-                // Create sun
+                // Create sun and sunlight
                 var sun = new Sun;
-                sun.position.x = -500;
-                sun.position.z = -500;
+                sun.position.x = -2000;
+                sun.position.z = -1600;
                 sun.position.y = 300;
 
-                // Create Sunlight
-                var sunlight = new THREE.DirectionalLight(0xffffff, 0.5);
-                sunlight.target.position.set(0, 0, 0);
-
-                // Create sunlight shadows
-                sunlight.castShadow = true;
-                sunlight.shadowDarkness = 0.5;
-                sunlight.shadowMapWidth = sunlight.shadowMapHeight = 2048;
-                sunlight.bias = -0.001;
-
-                var d = 25;
-
-                sunlight.shadowCameraLeft = -d;
-                sunlight.shadowCameraRight = d;
-                sunlight.shadowCameraTop = d;
-                sunlight.shadowCameraBottom = -d;
-
-                sunlight.shadowCameraNear = 0.1;
-                sunlight.shadowCameraFar = 10000;
-
                 // Create sun glow
-                var sunGlow = new THREE.SpotLight(0xffffff, 2.5, 100);
-                sunGlow.position.set(-200, 170, -200);
+                var sunGlow = new THREE.SpotLight(0xffffff, 2.5, 600);
+                sunGlow.position.set(sun.position.x + 250, 225, sun.position.z + 250);
                 sunGlow.target.position.set(sun.position.x, sun.position.y + 400, sun.position.z);
-
+                
                 // Load sun and its lights
-                sun.add(sunlight);
                 scene.add(sun);
                 scene.add(sunGlow.target, sunGlow);
 

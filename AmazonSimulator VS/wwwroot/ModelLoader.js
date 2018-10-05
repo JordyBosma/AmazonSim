@@ -179,8 +179,31 @@ class Sun extends THREE.Group {
         var SelfRef = this;
 
         loadOBJModel("models/", "Sun.obj", "textures/Materials/", "Sun.mtl", (mesh) => {
+
+            // Create Sunlight
+            var sunlight = new THREE.DirectionalLight(0xffffff, 0.5);
+            sunlight.target.position.set(0, 0, 0);
+
+            // Create sunlight shadows
+            sunlight.castShadow = true;
+            sunlight.shadowDarkness = 0.5;
+            sunlight.shadowMapWidth = sunlight.shadowMapHeight = 2048;
+            sunlight.bias = -0.001;
+
+            var d = 25;
+
+            sunlight.shadowCameraLeft = -d;
+            sunlight.shadowCameraRight = d;
+            sunlight.shadowCameraTop = d;
+            sunlight.shadowCameraBottom = -d;
+
+            sunlight.shadowCameraNear = 0.1;
+            sunlight.shadowCameraFar = 10000;
+
+            mesh.add(sunlight)
             mesh.scale.set(1, 1, 1);
             SelfRef.add(mesh);
+            scene.add(sunGlow.target, sunGlow);
         });
     }
 }
@@ -215,15 +238,28 @@ class Dome extends THREE.Group {
         var SelfRef = this;
 
         loadOBJModel("models/", "Dome.obj", "textures/Materials/", "Dome.mtl", (mesh) => {
-            //var intensity = 1.7;
-            //var reach = 16;
 
-            //var domeLight = new THREE.SpotLight(0xffffff, intensity, reach);
-            //domeLight.position.set(9, 10, -9);
-            //domeLight.target.position.set(domeLight.position.x, 0, domeLight.position.z);
-            //dome.add(domeLight.target, domeLight);
-            //scene.add(dome);
+            //Create and load domelights
+            var intensity = 1.7;
+            var reach = 16;
+            var color = 0xffffe0;
 
+            var domeLight1 = new THREE.SpotLight(color, intensity, reach);
+            var domeLight2 = new THREE.SpotLight(color, intensity, reach);
+            var domeLight3 = new THREE.SpotLight(color, intensity, reach);
+            var domeLight4 = new THREE.SpotLight(color, intensity, reach);
+
+            domeLight1.position.set(9, 10, -9);
+            domeLight2.position.set(9, 10, 9);
+            domeLight3.position.set(-9, 10, 9);
+            domeLight4.position.set(-9, 10, -9);
+
+            domeLight1.target.position.set(domeLight1.position.x, 0, domeLight1.position.z);
+            domeLight2.target.position.set(domeLight2.position.x, 0, domeLight2.position.z);
+            domeLight3.target.position.set(domeLight3.position.x, 0, domeLight3.position.z);
+            domeLight4.target.position.set(domeLight4.position.x, 0, domeLight4.position.z);
+
+            mesh.add(domeLight1.target, domeLight2.target, domeLight3.target, domeLight4.target, domeLight1, domeLight2, domeLight3, domeLight4);
             mesh.scale.set(1, 1, 1);
             SelfRef.add(mesh);
         });
