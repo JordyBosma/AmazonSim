@@ -74,23 +74,14 @@ namespace Models
         public void Logic()
         {
             worldObjects.Where(x => GetTasks(x)).ToList();
+            GetPickUpTasks();
             if (logicTasks.Count() != 0)
             {
-                //logicTasks.AddRange(logicTasks.Where(x => if (x != null) { logicTasks.Remove(x); return x.RunTask(this); } else { return false; } ).ToList());
-                logicTasks.AddRange(logicTasks.Where(x => TryRunTask(x)).ToList());
-            }
-        }
-
-        public bool TryRunTask(LogicTask task)
-        {
-            if (task == null)
-            {
-                logicTasks.Remove(null);
-                return false;
-            } else
-            {
-                logicTasks.Remove(task);
-                return task.RunTask(this);
+                List<LogicTask> finish = logicTasks.Where(x => x != null ? x.RunTask(this) : true).ToList();
+                for (int i = 0; i < finish.Count(); i++)
+                {
+                    logicTasks.Remove(finish[i]);
+                }
             }
         }
 
@@ -173,6 +164,23 @@ namespace Models
             aTimer.Enabled = true;
         }
 
+        public void GetPickUpTasks()
+        {
+            foreach (Node node in _nodeGrid.nodes)
+            {
+                if (node is StorageNode)
+                {
+                    if (((StorageNode)node).GetIsDone())
+                    {
+                        if (((StorageNode)node).GetCrate().refined == false)
+                        {
+                            logicTasks.Add(new PickUpUnRefinedCrateRequest((StorageNode)node));
+                            ((StorageNode)node).SetIsDone();
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public class Unsubscriber<Command> : IDisposable

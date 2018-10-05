@@ -24,10 +24,10 @@ namespace Utility
                 w.tasksForRobot.RemoveAt(0);
                 rqRobot.GiveTask(new RobotTask(new DijkstraPathFinding(new double[] { Math.Round(rqRobot.x, 1), Math.Round(rqRobot.z, 1) }, tsk.pickUpPoint, w.nodeGrid).GetPath(), new DijkstraPathFinding(tsk.pickUpPoint, tsk.dropOffPoint, w.nodeGrid).GetPath(), tsk.crate, tsk.pickUpTarget, tsk.dropOffTarget));
                 rqRobot.Move(rqRobot.x, rqRobot.y, rqRobot.z);
-                return false;
+                return true;
             } else
             {
-                return true;
+                return false;
             }
             
         }
