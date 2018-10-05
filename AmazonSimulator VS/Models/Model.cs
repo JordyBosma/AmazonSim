@@ -74,6 +74,7 @@ namespace Models
         public void Logic()
         {
             worldObjects.Where(x => GetTasks(x)).ToList();
+            GetPickUpTasks();
             if (logicTasks.Count() != 0)
             {
                 //logicTasks.AddRange(logicTasks.Where(x => if (x != null) { logicTasks.Remove(x); return x.RunTask(this); } else { return false; } ).ToList());
@@ -173,6 +174,19 @@ namespace Models
             aTimer.Enabled = true;
         }
 
+        public void GetPickUpTasks()
+        {
+            foreach (Node node in _nodeGrid.nodes)
+            {
+                if (node is StorageNode)
+                {
+                    if (((StorageNode)node).GetIsDone())
+                    {
+                        logicTasks.Add(new PickUpUnRefinedCrateRequest((StorageNode)node));
+                    }
+                }
+            }
+        }
     }
 
     public class Unsubscriber<Command> : IDisposable

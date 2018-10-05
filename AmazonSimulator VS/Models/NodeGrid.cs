@@ -45,6 +45,7 @@ namespace Models
         private Crate _storedCrate;
         private bool importNode;
         private bool reserved;
+        private bool _isDone = false;
 
         public StorageNode(double[] position, List<int> connections, int id, bool importNode) : base(position, connections, id)
         {
@@ -56,6 +57,11 @@ namespace Models
             reserved = true;
         }
 
+        public void SetIsDone()
+        {
+            _isDone = false;
+        }
+
         public Crate GetCrate()
         {
             return _storedCrate;
@@ -64,6 +70,11 @@ namespace Models
         public bool GetReserved()
         {
             return reserved;
+        }
+
+        public bool GetIsDone()
+        {
+            return _isDone;
         }
 
         public bool CheckCrate()
@@ -84,6 +95,7 @@ namespace Models
         public void HandelDropOff(Crate crate)
         {
             this._storedCrate = crate;
+            _isDone = true;
         }
     }
 }
