@@ -56,6 +56,8 @@ namespace Controllers {
 
         public void StartLogic()
         {
+            running = true;
+
             while (running)
             {
                 w.Logic();

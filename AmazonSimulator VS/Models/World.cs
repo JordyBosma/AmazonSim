@@ -9,13 +9,16 @@ namespace Models {
     {
         public World() {
             Object3D robot = CreateObject(1, 0, 1, "Robot");
+            ((Robot)robot).SetIsDone();
             Object3D robot2 = CreateObject(1, 0, -1, "Robot");
             Object3D robot3 = CreateObject(1, 0, 5, "Robot");
             Object3D robot4 = CreateObject(1, 0, -1, "Robot");
             Object3D robot5 = CreateObject(1, 0, 5, "Robot");
-            //Object3D crate = CreateObject(-7, 1, -3, "Crate");
+            Object3D crate = CreateObject(-7, 1, -3, "Crate");
             SetInboundTimer(new ExportVehicleRequest(30, 30));
             SetInboundTimer(new ImportVehicleRequest(15, 0, 49, 0, 0.5 * Math.PI, 0));
+            Refinery refinery = new Refinery(0, 0, 0, 0, 0, 0);
+            worldObjects.Add(refinery);
 
             LoadGrid();
             showGrid = true;
@@ -24,25 +27,25 @@ namespace Models {
             List<double[]> pickupTask = new List<double[]>();
             List<double[]> dropoffTask = new List<double[]>();
 
-            pickupTask.Add(new double[2] { 0, 0 });
-            pickupTask.Add(new double[2] { 10, 0 });
-            pickupTask.Add(new double[2] { 10, 10 });
-            pickupTask.Add(new double[2] { 20, 10 });
-            pickupTask.Add(new double[2] { 20, 20 });
-            pickupTask.Add(new double[2] { 30, 20 });
-            pickupTask.Add(new double[2] { 30, 30 });
+            //pickupTask.Add(new double[2] { 0, 0 });
+            //pickupTask.Add(new double[2] { 10, 0 });
+            //pickupTask.Add(new double[2] { 10, 10 });
+            //pickupTask.Add(new double[2] { 20, 10 });
+            //pickupTask.Add(new double[2] { 20, 20 });
+            //pickupTask.Add(new double[2] { 30, 20 });
+            //pickupTask.Add(new double[2] { 30, 30 });
 
-            dropoffTask.Add(new double[2] { 30, 30 });
-            dropoffTask.Add(new double[2] { 20, 30 });
-            dropoffTask.Add(new double[2] { 20, 20 });
-            dropoffTask.Add(new double[2] { 10, 20 });
-            dropoffTask.Add(new double[2] { 10, 10 });
-            dropoffTask.Add(new double[2] { 0, 10 });
-            dropoffTask.Add(new double[2] { 0, 0 });
+            //dropoffTask.Add(new double[2] { 30, 30 });
+            //dropoffTask.Add(new double[2] { 20, 30 });
+            //dropoffTask.Add(new double[2] { 20, 20 });
+            //dropoffTask.Add(new double[2] { 10, 20 });
+            //dropoffTask.Add(new double[2] { 10, 10 });
+            //dropoffTask.Add(new double[2] { 0, 10 });
+            //dropoffTask.Add(new double[2] { 0, 0 });
 
             //RobotTask rt = new RobotTask(pickupTask, dropoffTask, (Crate)crate, null);
             //MoveRobot(rt);
-            //((Robot)robot).GiveTask(new RobotTask(new DijkstraPathFinding(new double[] { 1, 1 }, new double[] { -7, -3 }, _nodeGrid).GetPath(), new DijkstraPathFinding(new double[] { -7, -3 }, new double[] { 1, 1 }, _nodeGrid).GetPath(), (Crate)crate, null));
+            ((Robot)robot).GiveTask(new RobotTask(new DijkstraPathFinding(new double[] { 1, 1 }, new double[] { -7, -3 }, _nodeGrid).GetPath(), new DijkstraPathFinding(new double[] { -7, -3 }, new double[] { 1, 1 }, _nodeGrid).GetPath(), (Crate)crate, (PickUpTarget)_nodeGrid.nodes[50], (DropOffTarget)refinery));
         }
 
         public void MoveRobot(RobotTask rt)
@@ -267,8 +270,18 @@ namespace Models {
             _nodeGrid.NodesAdd(new double[] { 18, -12 }, new List<int>() { 110, 114 });
             _nodeGrid.NodesAdd(new double[] { 18, 5 }, new List<int>() { 147, 8 });
             _nodeGrid.NodesAdd(new double[] { 18, 12 }, new List<int>() { 5, 9});
+
+            foreach (Node n in nodeGrid.nodes)
+            {
+                if(n is StorageNode)
+                {
+                    CreateObject(n.position[0], 0 , n.position[1], "Shelf");
+                }
+            }
         }
         
+        
+
         private Object3D CreateObject(double x, double y, double z, string type) {
             switch (type)
             {
@@ -288,6 +301,10 @@ namespace Models {
                     Object3D c = new Crate(x, y, z);
                     worldObjects.Add(c);
                     return c;
+                case "Shelf":
+                    Object3D s = new StationaryObject(x, y, z, 0, 0, 0, "Shelf");
+                    worldObjects.Add(s);
+                    return s;
                 default:
                     throw new ArgumentException("there is no model that corresponds with that type");
             }

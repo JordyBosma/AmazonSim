@@ -60,7 +60,7 @@ namespace Models
         {
             if (_moveCrate == true)
             {
-                _pickupCrate.Move(x, 1, z);
+                _pickupCrate.Move(x, 0.39, z);
             }
 
             base.Move(x, y, z);
@@ -111,6 +111,7 @@ namespace Models
                     _isMoving = false;
                     _isDone = true;
                     _moveCrate = false;
+                    //_pickupCrate.Move(dropOffTarget.)
                     _dropOffTarget.HandelDropOff(_pickupCrate);
                     //_dropOffTarget = null;
                     //_pickupCrate = null;

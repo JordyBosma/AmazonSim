@@ -50,10 +50,8 @@ namespace Models
 
         public bool Update(int tick)
         {
-            for (int i = 0; i < worldObjects.Count; i++)
+            worldObjects.Where(u =>
             {
-                Object3D u = worldObjects[i];
-
                 if (u is IUpdatable)
                 {
                     bool needsCommand = ((IUpdatable)u).Update(tick);
@@ -63,8 +61,8 @@ namespace Models
                         SendCommandToObservers(new UpdateModel3DCommand(u));
                     }
                 }
-            }
-
+                return false;
+            }).ToList();
             return true;
         }
 
@@ -76,11 +74,24 @@ namespace Models
         public void Logic()
         {
             worldObjects.Where(x => GetTasks(x)).ToList();
-            if(logicTasks.Count() != 0)
+            if (logicTasks.Count() != 0)
             {
-                logicTasks = logicTasks.Where(x => x != null ? x.RunTask(this) : false).ToList();
+                //logicTasks.AddRange(logicTasks.Where(x => if (x != null) { logicTasks.Remove(x); return x.RunTask(this); } else { return false; } ).ToList());
+                logicTasks.AddRange(logicTasks.Where(x => TryRunTask(x)).ToList());
             }
+        }
 
+        public bool TryRunTask(LogicTask task)
+        {
+            if (task == null)
+            {
+                logicTasks.Remove(null);
+                return false;
+            } else
+            {
+                logicTasks.Remove(task);
+                return task.RunTask(this);
+            }
         }
 
         public bool GetTasks(Object3D obj)
@@ -101,13 +112,35 @@ namespace Models
                     worldObjects.Remove(obj);
                     SetInboundTimer(new ExportVehicleRequest(obj.x, obj.z));
                 }
-            } else if (obj is ImportVehicle)
+            }
+            else if (obj is ImportVehicle)
             {
                 if (((ImportVehicle)obj).isDone)
                 {
                     SendCommandToObservers(new DeleteModel3DCommand(obj));
                     worldObjects.Remove(obj);
                     SetInboundTimer(new ImportVehicleRequest(obj.x, obj.y, obj.z, obj.rotationX, obj.rotationY, obj.rotationZ));
+                }
+            }
+            else if (obj is Crate)
+            {
+                if (((Crate)obj).isDone)
+                {
+                    SendCommandToObservers(new DeleteModel3DCommand(obj));
+                    worldObjects.Remove(obj);
+                }
+            }
+            else if (obj is Refinery)
+            {
+                List<Crate> refinedCrates = ((Refinery)obj).GetRefinedList();
+                if (refinedCrates.Count() != 0)
+                {
+                    refinedCrates.Where(x =>
+                    {
+                        logicTasks.Add(new PickUpRefinedCrateRequest((PickUpTarget)obj, x));
+                        refinedCrates.Remove(x);
+                        return false;
+                    }).ToList();
                 }
             }
             return true;
@@ -134,8 +167,8 @@ namespace Models
             // Hook up the Elapsed event for the timer. 
             aTimer.Elapsed += (e, v) => {
                 logicTasks.Add(task);
-                aTimer.Dispose();
                 InboundTimers.Remove(aTimer);
+                aTimer.Dispose();
             };
             aTimer.Enabled = true;
         }

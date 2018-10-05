@@ -64,6 +64,24 @@ class Train extends THREE.Group {
     }
 }
 
+class Shelf extends THREE.Group {
+
+    constructor() {
+        super();
+
+        this.init();
+    }
+
+    init() {
+        var SelfRef = this;
+
+        loadOBJModel("models/", "Stellage.obj", "textures/Materials/", "Stellage.mtl", (mesh) => {
+            mesh.scale.set(1, 1, 1);
+            SelfRef.add(mesh);
+        });
+    }
+}
+
 class Crate extends THREE.Group {
 
     constructor(command) {
