@@ -1,13 +1,13 @@
 newmtl Dome_Door_Shader
 illum 4
-Kd 1.00 1.00 1.00
+Kd 0.00 0.00 0.00
 Ka 0.00 0.00 0.00
 Tf 1.00 1.00 1.00
 map_Kd Doorway_txt.png
 Ni 1.00
 newmtl Dome_Floor_Shader
 illum 4
-Kd 1.00 1.00 1.00
+Kd 0.00 0.00 0.00
 Ka 0.00 0.00 0.00
 Tf 1.00 1.00 1.00
 map_Kd FloorGrid_txt.png
@@ -16,7 +16,7 @@ newmtl Dome_Glass_Shader
 illum 4
 Kd 0.50 0.50 0.50
 Ka 0.00 0.00 0.00
-Tr 0.01 0.01 0.01
+Tf 0.00 0.00 0.00
 Ni 1.00
 Ks 0.50 0.50 0.50
 Ns 18.00
@@ -28,7 +28,7 @@ Tf 1.00 1.00 1.00
 Ni 1.00
 newmtl Dome_Signs_Shader
 illum 4
-Kd 1.00 1.00 1.00
+Kd 0.00 0.00 0.00
 Ka 0.00 0.00 0.00
 Tf 1.00 1.00 1.00
 map_Kd Dome_Signs.png
