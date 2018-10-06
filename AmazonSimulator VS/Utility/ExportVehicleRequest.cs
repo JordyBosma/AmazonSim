@@ -74,14 +74,15 @@ namespace Utility
                                 int weightOnNode = filledRefinedStorageNodes[j].GetCrate().weight;
                                 if (exportVehicle.assignedWeightLeft == weightOnNode)
                                 {
-                                    StorageNode pickUpTarget = filledRefinedStorageNodes[biggestP];
+                                    StorageNode pickUpTarget = filledRefinedStorageNodes[j];
                                     w.tasksForRobot.Add(new TaskForRobot(pickUpTarget.position, new double[] { 1, -25 }, pickUpTarget.GetCrate(), (PickUpTarget)pickUpTarget, (DropOffTarget)exportVehicle));
                                     pickUpTarget.SetIsDone();
+                                    exportVehicle.AssignWeight(weightOnNode);
                                     return true;
                                 }
                                 else if (enoughChoice)
                                 {
-                                    if (weightOnNode > biggestW && weightOnNode <= exportVehicle.weightLeft)
+                                    if (weightOnNode > biggestW && weightOnNode < exportVehicle.assignedWeightLeft)
                                     {
                                         biggestP = j;
                                         biggestW = weightOnNode;
@@ -94,10 +95,12 @@ namespace Utility
                                 w.tasksForRobot.Add(new TaskForRobot(pickUpTarget.position, new double[] { 1, -25 }, pickUpTarget.GetCrate(), (PickUpTarget)pickUpTarget, (DropOffTarget)exportVehicle));
                                 filledRefinedStorageNodes.RemoveAt(biggestP);
                                 pickUpTarget.SetIsDone();
+                                exportVehicle.AssignWeight(biggestW);
                             }
                             else
                             {
-                                exportVehicle.LoadWeight(exportVehicle.weightLeft);
+                                //exportVehicle.AssignWeight(exportVehicle.assignedWeightLeft);
+                                exportVehicle.LoadWeight(exportVehicle.assignedWeightLeft);
                                 return true;
                             }
 
@@ -108,6 +111,7 @@ namespace Utility
                             w.tasksForRobot.Add(new TaskForRobot(pickUpTarget.position, new double[] { 1, -25 }, pickUpTarget.GetCrate(), (PickUpTarget)pickUpTarget, (DropOffTarget)exportVehicle));
                             lastWeight = pickUpTarget.GetCrate().weight;
                             pickUpTarget.SetIsDone();
+                            exportVehicle.AssignWeight(lastWeight);
                             filledRefinedStorageNodes.RemoveAt(i);
                             lowestvalue = false;
                             break;

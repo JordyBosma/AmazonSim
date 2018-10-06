@@ -27,10 +27,10 @@ namespace Models
             _assignedWeightLeft = exportWeight;
         }
 
-        public void LoadWeight(int loadWeight)  //
+        public void LoadWeight(int loadWeight)  
         {
             _weightLeft -= loadWeight;
-            if (_weightLeft < 5)               //mischien 10?
+            if (_weightLeft == 0)               
             {
                 _isMoving = true;
                 _moveDirection = true;
@@ -38,7 +38,7 @@ namespace Models
             }
         }
 
-        public void AssignWeight(int loadWeight)  //
+        public void AssignWeight(int loadWeight)  
         {
             _assignedWeightLeft -= loadWeight;
         }
