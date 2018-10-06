@@ -95,7 +95,9 @@ namespace Models
         public void HandelDropOff(Crate crate)
         {
             this._storedCrate = crate;
+            crate.Move(position[0], 0.39, position[1]);
             _isDone = true;
+
         }
     }
 }
