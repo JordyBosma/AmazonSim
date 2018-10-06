@@ -53,23 +53,8 @@
                 renderer.shadowMapSoft = true;
 
                 // Scene plane:
-                var geometry = new THREE.PlaneGeometry(4000, 2000, 32);
-                var material = new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load("/textures/8k_moon.png"), side: THREE.DoubleSide });
-                var plane = new THREE.Mesh(geometry, material);
-                plane.rotation.x = Math.PI / 2.0;
-                plane.position.x = 15;
-                plane.position.z = 15;
-                plane.position.y = -0.20;
-                plane.receiveShadow = true;
+                var plane = new Plane;
                 scene.add(plane);
-
-                //// Load FooBar cube
-                //var Foo = new THREE.CubeGeometry(50, 50, 50);
-                //var Bar = new THREE.MeshPhongMaterial({ color: 0xffffff });
-                //var FooBar = new THREE.Mesh(Foo, Bar);
-                //FooBar.position.set(100, 50, 100);
-                //FooBar.castShadow = true;
-                //scene.add(FooBar);
 
                 // Load Box skybox
                 var imagePrefix = "textures/bkg3_";
@@ -91,10 +76,6 @@
 
                 // Load Dome and its lights
                 var dome = new Dome;
-                dome.position.x = 0;
-                dome.position.z = 0;
-
-                dome.receiveShadow = true;
                 scene.add(dome);
 
                 // Load Trainstation
@@ -103,21 +84,15 @@
 
                 // Load Earth
                 var earth = new Earth;
-                earth.position.x = -1200;
-                earth.position.z = -1100;
-                earth.position.y = 150;
                 scene.add(earth);
 
                 // Create sun and sunlight
                 var sun = new Sun;
-                sun.position.x = -2000;
-                sun.position.z = -1600;
-                sun.position.y = 300;
 
                 // Create sun glow
-                var sunGlow = new THREE.SpotLight(0xffffff, 2.5, 600);
-                sunGlow.position.set(sun.position.x + 250, 225, sun.position.z + 250);
-                sunGlow.target.position.set(sun.position.x, sun.position.y + 400, sun.position.z);
+                var sunGlow = new THREE.SpotLight(0xffae42, 3.5, 600);
+                sunGlow.position.set(-1750, 225, -1350);
+                sunGlow.target.position.set(-2000, 700, -1600);
                 
                 // Load sun and its lights
                 scene.add(sun);
@@ -125,7 +100,7 @@
 
                 // Load Scene light:
                 var ambientLight = new THREE.AmbientLight(0x404040);
-                ambientLight.intensity = 0.8;
+                ambientLight.intensity = 0.3;
                 scene.add(ambientLight);
             }
 
