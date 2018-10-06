@@ -69,7 +69,7 @@ namespace Controllers
             while (running)
             {
                 w.Logic();
-                Thread.Sleep(25);
+                Thread.Sleep(tickTime);
             }
         }
     }
