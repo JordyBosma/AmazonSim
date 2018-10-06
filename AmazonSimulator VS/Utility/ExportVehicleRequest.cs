@@ -29,7 +29,7 @@ namespace Utility
 
         public bool RunTask(Model w)
         {
-            ExportVehicle exportVehicle = new ExportVehicle(x, y, z);
+            ExportVehicle exportVehicle = new ExportVehicle(x, y, z, 0, Math.PI, 0);
             w.worldObjects.Add(exportVehicle);
             exportVehicle.Move(exportVehicle.x, exportVehicle.y, exportVehicle.z);
             return true;

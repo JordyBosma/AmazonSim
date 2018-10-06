@@ -38,7 +38,6 @@ namespace Utility
                     Node emptyStorageNode = null;
                     foreach (Node node in w.nodeGrid.nodes)
                     {
-
                         if (node is StorageNode)
                         {
                             if (((StorageNode)node).CheckImport() && !((StorageNode)node).GetReserved())
@@ -53,7 +52,7 @@ namespace Utility
                     {
                         return false;
                     }
-                    w.tasksForRobot.Add(new TaskForRobot(new double[] { -1, -1 }, ((Node)emptyStorageNode).position, crate, (PickUpTarget)importVehicle, (DropOffTarget)emptyStorageNode));
+                    w.tasksForRobot.Add(new TaskForRobot(new double[] { -1, 25 }, ((Node)emptyStorageNode).position, crate, (PickUpTarget)importVehicle, (DropOffTarget)emptyStorageNode));
                     w.worldObjects.Add(crate);
                     importVehicle.importCrates.RemoveAt(importVehicle.importCrates.Count() - 1);
                 }

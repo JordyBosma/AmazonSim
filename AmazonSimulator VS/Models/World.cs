@@ -8,44 +8,23 @@ namespace Models {
     public class World : Model, IUpdatable
     {
         public World() {
-            Object3D robot = CreateObject(1, 0, 1, "Robot");
-            ((Robot)robot).SetIsDone();
-            Object3D robot2 = CreateObject(1, 0, -1, "Robot");
-            Object3D robot3 = CreateObject(1, 0, 5, "Robot");
-            Object3D robot4 = CreateObject(1, 0, -1, "Robot");
-            Object3D robot5 = CreateObject(1, 0, 5, "Robot");
-            Object3D crate = CreateObject(-7, 1, -3, "Crate");
-            SetInboundTimer(new ExportVehicleRequest(30, 30));
-            SetInboundTimer(new ImportVehicleRequest(15, 0, 49, 0, 0.5 * Math.PI, 0));
-            Refinery refinery = new Refinery(0, 0, 0, 0, 0, 0);
-            worldObjects.Add(refinery);
+            Object3D robot1 = CreateObject(20, 0, -7, "Robot");
+            Object3D robot2 = CreateObject(20, 0, -5, "Robot");
+            Object3D robot3 = CreateObject(20, 0, -3, "Robot");
+            Object3D robot4 = CreateObject(20, 0, -1, "Robot");
+            Object3D robot5 = CreateObject(20, 0, 1, "Robot");
+            Object3D robot6 = CreateObject(20, 0, 3, "Robot");
+            Object3D robot7 = CreateObject(20, 0, 5, "Robot");
+            Object3D robot8 = CreateObject(20, 0, 7, "Robot");
+            Object3D refinery = CreateObject(-25, 0, -1, "Refinery");
+
+            SetInboundTimer(new ExportVehicleRequest(0, -35));
+            SetInboundTimer(new ImportVehicleRequest(400, 0, 34, 0, 0.5 * Math.PI, 0));
 
             LoadGrid();
-            showGrid = true;
+            //showGrid = true;
 
-            //test robot run
-            List<double[]> pickupTask = new List<double[]>();
-            List<double[]> dropoffTask = new List<double[]>();
-
-            //pickupTask.Add(new double[2] { 0, 0 });
-            //pickupTask.Add(new double[2] { 10, 0 });
-            //pickupTask.Add(new double[2] { 10, 10 });
-            //pickupTask.Add(new double[2] { 20, 10 });
-            //pickupTask.Add(new double[2] { 20, 20 });
-            //pickupTask.Add(new double[2] { 30, 20 });
-            //pickupTask.Add(new double[2] { 30, 30 });
-
-            //dropoffTask.Add(new double[2] { 30, 30 });
-            //dropoffTask.Add(new double[2] { 20, 30 });
-            //dropoffTask.Add(new double[2] { 20, 20 });
-            //dropoffTask.Add(new double[2] { 10, 20 });
-            //dropoffTask.Add(new double[2] { 10, 10 });
-            //dropoffTask.Add(new double[2] { 0, 10 });
-            //dropoffTask.Add(new double[2] { 0, 0 });
-
-            //RobotTask rt = new RobotTask(pickupTask, dropoffTask, (Crate)crate, null);
-            //MoveRobot(rt);
-            ((Robot)robot).GiveTask(new RobotTask(new DijkstraPathFinding(new double[] { 1, 1 }, new double[] { -7, -3 }, _nodeGrid).GetPath(), new DijkstraPathFinding(new double[] { -7, -3 }, new double[] { 1, 1 }, _nodeGrid).GetPath(), (Crate)crate, (PickUpTarget)_nodeGrid.nodes[50], (DropOffTarget)refinery));
+            //((Robot)robot).GiveTask(new RobotTask(new DijkstraPathFinding(new double[] { 1, 1 }, new double[] { -7, -3 }, _nodeGrid).GetPath(), new DijkstraPathFinding(new double[] { -7, -3 }, new double[] { 1, 1 }, _nodeGrid).GetPath(), (Crate)crate, (PickUpTarget)_nodeGrid.nodes[50], (DropOffTarget)refinery));
         }
 
         public void MoveRobot(RobotTask rt)
@@ -70,14 +49,14 @@ namespace Models {
             _nodeGrid.NodesAdd(new double[] { 1, 18 }, new List<int>() { 3, 5 }); // outer boundry square
 
             // outer circle
-            _nodeGrid.NodesAdd(new double[] { 18, 18 }, new List<int>() { 6 }); // corner
-            _nodeGrid.NodesAdd(new double[] { 18, 1 }, new List<int>() { 111 }); //
+            _nodeGrid.NodesAdd(new double[] { 18, 18 }, new List<int>() { 147 }); // corner
+            _nodeGrid.NodesAdd(new double[] { 18, 1 }, new List<int>() { 111, 158 }); //
 
             // inner circle
             _nodeGrid.NodesAdd(new double[] { 16, 1 }, new List<int>() { 8, 6 }); // corner
-            _nodeGrid.NodesAdd(new double[] { 16, 5 }, new List<int>() { 9, }); //storage lane
-            _nodeGrid.NodesAdd(new double[] { 16, 12 }, new List<int>() { 10, 146 }); // storage lane
-            _nodeGrid.NodesAdd(new double[] { 16, 16 }, new List<int>() { 3, 147 });
+            _nodeGrid.NodesAdd(new double[] { 16, 5 }, new List<int>() { 9, 146 }); //storage lane
+            _nodeGrid.NodesAdd(new double[] { 16, 12 }, new List<int>() { 10, 147 }); // storage lane
+            _nodeGrid.NodesAdd(new double[] { 16, 16 }, new List<int>() { 3 });
 
             //storage lane 1
             _nodeGrid.NodesAdd(new double[] { 3, 5 }, new List<int>() { 12, 15, 16 });
@@ -103,7 +82,7 @@ namespace Models {
 
             //storage nodes 2
             _nodeGrid.StorageNodesAdd(new double[] { 3, 10 }, new List<int>() { 23 }, true);
-            _nodeGrid.StorageNodesAdd(new double[] { 3, 14 }, new List<int>() { 23 }, true); 
+            _nodeGrid.StorageNodesAdd(new double[] { 3, 14 }, new List<int>() { 23 }, true);
             _nodeGrid.StorageNodesAdd(new double[] { 7, 10 }, new List<int>() { 24 }, true);
             _nodeGrid.StorageNodesAdd(new double[] { 7, 14 }, new List<int>() { 24 }, true);
             _nodeGrid.StorageNodesAdd(new double[] { 11, 10 }, new List<int>() { 25 }, true);
@@ -117,7 +96,7 @@ namespace Models {
             _nodeGrid.NodesAdd(new double[] { -1, 5 }, new List<int>() { 37, 46, 1 }); //storage lane
             _nodeGrid.NodesAdd(new double[] { -1, 12 }, new List<int>() { 38, 58, 2 }); //storage lane
             _nodeGrid.NodesAdd(new double[] { -1, 16 }, new List<int>() { 39, 45 }); // inner boundry square
-            _nodeGrid.NodesAdd(new double[] { -1, 18 }, new List<int>() { 4 }); // outer boundry square
+            _nodeGrid.NodesAdd(new double[] { -1, 18 }, new List<int>() { 4, 148 }); // outer boundry square
 
             // outer circle
             _nodeGrid.NodesAdd(new double[] { -18, 18 }, new List<int>() { 39 }); // corner
@@ -171,7 +150,7 @@ namespace Models {
 
             // outer circle
             _nodeGrid.NodesAdd(new double[] { -18, -18 }, new List<int>() { 141 }); // corner
-            _nodeGrid.NodesAdd(new double[] { -18, -1 }, new List<int>() { 41 }); //
+            _nodeGrid.NodesAdd(new double[] { -18, -1 }, new List<int>() { 41, 150 }); //
 
             // inner circle
             _nodeGrid.NodesAdd(new double[] { -16, -1 }, new List<int>() { 78, 76 }); // corner
@@ -217,11 +196,11 @@ namespace Models {
             _nodeGrid.NodesAdd(new double[] { 1, -5 }, new List<int>() { 107, 116, 71 }); //storage lane
             _nodeGrid.NodesAdd(new double[] { 1, -12 }, new List<int>() { 108, 128, 72 }); //storage lane
             _nodeGrid.NodesAdd(new double[] { 1, -16 }, new List<int>() { 109, 115 }); // inner boundry square
-            _nodeGrid.NodesAdd(new double[] { 1, -18 }, new List<int>() { 74 }); // outer boundry square
+            _nodeGrid.NodesAdd(new double[] { 1, -18 }, new List<int>() { 74, 152 }); // outer boundry square
 
             // outer circle
             _nodeGrid.NodesAdd(new double[] { 18, -18 }, new List<int>() { 109 }); // corner
-            _nodeGrid.NodesAdd(new double[] { 18, -1 }, new List<int>() { 144, 112 }); //
+            _nodeGrid.NodesAdd(new double[] { 18, -1 }, new List<int>() { 162, 112, 154 });
 
             // inner circle
             _nodeGrid.NodesAdd(new double[] { 16, -1 }, new List<int>() { 105, 7 }); // corner
@@ -246,10 +225,10 @@ namespace Models {
             _nodeGrid.StorageNodesAdd(new double[] { 15, -7 }, new List<int>() { 119 }, false);
 
             //storage lane 2
-            _nodeGrid.NodesAdd(new double[] { 3, -12 }, new List<int>() { 129, 132, 133 });
+            _nodeGrid.NodesAdd(new double[] { 3, -12 }, new List<int>() { 129, 132, 133 }); //index 128
             _nodeGrid.NodesAdd(new double[] { 7, -12 }, new List<int>() { 130, 134, 135 });
             _nodeGrid.NodesAdd(new double[] { 11, -12 }, new List<int>() { 131, 136, 137 });
-            _nodeGrid.NodesAdd(new double[] { 15, -12 }, new List<int>() { 124, 138, 139 });
+            _nodeGrid.NodesAdd(new double[] { 15, -12 }, new List<int>() { 114, 138, 139 }); 
 
             //storage nodes 2
             _nodeGrid.StorageNodesAdd(new double[] { 3, -10 }, new List<int>() { 128 }, false);
@@ -262,25 +241,45 @@ namespace Models {
             _nodeGrid.StorageNodesAdd(new double[] { 15, -14 }, new List<int>() { 131 }, false);
 
             // grid extra turning points
-            _nodeGrid.NodesAdd(new double[] { -18, -5 }, new List<int>() { 78, 76 });
+            _nodeGrid.NodesAdd(new double[] { -18, -5 }, new List<int>() { 78, 76 }); //index 140
             _nodeGrid.NodesAdd(new double[] { -18, -12 }, new List<int>() { 140, 79 });
-            _nodeGrid.NodesAdd(new double[] { -18, 5 }, new List<int>() { 143, 43});
-            _nodeGrid.NodesAdd(new double[] { -18, 12 }, new List<int>() { 40, 44});
-            _nodeGrid.NodesAdd(new double[] { 18, -5 }, new List<int>() { 145, 113 });
+            _nodeGrid.NodesAdd(new double[] { -18, 5 }, new List<int>() { 143, 43 });
+            _nodeGrid.NodesAdd(new double[] { -18, 12 }, new List<int>() { 40, 44 });
+            _nodeGrid.NodesAdd(new double[] { 18, -5 }, new List<int>() { 163, 113, 156 });
             _nodeGrid.NodesAdd(new double[] { 18, -12 }, new List<int>() { 110, 114 });
-            _nodeGrid.NodesAdd(new double[] { 18, 5 }, new List<int>() { 147, 8 });
-            _nodeGrid.NodesAdd(new double[] { 18, 12 }, new List<int>() { 5, 9});
+            _nodeGrid.NodesAdd(new double[] { 18, 5 }, new List<int>() { 164, 8, 160 });
+            _nodeGrid.NodesAdd(new double[] { 18, 12 }, new List<int>() { 165, 9 });
+
+            _nodeGrid.NodesAdd(new double[] { -1, 25 }, new List<int>() { 149 }); // import index 148
+            _nodeGrid.NodesAdd(new double[] { 1, 25 }, new List<int>() { 4 });
+            _nodeGrid.NodesAdd(new double[] { -25, -1 }, new List<int>() { 151 }); // refinery dropoff
+            _nodeGrid.NodesAdd(new double[] { -25, 1 }, new List<int>() { 41 }); // refinery pickup
+            _nodeGrid.NodesAdd(new double[] { 1, -25 }, new List<int>() { 153 }); // export dropoff
+            _nodeGrid.NodesAdd(new double[] { -1, -25 }, new List<int>() { 74 });
+
+            // robot start posistions
+            _nodeGrid.NodesAdd(new double[] { 20, -1 }, new List<int>() { 111 }); // index 154
+            _nodeGrid.NodesAdd(new double[] { 20, -3 }, new List<int>() { 162 });
+            _nodeGrid.NodesAdd(new double[] { 20, -5 }, new List<int>() { 144 });
+            _nodeGrid.NodesAdd(new double[] { 20, -7 }, new List<int>() { 163 });
+            _nodeGrid.NodesAdd(new double[] { 20, 1 }, new List<int>() { 6 });
+            _nodeGrid.NodesAdd(new double[] { 20, 3 }, new List<int>() { 164 });
+            _nodeGrid.NodesAdd(new double[] { 20, 5 }, new List<int>() { 146 });
+            _nodeGrid.NodesAdd(new double[] { 20, 7 }, new List<int>() { 165 });
+
+            _nodeGrid.NodesAdd(new double[] { 18, -3 }, new List<int>() { 144, 155 }); //index 162
+            _nodeGrid.NodesAdd(new double[] { 18, -7 }, new List<int>() { 145, 157 });
+            _nodeGrid.NodesAdd(new double[] { 18, 3 }, new List<int>() { 6, 159 }); //index 164
+            _nodeGrid.NodesAdd(new double[] { 18, 7 }, new List<int>() { 146, 161 });
 
             foreach (Node n in nodeGrid.nodes)
             {
-                if(n is StorageNode)
+                if (n is StorageNode)
                 {
-                    CreateObject(n.position[0], 0 , n.position[1], "Shelf");
+                    CreateObject(n.position[0], 0, n.position[1], "Shelf");
                 }
             }
         }
-        
-        
 
         private Object3D CreateObject(double x, double y, double z, string type) {
             switch (type)
@@ -290,7 +289,7 @@ namespace Models {
                     worldObjects.Add(r);
                     return r;
                 case "Export":
-                    Object3D e = new ExportVehicle(x,y,z);
+                    Object3D e = new ExportVehicle(x,y,z, 0, Math.PI, 0);
                     worldObjects.Add(e);
                     return e;
                 case "Import":
@@ -305,6 +304,10 @@ namespace Models {
                     Object3D s = new StationaryObject(x, y, z, 0, 0, 0, "Shelf");
                     worldObjects.Add(s);
                     return s;
+                case "Refinery":
+                    Object3D refi = new Refinery(x, y, z, 0, 0, 0);
+                    worldObjects.Add(refi);
+                    return refi;
                 default:
                     throw new ArgumentException("there is no model that corresponds with that type");
             }

@@ -6,12 +6,16 @@ using Models;
 using Views;
 using Utility;
 
-namespace Controllers {
-    struct ObservingClient {
+namespace Controllers
+{
+    struct ObservingClient
+    {
         public View vw;
         public IDisposable unsubscribe;
     }
-    public class SimulationController {
+
+    public class SimulationController
+    {
         private Model w;
         private List<ObservingClient> views = new List<ObservingClient>();
         private bool running = false;
@@ -21,7 +25,8 @@ namespace Controllers {
             this.w = w;
         }
 
-        public void AddView(View v) {
+        public void AddView(View v)
+        {
             ObservingClient oc = new ObservingClient();
 
             oc.unsubscribe = this.w.Subscribe(v);
@@ -30,7 +35,8 @@ namespace Controllers {
             views.Add(oc);
         }
 
-        public void RemoveView(View v) {
+        public void RemoveView(View v)
+        {
             for(int i = 0; i < views.Count; i++) {
                 ObservingClient currentOC = views[i];
 
@@ -41,7 +47,8 @@ namespace Controllers {
             }
         }
 
-        public void Simulate() {
+        public void Simulate()
+        {
             running = true;
 
             while(running) {
@@ -50,7 +57,8 @@ namespace Controllers {
             }
         }
 
-        public void EndSimulation() {
+        public void EndSimulation()
+        {
             running = false;
         }
 
@@ -61,14 +69,8 @@ namespace Controllers {
             while (running)
             {
                 w.Logic();
-                //Thread.Sleep(25);
+                Thread.Sleep(tickTime);
             }
         }
-
-        //determen the task and get the path for the task
-        //public RobotTask GetOrder(double[] startPoint, double[] pickUpPoint, double[] endPoint, NodeGrid nodeGrid)
-        //{
-        //    return new RobotTask(new DijkstraPathFinding(startPoint, pickUpPoint, nodeGrid).GetPath(), new DijkstraPathFinding(pickUpPoint, endPoint, nodeGrid).GetPath());
-        //}
     }
 }

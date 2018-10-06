@@ -47,6 +47,7 @@ namespace Models
         public double rotation { get { return _rotation; } }
 
         public bool isDone { get { return _isDone; } }
+
         public void SetIsDone()
         {
             _isDone = false;
@@ -111,7 +112,6 @@ namespace Models
                     _isMoving = false;
                     _isDone = true;
                     _moveCrate = false;
-                    //_pickupCrate.Move(dropOffTarget.)
                     _dropOffTarget.HandelDropOff(_pickupCrate);
                     //_dropOffTarget = null;
                     //_pickupCrate = null;
@@ -191,11 +191,11 @@ namespace Models
         {
             if (endPos > Math.Round(this.x, 1))
             {
-                this.Move(this.x + 0.05, this.y, this.z);
+                this.Move(this.x + 0.1, this.y, this.z);
             }
             else if (endPos < Math.Round(this.x, 1))
             {
-                this.Move(this.x - 0.05, this.y, this.z);
+                this.Move(this.x - 0.1, this.y, this.z);
             }
 
             if (endPos == Math.Round(this.x, 1))
@@ -209,11 +209,11 @@ namespace Models
         {
             if (endPos > Math.Round(this.z, 1))
             {
-                this.Move(this.x, this.y, this.z + 0.05);
+                this.Move(this.x, this.y, this.z + 0.1);
             }
             else if (endPos < Math.Round(this.z, 1))
             {
-                this.Move(this.x, this.y, this.z - 0.05);
+                this.Move(this.x, this.y, this.z - 0.1);
             }
 
             if (endPos == Math.Round(this.z, 1))

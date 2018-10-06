@@ -8,8 +8,10 @@ namespace Models
 {
     public class ImportVehicle : Object3D, IUpdatable, PickUpTarget
     {
-        private List<Crate> _importCrates = new List<Crate>(); 
-        private bool _isArrived = true;
+        private List<Crate> _importCrates = new List<Crate>();
+        private bool _isMoving = true;
+        private bool _moveDirection = false;
+        private bool _isArrived = false;
         private bool _isDone = false;
         private int picktUpCount = 0;
 
@@ -23,10 +25,53 @@ namespace Models
 
         public void LoadCrates()
         {
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 10; i++)
             {
                 Crate newCrate = new Crate(this.x, this.y, this.z);
                 importCrates.Add(newCrate);
+            }
+        }
+
+        public void MoveTrain()
+        {
+            if (_moveDirection == false)
+            {
+                if (Math.Round(this.x, 0) != 0)
+                {
+                    if (Math.Round(this.x) > 20)
+                    {
+                        this.Move(this.x -1, this.y, this.z);
+                    }
+                    else
+                    {
+                        this.Move(this.x -0.5, this.y, this.z);
+                    }
+                }
+                else
+                {
+                    _isMoving = false;
+                    _isArrived = true;
+                    _moveDirection = true;
+                }
+            }
+            else
+            {
+                if (Math.Round(this.x, 0) != 400)
+                {
+                    if (Math.Round(this.x) > 20)
+                    {
+                        this.Move(this.x + 1, this.y, this.z);
+                    }
+                    else
+                    {
+                        this.Move(this.x + 0.5, this.y, this.z);
+                    }
+                }
+                else
+                {
+                    _isMoving = false;
+                    _isDone = true;
+                }
             }
         }
 
@@ -34,12 +79,7 @@ namespace Models
         {
             base.Move(x, y, z);
         }
-
-        public override bool Update(int tick)
-        {
-            return base.Update(tick);
-        }
-
+        
         public bool CheckArrived()
         {
             return _isArrived;
@@ -48,10 +88,22 @@ namespace Models
         public void HandelPickUp()
         {
             picktUpCount++;
-            if (picktUpCount == 5)
+            if (picktUpCount == 10)
             {
-                _isDone = true;   //ga moven
+                _isMoving = true;
+                _moveDirection = true;
+                this.Move(this.x, this.y, this.z);
             }
+        }
+
+        public override bool Update(int tick)
+        {
+            if (_isMoving == true)
+            {
+                MoveTrain();
+            }
+
+            return base.Update(tick);
         }
     }
 }

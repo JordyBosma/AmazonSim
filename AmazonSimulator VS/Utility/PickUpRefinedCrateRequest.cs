@@ -38,7 +38,7 @@ namespace Utility
             {
                 return false;
             }
-            w.tasksForRobot.Add(new TaskForRobot(new double[] { 18, 18 }, ((Node)emptyStorageNode).position, crate, refinery, (DropOffTarget)emptyStorageNode));
+            w.tasksForRobot.Add(new TaskForRobot(new double[] { -25, 1 }, ((Node)emptyStorageNode).position, crate, refinery, (DropOffTarget)emptyStorageNode));
             w.worldObjects.Add(crate);
             crate.Move(crate.x, crate.y, crate.z);
             return true;
