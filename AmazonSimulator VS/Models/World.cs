@@ -18,8 +18,8 @@ namespace Models {
             Object3D robot8 = CreateObject(20, 0, 7, "Robot");
             Object3D refinery = CreateObject(-25, 0, -1, "Refinery");
 
-            SetInboundTimer(new ExportVehicleRequest(30, 30));
-            SetInboundTimer(new ImportVehicleRequest(15, 0, 49, 0, 0.5 * Math.PI, 0));
+            SetInboundTimer(new ExportVehicleRequest(0, -35));
+            SetInboundTimer(new ImportVehicleRequest(400, 0, 34, 0, 0.5 * Math.PI, 0));
 
             LoadGrid();
             //showGrid = true;
@@ -289,7 +289,7 @@ namespace Models {
                     worldObjects.Add(r);
                     return r;
                 case "Export":
-                    Object3D e = new ExportVehicle(x,y,z);
+                    Object3D e = new ExportVehicle(x,y,z, 0, Math.PI, 0);
                     worldObjects.Add(e);
                     return e;
                 case "Import":
