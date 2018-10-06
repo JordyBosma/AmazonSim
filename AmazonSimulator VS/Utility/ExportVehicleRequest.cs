@@ -37,9 +37,9 @@ namespace Utility
                 w.worldObjects.Add(exportVehicle);
                 exportVehicle.Move(exportVehicle.x, exportVehicle.y, exportVehicle.z);
             }
-            if (exportVehicle.CheckArrived())
+            if (exportVehicle.CheckArrived())                                                                 
             {
-                List<StorageNode> filledRefinedStorageNodes = null;
+                List<StorageNode> filledRefinedStorageNodes = new List<StorageNode>();
                 foreach (Node node in w.nodeGrid.nodes)                 //WARNING!!!
                 {
                     if (node is StorageNode)
@@ -47,55 +47,73 @@ namespace Utility
                         if (!((StorageNode)node).CheckImport() && ((StorageNode)node).GetIsDone())
                         {
                             filledRefinedStorageNodes.Add((StorageNode)node);
-                            //((StorageNode)node).SetIsDone();
-                            //break;
                         }
                     }
                 }
+
                 if (filledRefinedStorageNodes.Count() == 0)
                 {
                     return false;
                 }
-                //loop door filledRefinedStorageNodes hier onder:
 
+                filledRefinedStorageNodes = filledRefinedStorageNodes.OrderBy(node => node.GetCrate().weight).ToList();
 
-
-                if (exportVehicle.assignedWeightLeft > 5)
+                //loop:
+                int lastWeight = -1;
+                while (filledRefinedStorageNodes.Count() != 0)
                 {
-                    if (filledRefinedStorageNodes.Count() > 3)
+                    bool lowestvalue = true;
+                    for (int i = 0; i < filledRefinedStorageNodes.Count(); i++)
                     {
-                        int biggestW = 0, biggestP = -1;
-                        for (int i = 0; i < filledRefinedStorageNodes.Count(); i++)
+                        if (exportVehicle.assignedWeightLeft <= 10)
                         {
-                            int weightOnNode = filledRefinedStorageNodes[i].GetCrate().weight;
-                            if (weightOnNode > biggestW && weightOnNode <= exportVehicle.weightLeft)
+                            bool enoughChoice = filledRefinedStorageNodes.Count() >= 3;
+                            int biggestW = 0, biggestP = -1;
+                            for (int j = 0; j < filledRefinedStorageNodes.Count(); j++)
                             {
-                                biggestP = i;
-                                if (exportVehicle.assignedWeightLeft == biggestW)
+                                int weightOnNode = filledRefinedStorageNodes[j].GetCrate().weight;
+                                if (exportVehicle.assignedWeightLeft == weightOnNode)
                                 {
-                                    break;
-                                } else
-                                {
-                                    biggestW = weightOnNode;
+                                    StorageNode pickUpTarget = filledRefinedStorageNodes[biggestP];
+                                    w.tasksForRobot.Add(new TaskForRobot(pickUpTarget.position, new double[] { 1, -25 }, pickUpTarget.GetCrate(), (PickUpTarget)pickUpTarget, (DropOffTarget)exportVehicle));
+                                    pickUpTarget.SetIsDone();
+                                    return true;
                                 }
+                                else if (enoughChoice)
+                                {
+                                    if (weightOnNode > biggestW && weightOnNode <= exportVehicle.weightLeft)
+                                    {
+                                        biggestP = j;
+                                        biggestW = weightOnNode;
+                                    }
+                                } 
                             }
+                            if (biggestP != -1)
+                            {
+                                StorageNode pickUpTarget = filledRefinedStorageNodes[biggestP];
+                                w.tasksForRobot.Add(new TaskForRobot(pickUpTarget.position, new double[] { 1, -25 }, pickUpTarget.GetCrate(), (PickUpTarget)pickUpTarget, (DropOffTarget)exportVehicle));
+                                filledRefinedStorageNodes.RemoveAt(biggestP);
+                                pickUpTarget.SetIsDone();
+                            }
+                            else
+                            {
+                                exportVehicle.LoadWeight(exportVehicle.weightLeft);
+                                return true;
+                            }
+
                         }
-                        if (biggestP != -1)
+                        else if (filledRefinedStorageNodes[i].GetCrate().weight < lastWeight || lastWeight == -1)
                         {
-                            StorageNode pickUpTarget = filledRefinedStorageNodes[biggestP];
-                            w.tasksForRobot.Add(new TaskForRobot(pickUpTarget.position, new double[] { exportVehicle.x, exportVehicle.z }, pickUpTarget.GetCrate(), (PickUpTarget)pickUpTarget, (DropOffTarget)exportVehicle));
+                            StorageNode pickUpTarget = filledRefinedStorageNodes[i];
+                            w.tasksForRobot.Add(new TaskForRobot(pickUpTarget.position, new double[] { 1, -25 }, pickUpTarget.GetCrate(), (PickUpTarget)pickUpTarget, (DropOffTarget)exportVehicle));
+                            lastWeight = pickUpTarget.GetCrate().weight;
                             pickUpTarget.SetIsDone();
+                            filledRefinedStorageNodes.RemoveAt(i);
+                            lowestvalue = false;
+                            break;
                         }
-                        else
-                        {
-                            exportVehicle.LoadWeight(exportVehicle.weightLeft);
-                        }
-                        return true;
                     }
-                    else
-                    {
-                        return false;
-                    }
+                    if (lowestvalue == true) lastWeight = -1;
                 }
             }
             return false;
