@@ -7,6 +7,9 @@ using static Utility.RobotTask;
 
 namespace Models
 {
+    /// <summary>
+    /// Deze Class handled de movement en rotatie van de robot, en het crate dat zich eventueel op de robot bevind.
+    /// </summary>
     public class Robot : Object3D, IUpdatable
     {
         private List<double[]> pickupTask;
