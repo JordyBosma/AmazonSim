@@ -266,6 +266,27 @@ class Dome extends THREE.Group {
     }
 }
 
+class TrainStation extends THREE.Group {
+
+    constructor() {
+        super();
+
+        this.init();
+    }
+
+    init() {
+        var SelfRef = this;
+
+        loadOBJModel("models/", "TrainStation.obj", "textures/Materials/", "TrainStation.mtl", (mesh) => {
+            mesh.scale.set(1, 1, 1);
+            SelfRef.add(mesh);
+            SelfRef.position.x = 600;
+            SelfRef.position.z = 34;
+            SelfRef.rotation.y = Math.PI;
+        });
+    }
+}
+
 
 /**
  * Load an OBJ model from the server

@@ -27,7 +27,7 @@ namespace Models
         {
             for (int i = 0; i < 10; i++)
             {
-                Crate newCrate = new Crate(this.x, this.y, this.z);
+                Crate newCrate = new Crate(-1, 0, 25);
                 importCrates.Add(newCrate);
             }
         }
@@ -56,7 +56,7 @@ namespace Models
             }
             else
             {
-                if (Math.Round(this.x, 0) != 400)
+                if (Math.Round(this.x, 0) != 600)
                 {
                     if (Math.Round(this.x) > 20)
                     {
