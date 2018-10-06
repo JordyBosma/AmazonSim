@@ -225,10 +225,10 @@ namespace Models {
             _nodeGrid.StorageNodesAdd(new double[] { 15, -7 }, new List<int>() { 119 }, false);
 
             //storage lane 2
-            _nodeGrid.NodesAdd(new double[] { 3, -12 }, new List<int>() { 129, 132, 133 });
+            _nodeGrid.NodesAdd(new double[] { 3, -12 }, new List<int>() { 129, 132, 133 }); //index 128
             _nodeGrid.NodesAdd(new double[] { 7, -12 }, new List<int>() { 130, 134, 135 });
             _nodeGrid.NodesAdd(new double[] { 11, -12 }, new List<int>() { 131, 136, 137 });
-            _nodeGrid.NodesAdd(new double[] { 15, -12 }, new List<int>() { 124, 138, 139 });
+            _nodeGrid.NodesAdd(new double[] { 15, -12 }, new List<int>() { 114, 138, 139 }); 
 
             //storage nodes 2
             _nodeGrid.StorageNodesAdd(new double[] { 3, -10 }, new List<int>() { 128 }, false);
