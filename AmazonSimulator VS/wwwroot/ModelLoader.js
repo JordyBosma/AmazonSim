@@ -185,7 +185,7 @@ class Sun extends THREE.Group {
 
             // Create Sunlight
             var sunlight = new THREE.DirectionalLight(0xffffff, 1);
-            sunlight.position.set(-2000, 300, -1600);
+            sunlight.position.set(-1000, 300, -600);
             sunlight.target.position.set(0, 0, 0);
 
             // Create sunlight shadows
@@ -194,7 +194,7 @@ class Sun extends THREE.Group {
             sunlight.shadowMapWidth = sunlight.shadowMapHeight = 2048;
             sunlight.bias = -0.001;
 
-            var d = 25;
+            var d = 900;
 
             sunlight.shadowCameraLeft = -d;
             sunlight.shadowCameraRight = d;
@@ -345,7 +345,7 @@ function loadOBJModel(objPath, objName, materialPath, materialName, onload) {
                 .load(objName, function (object) {
                     onload(object);
                     //Cast shadows
-                    if (objName != "Sun.obj") {
+                    if (objName != "Sun.obj" && objName != "Earthchan.obj") {
                         object.traverse(function (child) {
                             if (objName == "Dome.obj") {
                                 child.castShadow = true;
