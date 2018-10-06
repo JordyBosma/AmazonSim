@@ -33,7 +33,7 @@ namespace Models
             this._refined = refined;
         }
 
-        public void Refine()
+        public void SetIsDone()
         {
             _isDone = true;
         }
