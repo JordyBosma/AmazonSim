@@ -276,7 +276,32 @@ class Dome extends THREE.Group {
     }
 }
 
+
 class Plane extends THREE.Group {
+	
+	    constructor() {
+        super();
+
+        this.init();
+		}
+		
+		init() {
+			var SelfRef = this;
+			
+			var geometry = new THREE.PlaneGeometry(4000, 2000, 32);
+			var material = new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load("/textures/8k_moon.png"), side: THREE.DoubleSide });
+			var plane = new THREE.Mesh(geometry, material);
+			plane.rotation.x = Math.PI / 2.0;
+			plane.position.x = 15;
+			plane.position.z = 15;
+			plane.position.y = -0.07;
+			
+			plane.receiveShadow = true;
+			SelfRef.add(plane);
+		}
+    }
+	
+class TrainStation extends THREE.Group {
 
     constructor() {
         super();
@@ -287,16 +312,13 @@ class Plane extends THREE.Group {
     init() {
         var SelfRef = this;
 
-        var geometry = new THREE.PlaneGeometry(4000, 2000, 32);
-        var material = new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load("/textures/8k_moon.png"), side: THREE.DoubleSide });
-        var plane = new THREE.Mesh(geometry, material);
-        plane.rotation.x = Math.PI / 2.0;
-        plane.position.x = 15;
-        plane.position.z = 15;
-        plane.position.y = -0.07;
-
-        plane.receiveShadow = true;
-        SelfRef.add(plane);
+        loadOBJModel("models/", "TrainStation.obj", "textures/Materials/", "TrainStation.mtl", (mesh) => {
+            mesh.scale.set(1, 1, 1);
+            SelfRef.add(mesh);
+            SelfRef.position.x = 600;
+            SelfRef.position.z = 34;
+            SelfRef.rotation.y = Math.PI;
+        });
     }
 }
 

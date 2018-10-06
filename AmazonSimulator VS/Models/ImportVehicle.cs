@@ -6,6 +6,10 @@ using Utility;
 
 namespace Models
 {
+    /// <summary>
+    /// dit is de ImportVehicle class, deze class wordt aangeroepen door een timer event en laad de eigenschapen van de import trein in.
+    /// Deze classe maakt nieuwe crates aan en regelt de movement van de trein.
+    /// </summary>
     public class ImportVehicle : Object3D, IUpdatable, PickUpTarget
     {
         private List<Crate> _importCrates = new List<Crate>();
@@ -27,7 +31,7 @@ namespace Models
         {
             for (int i = 0; i < 10; i++)
             {
-                Crate newCrate = new Crate(this.x, this.y, this.z);
+                Crate newCrate = new Crate(-1, 0, 25);
                 importCrates.Add(newCrate);
             }
         }
@@ -56,7 +60,7 @@ namespace Models
             }
             else
             {
-                if (Math.Round(this.x, 0) != 400)
+                if (Math.Round(this.x, 0) != 600)
                 {
                     if (Math.Round(this.x) > 20)
                     {

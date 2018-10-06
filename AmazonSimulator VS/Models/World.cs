@@ -19,7 +19,7 @@ namespace Models {
             Object3D refinery = CreateObject(-25, 0, -1, "Refinery");
 
             SetInboundTimer(new ExportVehicleRequest(0, -35));
-            SetInboundTimer(new ImportVehicleRequest(400, 0, 34, 0, 0.5 * Math.PI, 0));
+            SetInboundTimer(new ImportVehicleRequest(600, 0, 34, 0, 0.5 * Math.PI, 0));
 
             LoadGrid();
             //showGrid = true;

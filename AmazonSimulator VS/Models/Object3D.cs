@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace Models
 {
+    /// <summary>
+    /// Deze class is de abstacte parent class van alle objecten die vanaf de server geladen moeten worden, deze class regelt positie, rotatie en movement van objecten.
+    /// </summary>
     public abstract class Object3D
     {
         private double _x = 0;
