@@ -35,7 +35,7 @@ namespace Utility
 
         public void RefineCrate()
         {
-            Crate refinedCrate = new Crate(-1, 0, 1, unrefined[0].weight, unrefined[0].invetory, true);
+            Crate refinedCrate = new Crate(-25, 0, -1, unrefined[0].weight, unrefined[0].invetory, true);
             refined.Add(refinedCrate);
             unrefined[0].Refine();
             unrefined.RemoveAt(0);
@@ -46,7 +46,7 @@ namespace Utility
             if(unrefined.Count() != 0 && refinedCratesCount < 5)
             {
                 _tick++;
-                if(_tick > 100)
+                if(_tick > 200)
                 {
                     RefineCrate();
                     refinedCratesCount++;

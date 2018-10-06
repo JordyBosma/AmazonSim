@@ -23,7 +23,7 @@ namespace Models
 
         public void LoadCrates()
         {
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 10; i++)
             {
                 Crate newCrate = new Crate(this.x, this.y, this.z);
                 importCrates.Add(newCrate);
@@ -48,7 +48,7 @@ namespace Models
         public void HandelPickUp()
         {
             picktUpCount++;
-            if (picktUpCount == 5)
+            if (picktUpCount == 10)
             {
                 _isDone = true;   //ga moven
             }

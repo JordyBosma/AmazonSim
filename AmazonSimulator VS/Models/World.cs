@@ -8,43 +8,22 @@ namespace Models {
     public class World : Model, IUpdatable
     {
         public World() {
-            Object3D robot = CreateObject(1, 0, 1, "Robot");
-            //((Robot)robot).SetIsDone();
-            Object3D robot2 = CreateObject(1, 0, -1, "Robot");
-            Object3D robot3 = CreateObject(1, 0, 5, "Robot");
-            Object3D robot4 = CreateObject(1, 0, -1, "Robot");
-            Object3D robot5 = CreateObject(1, 0, 5, "Robot");
-            //Object3D crate = CreateObject(-7, 1, -3, "Crate");
+            Object3D robot1 = CreateObject(20, 0, -7, "Robot");
+            Object3D robot2 = CreateObject(20, 0, -5, "Robot");
+            Object3D robot3 = CreateObject(20, 0, -3, "Robot");
+            Object3D robot4 = CreateObject(20, 0, -1, "Robot");
+            Object3D robot5 = CreateObject(20, 0, 1, "Robot");
+            Object3D robot6 = CreateObject(20, 0, 3, "Robot");
+            Object3D robot7 = CreateObject(20, 0, 5, "Robot");
+            Object3D robot8 = CreateObject(20, 0, 7, "Robot");
+            Object3D refinery = CreateObject(-25, 0, -1, "Refinery");
+
             SetInboundTimer(new ExportVehicleRequest(30, 30));
             SetInboundTimer(new ImportVehicleRequest(15, 0, 49, 0, 0.5 * Math.PI, 0));
-            Refinery refinery = new Refinery(0, 0, 0, 0, 0, 0);
-            worldObjects.Add(refinery);
 
             LoadGrid();
-            showGrid = true;
+            //showGrid = true;
 
-            //test robot run
-            List<double[]> pickupTask = new List<double[]>();
-            List<double[]> dropoffTask = new List<double[]>();
-
-            //pickupTask.Add(new double[2] { 0, 0 });
-            //pickupTask.Add(new double[2] { 10, 0 });
-            //pickupTask.Add(new double[2] { 10, 10 });
-            //pickupTask.Add(new double[2] { 20, 10 });
-            //pickupTask.Add(new double[2] { 20, 20 });
-            //pickupTask.Add(new double[2] { 30, 20 });
-            //pickupTask.Add(new double[2] { 30, 30 });
-
-            //dropoffTask.Add(new double[2] { 30, 30 });
-            //dropoffTask.Add(new double[2] { 20, 30 });
-            //dropoffTask.Add(new double[2] { 20, 20 });
-            //dropoffTask.Add(new double[2] { 10, 20 });
-            //dropoffTask.Add(new double[2] { 10, 10 });
-            //dropoffTask.Add(new double[2] { 0, 10 });
-            //dropoffTask.Add(new double[2] { 0, 0 });
-
-            //RobotTask rt = new RobotTask(pickupTask, dropoffTask, (Crate)crate, null);
-            //MoveRobot(rt);
             //((Robot)robot).GiveTask(new RobotTask(new DijkstraPathFinding(new double[] { 1, 1 }, new double[] { -7, -3 }, _nodeGrid).GetPath(), new DijkstraPathFinding(new double[] { -7, -3 }, new double[] { 1, 1 }, _nodeGrid).GetPath(), (Crate)crate, (PickUpTarget)_nodeGrid.nodes[50], (DropOffTarget)refinery));
         }
 
@@ -274,10 +253,11 @@ namespace Models {
             _nodeGrid.NodesAdd(new double[] { -1, 25 }, new List<int>() { 149 }); // import index 148
             _nodeGrid.NodesAdd(new double[] { 1, 25 }, new List<int>() { 4 });
             _nodeGrid.NodesAdd(new double[] { -25, -1 }, new List<int>() { 151 }); // refinery dropoff
-            _nodeGrid.NodesAdd(new double[] { -25, 1 }, new List<int>() { 41 });
+            _nodeGrid.NodesAdd(new double[] { -25, 1 }, new List<int>() { 41 }); // refinery pickup
             _nodeGrid.NodesAdd(new double[] { 1, -25 }, new List<int>() { 153 }); // export dropoff
             _nodeGrid.NodesAdd(new double[] { -1, -25 }, new List<int>() { 74 });
 
+            // robot start posistions
             _nodeGrid.NodesAdd(new double[] { 20, -1 }, new List<int>() { 111 }); // index 154
             _nodeGrid.NodesAdd(new double[] { 20, -3 }, new List<int>() { 162 });
             _nodeGrid.NodesAdd(new double[] { 20, -5 }, new List<int>() { 144 });
@@ -300,8 +280,6 @@ namespace Models {
                 }
             }
         }
-        
-        
 
         private Object3D CreateObject(double x, double y, double z, string type) {
             switch (type)
@@ -326,6 +304,10 @@ namespace Models {
                     Object3D s = new StationaryObject(x, y, z, 0, 0, 0, "Shelf");
                     worldObjects.Add(s);
                     return s;
+                case "Refinery":
+                    Object3D refi = new Refinery(x, y, z, 0, 0, 0);
+                    worldObjects.Add(refi);
+                    return refi;
                 default:
                     throw new ArgumentException("there is no model that corresponds with that type");
             }

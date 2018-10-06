@@ -28,7 +28,7 @@ namespace Utility
             }
             Random rnd = new Random();
             int ramdomIndex = rnd.Next(0, refinerys.Count() -1);
-            w.tasksForRobot.Add(new TaskForRobot(node.position, new double[] { -18, 1 }, node.GetCrate(), (PickUpTarget)node, (DropOffTarget)refinerys[ramdomIndex]));
+            w.tasksForRobot.Add(new TaskForRobot(node.position, new double[] { -25, -1 }, node.GetCrate(), (PickUpTarget)node, (DropOffTarget)refinerys[ramdomIndex]));
             return true;
         }
     }
