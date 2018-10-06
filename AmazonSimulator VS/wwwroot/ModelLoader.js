@@ -24,7 +24,6 @@ class Robot extends THREE.Group {
         var material = new THREE.MeshFaceMaterial(cubeMaterials);
         var model = new THREE.Mesh(geometry, material);
         model.position.y = 0.151;
-        model.castShadow = true;
         SelfRef.add(model);
     }
 }
@@ -180,8 +179,13 @@ class Sun extends THREE.Group {
 
         loadOBJModel("models/", "Sun.obj", "textures/Materials/", "Sun.mtl", (mesh) => {
 
+            SelfRef.position.x = -2000;
+            SelfRef.position.z = -1600;
+            SelfRef.position.y = 300;
+
             // Create Sunlight
-            var sunlight = new THREE.DirectionalLight(0xffffff, 0.5);
+            var sunlight = new THREE.DirectionalLight(0xffffff, 1);
+            sunlight.position.set(-2000, 300, -1600);
             sunlight.target.position.set(0, 0, 0);
 
             // Create sunlight shadows
@@ -200,10 +204,9 @@ class Sun extends THREE.Group {
             sunlight.shadowCameraNear = 0.1;
             sunlight.shadowCameraFar = 10000;
 
-            mesh.add(sunlight)
+            mesh.add(sunlight.target, sunlight);
             mesh.scale.set(1, 1, 1);
             SelfRef.add(mesh);
-            scene.add(sunGlow.target, sunGlow);
         });
     }
 }
@@ -222,6 +225,10 @@ class Earth extends THREE.Group {
         loadOBJModel("models/", "Earthchan.obj", "textures/Materials/", "Earthchan.mtl", (mesh) => {
             mesh.scale.set(1, 1, 1);
             SelfRef.add(mesh);
+
+            SelfRef.position.x = -1200;
+            SelfRef.position.z = -1100;
+            SelfRef.position.y = 150;
         });
     }
 }
@@ -262,7 +269,34 @@ class Dome extends THREE.Group {
             mesh.add(domeLight1.target, domeLight2.target, domeLight3.target, domeLight4.target, domeLight1, domeLight2, domeLight3, domeLight4);
             mesh.scale.set(1, 1, 1);
             SelfRef.add(mesh);
+
+            SelfRef.position.x = 0;
+            SelfRef.position.z = 0;
         });
+    }
+}
+
+class Plane extends THREE.Group {
+
+    constructor() {
+        super();
+
+        this.init();
+    }
+
+    init() {
+        var SelfRef = this;
+
+        var geometry = new THREE.PlaneGeometry(4000, 2000, 32);
+        var material = new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load("/textures/8k_moon.png"), side: THREE.DoubleSide });
+        var plane = new THREE.Mesh(geometry, material);
+        plane.rotation.x = Math.PI / 2.0;
+        plane.position.x = 15;
+        plane.position.z = 15;
+        plane.position.y = -0.07;
+
+        plane.receiveShadow = true;
+        SelfRef.add(plane);
     }
 }
 
