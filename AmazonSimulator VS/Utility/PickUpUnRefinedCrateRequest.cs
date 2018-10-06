@@ -18,18 +18,18 @@ namespace Utility
 
         public bool RunTask(Model w)
         {
-            List<Object3D> refinerys = new List<Object3D>();
             foreach (Object3D obj in w.worldObjects)
             {
                 if (obj is Refinery)
                 {
-                    refinerys.Add(obj);
+                    if (((Refinery)obj).IsNotFilled())
+                    {
+                        w.tasksForRobot.Add(new TaskForRobot(node.position, new double[] { -25, -1 }, node.GetCrate(), (PickUpTarget)node, (DropOffTarget)obj));
+                        return true;
+                    }
                 }
             }
-            Random rnd = new Random();
-            int ramdomIndex = rnd.Next(0, refinerys.Count() -1);
-            w.tasksForRobot.Add(new TaskForRobot(node.position, new double[] { -25, -1 }, node.GetCrate(), (PickUpTarget)node, (DropOffTarget)refinerys[ramdomIndex]));
-            return true;
+            return false;
         }
     }
 }

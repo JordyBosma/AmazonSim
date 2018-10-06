@@ -11,7 +11,7 @@ namespace Utility
     {
         private List<Crate> unrefined = new List<Crate>();
         private List<Crate> refined = new List<Crate>();
-        private int refinedCratesCount = 0;
+        private int cratesCount = 0;
         private int _tick = 0;
 
         public Refinery(double x, double y, double z, double rotationX, double rotationY, double rotationZ) : base(x, y, z, rotationX, rotationY, rotationZ, "Refinery")
@@ -23,6 +23,18 @@ namespace Utility
             return refined;
         }
 
+        public bool IsNotFilled()
+        {
+            if (cratesCount != 5)
+            {
+                cratesCount++;
+                return true;
+            } else
+            {
+                return false;
+            }
+        }
+
         public void HandelDropOff(Crate crate)
         {
             unrefined.Add(crate);
@@ -30,7 +42,7 @@ namespace Utility
 
         public void HandelPickUp()
         {
-            refinedCratesCount--;
+            cratesCount--;
         }
 
         public void RefineCrate()
@@ -43,13 +55,12 @@ namespace Utility
 
         public override bool Update(int tick)
         {
-            if(unrefined.Count() != 0 && refinedCratesCount < 5)
+            if(unrefined.Count() != 0)
             {
                 _tick++;
                 if(_tick > 200)
                 {
                     RefineCrate();
-                    refinedCratesCount++;
                     _tick = 0;
                 }
             }
