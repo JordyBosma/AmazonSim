@@ -34,17 +34,6 @@ namespace Models
         public Crate pickupCrate { get { return _pickupCrate; } }
         public DropOffTarget dropOffTarget { get { return _dropOffTarget; } }
         public PickUpTarget pickUpTarget { get { return _pickUpTarget; } }
-        public double[] pointOne { get { return _pointOne; } }
-        public double[] pointTwo { get { return _pointTwo; } }
-        public double endPos { get { return _endPos; } }
-        public bool isMoving { get { return _isMoving; } }
-        public bool isRotating { get { return _isRotating; } }
-        public string movementAxis { get { return _movementAxis; } }
-        public int rotationAxis { get { return _rotationAxis; } }
-        public int newRotationAxis { get { return _newRotationAxis; } }
-        public int rotationTick { get { return _rotationTick; } }
-        public double rotationValue { get { return _rotationValue; } }
-        public double rotation { get { return _rotation; } }
 
         public bool isDone { get { return _isDone; } }
 
@@ -82,6 +71,9 @@ namespace Models
             HandleTask();
         }
 
+        /// <summary>
+        /// Deze Methode zorgt ervoor dat de pickuptask en dropofftask gehandled worden, ook geeft deze methode aan naar welk punt de robot moet bewegen.
+        /// </summary>
         private void HandleTask()
         {
             if (currentTask == null)
@@ -93,7 +85,7 @@ namespace Models
             {
                 _pointOne = currentTask[0];
                 _pointTwo = currentTask[1];
-                SetRoute(pointOne, pointTwo);
+                SetRoute(_pointOne, _pointTwo);
             }
             else
             {
@@ -102,7 +94,6 @@ namespace Models
                     currentTask = dropoffTask;
                     _moveCrate = true;
                     _pickUpTarget.HandelPickUp();
-                    //_pickUpTarget = null;
                     SetRoute(currentTask[0], currentTask[1]);  
                 }
                 else
@@ -113,8 +104,6 @@ namespace Models
                     _isDone = true;
                     _moveCrate = false;
                     _dropOffTarget.HandelDropOff(_pickupCrate);
-                    //_dropOffTarget = null;
-                    //_pickupCrate = null;
                 }
             }
         }
@@ -124,23 +113,27 @@ namespace Models
             if (pointOne[0] == pointTwo[0])
             {
                 _movementAxis = "z";
-                SetRotation(movementAxis);
+                SetRotation(_movementAxis);
                 TaskPos(pointTwo[1]);
             }
             else
             {
                 _movementAxis = "x";
-                SetRotation(movementAxis);
+                SetRotation(_movementAxis);
                 TaskPos(pointTwo[0]);
             }
         }
 
+        /// <summary>
+        /// deze methode handled de rotatie van de robot doormiddel van de movementAxis en beweging over die axis.
+        /// </summary>
+        /// <param name="movmentAxis"></param>
         private void SetRotation(string movmentAxis)
         {
-            _rotationAxis = newRotationAxis;
-            if (movementAxis == "z")
+            _rotationAxis = _newRotationAxis;
+            if (_movementAxis == "z")
             {
-                if (pointOne[1] < pointTwo[1])
+                if (_pointOne[1] < _pointTwo[1])
                 {
                     _newRotationAxis = 0;
                 }
@@ -151,7 +144,7 @@ namespace Models
             }
             else
             {
-                if (pointOne[0] < pointTwo[0])
+                if (_pointOne[0] < _pointTwo[0])
                 {
                     _newRotationAxis = 1;
                 }
@@ -161,7 +154,7 @@ namespace Models
                 }
             }
 
-            int rotation = newRotationAxis - rotationAxis;
+            int rotation = _newRotationAxis - _rotationAxis;
 
             switch (rotation)
             {
@@ -180,75 +173,84 @@ namespace Models
         private void TaskPos(double endPos)
         {
             _endPos = endPos;
-            if (rotationValue != 0)
+            if (_rotationValue != 0)
             {
                 _isRotating = true;
             }
             _isMoving = true;
         }
 
+        /// <summary>
+        /// deze method beweegt de robot over de x as
+        /// </summary>
         private void MoveToPosX()
         {
-            if (endPos > Math.Round(this.x, 1))
+            if (_endPos > Math.Round(this.x, 1))
             {
                 this.Move(this.x + 0.1, this.y, this.z);
             }
-            else if (endPos < Math.Round(this.x, 1))
+            else if (_endPos < Math.Round(this.x, 1))
             {
                 this.Move(this.x - 0.1, this.y, this.z);
             }
 
-            if (endPos == Math.Round(this.x, 1))
+            if (_endPos == Math.Round(this.x, 1))
             {
                 currentTask.RemoveAt(0);
                 HandleTask();
             }
         }
 
+        /// <summary>
+        /// deze methode beweegt de robot over de y as
+        /// </summary>
         private void MoveToPosZ()
         {
-            if (endPos > Math.Round(this.z, 1))
+            if (_endPos > Math.Round(this.z, 1))
             {
                 this.Move(this.x, this.y, this.z + 0.1);
             }
-            else if (endPos < Math.Round(this.z, 1))
+            else if (_endPos < Math.Round(this.z, 1))
             {
                 this.Move(this.x, this.y, this.z - 0.1);
             }
 
-            if (endPos == Math.Round(this.z, 1))
+            if (_endPos == Math.Round(this.z, 1))
             {
                 currentTask.RemoveAt(0);
                 HandleTask();
             }
         }
 
+        /// <summary>
+        /// deze methode roteert de robot naar zijn rotation target in stappen van 20
+        /// </summary>
         private void RotateRobot()
         {
-            if (rotationTick != 21)
+            if (_rotationTick != 21)
             {
-                Rotate(0, (rotation + (rotationValue / 20) * rotationTick), 0);
+                Rotate(0, (_rotation + (_rotationValue / 20) * _rotationTick), 0);
                 _rotationTick++;
             }
             else
             {
                 _isRotating = false;
-                _rotation = rotation + rotationValue;
+                _rotation = _rotation + _rotationValue;
                 _rotationTick = 0;
             }
         }
 
         public override bool Update(int tick)
         {
-            if (isMoving == true)
+            if (_isMoving == true)
             {
-                if (isRotating == true)
+                if (_isRotating == true)
                 {
                     RotateRobot();
                 }
                 else
                 {
-                    if (movementAxis == "x")
+                    if (_movementAxis == "x")
                     {
                         MoveToPosX();
                     }

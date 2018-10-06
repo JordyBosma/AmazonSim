@@ -6,6 +6,10 @@ using Utility;
 
 namespace Models
 {
+    /// <summary>
+    /// dit is de ImportVehicle class, deze class wordt aangeroepen door een timer event en laad de eigenschapen van de import trein in.
+    /// Deze classe maakt nieuwe crates aan en regelt de movement van de trein.
+    /// </summary>
     public class ImportVehicle : Object3D, IUpdatable, PickUpTarget
     {
         private List<Crate> _importCrates = new List<Crate>();
