@@ -7,6 +7,9 @@ using Utility;
 
 namespace Utility
 {
+    /// <summary>
+    /// Request to make a task for a robot to move a refinedcrate in a refinery to empty export storage node.
+    /// </summary>
     public class PickUpRefinedCrateRequest : LogicTask
     {
         private PickUpTarget refinery;

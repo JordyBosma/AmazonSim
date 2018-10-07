@@ -6,8 +6,15 @@ using Models;
 
 namespace Utility
 {
+    /// <summary>
+    /// Task to be executed by the logic.
     public interface LogicTask
     {
-         bool RunTask(Model w);
+        /// <summary>
+        /// Runs the LogicTask. Returns true if succesfully completed.
+        /// </summary>
+        /// <param name="w"></param>
+        /// <returns></returns>
+        bool RunTask(Model w);
     }
 }
