@@ -106,6 +106,10 @@ namespace Models
             return base.Update(tick);
         }
 
+        /// <summary>
+        /// Triggered by robot when droping the crate by DropOffTarget.
+        /// </summary>
+        /// <param name="crate"></param>
         public void HandelDropOff(Crate crate)
         {
             LoadWeight(crate.weight);

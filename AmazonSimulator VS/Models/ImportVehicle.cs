@@ -89,6 +89,9 @@ namespace Models
             return _isArrived;
         }
 
+        /// <summary>
+        /// Triggered by robot when picking up the crate by PickUpTarget.
+        /// </summary>
         public void HandelPickUp()
         {
             picktUpCount++;

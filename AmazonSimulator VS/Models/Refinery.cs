@@ -35,14 +35,21 @@ namespace Utility
             }
         }
 
-        public void HandelDropOff(Crate crate)
-        {
-            unrefined.Add(crate);
-        }
-
+        /// <summary>
+        /// Triggered by robot when picking up the crate by PickUpTarget.
+        /// </summary>
         public void HandelPickUp()
         {
             cratesCount--;
+        }
+
+        /// <summary>
+        /// Triggered by robot when droping the crate by DropOffTarget.
+        /// </summary>
+        /// <param name="crate"></param>
+        public void HandelDropOff(Crate crate)
+        {
+            unrefined.Add(crate);
         }
 
         public void RefineCrate()
