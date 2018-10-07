@@ -21,7 +21,7 @@ namespace Utility
         /// <summary>
         /// Returns list of refined crates ready to be assigned to be pickted up.
         /// </summary>
-        /// <returns>Refined crates.</returns>
+        /// <returns></returns>
         public List<Crate> GetRefinedList()
         {
             return refined;
@@ -30,7 +30,7 @@ namespace Utility
         /// <summary>
         /// Checks if there is space left for a new crate.
         /// </summary>
-        /// <returns>If there is space left</returns>
+        /// <returns></returns>
         public bool CheckForSpaceLeft()
         {
             if (cratesCount != 5)

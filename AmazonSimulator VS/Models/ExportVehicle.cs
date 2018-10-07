@@ -27,6 +27,10 @@ namespace Models
             _assignedWeightLeft = exportWeight;
         }
 
+        /// <summary>
+        /// Load weight on exportVehicle. The exportVehicle will leave if it became full.
+        /// </summary>
+        /// <param name="loadWeight"></param>
         public void LoadWeight(int loadWeight)  
         {
             _weightLeft -= loadWeight;
@@ -38,11 +42,19 @@ namespace Models
             }
         }
 
+        /// <summary>
+        /// Assign weight to exportVehicle. The exportVehicle will leave if it became full.
+        /// </summary>
+        /// <param name="loadWeight"></param>
         public void AssignWeight(int loadWeight)  
         {
             _assignedWeightLeft -= loadWeight;
         }
 
+        /// <summary>
+        /// Checks if the exportVehicle has arrived.
+        /// </summary>
+        /// <returns></returns>
         public bool CheckArrived()
         {
             return _isArrived;

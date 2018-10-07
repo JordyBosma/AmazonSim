@@ -24,10 +24,13 @@ namespace Models
 
         public ImportVehicle(double x, double y, double z, double rotationX, double rotationY, double rotationZ) : base(x, y, z, rotationX, rotationY, rotationZ, "ImportVehicle")
         {
-            LoadCrates();
+            CreateCrates();
         }
 
-        public void LoadCrates()
+        /// <summary>
+        /// Creates crates that are being imported for exporting.
+        /// </summary>
+        public void CreateCrates()
         {
             for (int i = 0; i < 10; i++)
             {
@@ -83,7 +86,11 @@ namespace Models
         {
             base.Move(x, y, z);
         }
-        
+
+        /// <summary>
+        /// Checks if the importVehicle has arrived.
+        /// </summary>
+        /// <returns></returns>
         public bool CheckArrived()
         {
             return _isArrived;
