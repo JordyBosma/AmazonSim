@@ -6,6 +6,9 @@ using Models;
 
 namespace Utility
 {
+    /// <summary>
+    /// Object with all data needed to make a task for a robot.
+    /// </summary>
     public class RobotTask
     {
         private List<double[]> _pickupTask;

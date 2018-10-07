@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace Models
 {
+    /// <summary>
+    /// A object3d in the world representing a crate with one of all sorts of materials with different weights in it to be moved around by robots.
+    /// </summary>
     public class Crate : Object3D, IUpdatable
     {
         private int _weight;
@@ -17,6 +20,12 @@ namespace Models
         public bool refined { get { return _refined; } }
         public bool isDone { get { return _isDone; } }
 
+        /// <summary>
+        /// Crate constructor for a unrefined new crate.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
         public Crate(double x, double y, double z) : base(x, y, z, 0, 0, 0, "Crate")
         {
             Random random = new Random();
@@ -26,6 +35,15 @@ namespace Models
             _invetory = pInvetory[random.Next(5)];
         }
 
+        /// <summary>
+        /// Crate constructor for a refined crate.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <param name="weight"></param>
+        /// <param name="invetory"></param>
+        /// <param name="refined"></param>
         public Crate(double x, double y, double z, int weight, string invetory, bool refined) : base(x, y, z, 0, 0, 0, "Crate")
         {
             this._weight = weight;
@@ -33,6 +51,9 @@ namespace Models
             this._refined = refined;
         }
 
+        /// <summary>
+        /// Set isDone to true, this so that the logic knows that there needs something to happen with this object. Here it means the removel of this crate.
+        /// </summary>
         public void SetIsDone()
         {
             _isDone = true;

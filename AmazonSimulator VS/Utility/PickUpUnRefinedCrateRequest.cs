@@ -22,7 +22,7 @@ namespace Utility
             {
                 if (obj is Refinery)
                 {
-                    if (((Refinery)obj).IsNotFilled())
+                    if (((Refinery)obj).CheckForSpaceLeft())
                     {
                         w.tasksForRobot.Add(new TaskForRobot(node.position, new double[] { -25, -1 }, node.GetCrate(), (PickUpTarget)node, (DropOffTarget)obj));
                         return true;

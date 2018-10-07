@@ -128,7 +128,7 @@ namespace Models
         }
 
         /// <summary>
-        /// deze methode handled de rotatie van de robot doormiddel van de movementAxis en beweging over die axis.
+        /// Deze methode handled de rotatie van de robot doormiddel van de movementAxis en beweging over die axis.
         /// </summary>
         /// <param name="movmentAxis"></param>
         private void SetRotation(string movmentAxis)
@@ -184,7 +184,7 @@ namespace Models
         }
 
         /// <summary>
-        /// deze method beweegt de robot over de x as
+        /// Deze method beweegt de robot over de x as.
         /// </summary>
         private void MoveToPosX()
         {
@@ -205,7 +205,7 @@ namespace Models
         }
 
         /// <summary>
-        /// deze methode beweegt de robot over de y as
+        /// Deze methode beweegt de robot over de y as.
         /// </summary>
         private void MoveToPosZ()
         {
@@ -226,7 +226,7 @@ namespace Models
         }
 
         /// <summary>
-        /// deze methode roteert de robot naar zijn rotation target in stappen van 20
+        /// Deze methode roteert de robot naar zijn rotation target in stappen van 20.
         /// </summary>
         private void RotateRobot()
         {

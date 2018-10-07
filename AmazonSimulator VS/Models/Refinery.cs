@@ -18,12 +18,20 @@ namespace Utility
         {
         }
 
+        /// <summary>
+        /// Returns list of refined crates ready to be assigned to be pickted up.
+        /// </summary>
+        /// <returns>Refined crates.</returns>
         public List<Crate> GetRefinedList()
         {
             return refined;
         }
 
-        public bool IsNotFilled()
+        /// <summary>
+        /// Checks if there is space left for a new crate.
+        /// </summary>
+        /// <returns>If there is space left</returns>
+        public bool CheckForSpaceLeft()
         {
             if (cratesCount != 5)
             {
@@ -52,6 +60,9 @@ namespace Utility
             unrefined.Add(crate);
         }
 
+        /// <summary>
+        /// Refines a unrefined crate.
+        /// </summary>
         public void RefineCrate()
         {
             Crate refinedCrate = new Crate(-25, 0, -1, unrefined[0].weight, unrefined[0].invetory, true);
