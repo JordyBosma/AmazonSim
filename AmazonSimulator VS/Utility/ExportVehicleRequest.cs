@@ -99,7 +99,6 @@ namespace Utility
                             }
                             else
                             {
-                                //exportVehicle.AssignWeight(exportVehicle.assignedWeightLeft);
                                 exportVehicle.LoadWeight(exportVehicle.assignedWeightLeft);
                                 return true;
                             }

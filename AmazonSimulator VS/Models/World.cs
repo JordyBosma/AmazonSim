@@ -7,6 +7,9 @@ using Utility;
 namespace Models {
     public class World : Model, IUpdatable
     {
+        /// <summary>
+        /// Constructor for filling the world with starting objects and defining the world spesific grid.
+        /// </summary>
         public World() {
             Object3D robot1 = CreateObject(20, 0, -7, "Robot");
             Object3D robot2 = CreateObject(20, 0, -5, "Robot");
@@ -22,23 +25,17 @@ namespace Models {
             SetInboundTimer(new ImportVehicleRequest(600, 0, 34, 0, 0.5 * Math.PI, 0));
 
             LoadGrid();
-            //showGrid = true;
 
-            //((Robot)robot).GiveTask(new RobotTask(new DijkstraPathFinding(new double[] { 1, 1 }, new double[] { -7, -3 }, _nodeGrid).GetPath(), new DijkstraPathFinding(new double[] { -7, -3 }, new double[] { 1, 1 }, _nodeGrid).GetPath(), (Crate)crate, (PickUpTarget)_nodeGrid.nodes[50], (DropOffTarget)refinery));
+            //for debug:
+            //showGrid = true;  
+            
+            //((Robot)robot1).SetIsDone();
+            //((Robot)robot1).GiveTask(new RobotTask(new DijkstraPathFinding(new double[] { 1, 1 }, new double[] { -7, -3 }, _nodeGrid).GetPath(), new DijkstraPathFinding(new double[] { -7, -3 }, new double[] { 1, 1 }, _nodeGrid).GetPath(), (Crate)crate, (PickUpTarget)_nodeGrid.nodes[50], (DropOffTarget)refinery));
         }
 
-        public void MoveRobot(RobotTask rt)
-        {
-            foreach (Object3D r in worldObjects)
-            {
-                if (r.type == "Robot")
-                {
-                    ((Robot)r).GiveTask(rt);
-                    break;
-                }
-            }
-        }
-
+        /// <summary>
+        /// Fill de grid of nodes with defined nodes and storagenodes, and creates all the shelve object on storagenodes
+        /// </summary>
         private void LoadGrid()
         {
             //positive x + z
@@ -281,6 +278,14 @@ namespace Models {
             }
         }
 
+        /// <summary>
+        /// Creates a Object3D of given type.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
         private Object3D CreateObject(double x, double y, double z, string type) {
             switch (type)
             {
@@ -312,5 +317,17 @@ namespace Models {
                     throw new ArgumentException("there is no model that corresponds with that type");
             }
         }
+
+        /*public void MoveRobot(RobotTask rt)
+        {
+            foreach (Object3D r in worldObjects)
+            {
+                if (r.type == "Robot")
+                {
+                    ((Robot)r).GiveTask(rt);
+                    break;
+                }
+            }
+        }*/
     }
 }

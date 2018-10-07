@@ -65,6 +65,9 @@ namespace Models
             base.Move(x, y, z);
         }
 
+        /// <summary>
+        /// Moves exportVehicle to the loadin docking station and back when done loading in.
+        /// </summary>
         public void MoveRocket()
         {
             if (_moveDirection == false)

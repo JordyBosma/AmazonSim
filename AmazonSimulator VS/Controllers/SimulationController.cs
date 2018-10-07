@@ -46,7 +46,9 @@ namespace Controllers
                 }
             }
         }
-
+        /// <summary>
+        /// Starts the simulation on simulation thread.
+        /// </summary>
         public void Simulate()
         {
             running = true;
@@ -62,6 +64,9 @@ namespace Controllers
             running = false;
         }
 
+        /// <summary>
+        /// Starts the logic loop on logic thread.
+        /// </summary>
         public void StartLogic()
         {
             running = true;

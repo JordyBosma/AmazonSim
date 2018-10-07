@@ -20,19 +20,19 @@ namespace AmazonSimulator_VS
 
         public Startup(IConfiguration configuration)
         {
+            //Setup controler, view and modal with the chosen model.
             simulationController = new SimulationController(new Models.World());
 
+            //Simulation thread (Update):
             Thread InstanceCaller = new Thread(
                 new ThreadStart(simulationController.Simulate));
-
-            // Start the thread.
             InstanceCaller.Start();
 
             Configuration = configuration;
 
+            //Logic thread:
             Thread LogicCaller = new Thread(
                 new ThreadStart(simulationController.StartLogic));
-
             LogicCaller.Start();
         }
 
