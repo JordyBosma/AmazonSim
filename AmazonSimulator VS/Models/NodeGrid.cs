@@ -10,6 +10,8 @@ namespace Models
     {
         public List<Node> nodes;
 
+        //public List<Node> nodes { get { return _nodes; } }
+
         public NodeGrid()
         {
             nodes = new List<Node>();
@@ -87,11 +89,18 @@ namespace Models
             return importNode;
         }
 
+        /// <summary>
+        /// Triggered by robot when picking up the crate by PickUpTarget.
+        /// </summary>
         public void HandelPickUp()
         {
             reserved = false;
         }
 
+        /// <summary>
+        /// Triggered by robot when droping the crate by DropOffTarget.
+        /// </summary>
+        /// <param name="crate"></param>
         public void HandelDropOff(Crate crate)
         {
             this._storedCrate = crate;
