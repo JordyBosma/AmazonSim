@@ -39,6 +39,9 @@ namespace Models
             }
         }
 
+        /// <summary>
+        /// Moves importVehicle to the unload docking station and back when done unloading.
+        /// </summary>
         public void MoveTrain()
         {
             if (_moveDirection == false)

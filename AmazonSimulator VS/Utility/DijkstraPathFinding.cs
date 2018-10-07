@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Utility
 {
+    /// <summary>
+    /// Object used for storing pathfinding information for finding the shothest path.
+    /// </summary>
     public class DijkstraPathFinding
     {
         private double[] dist;
@@ -15,8 +18,15 @@ namespace Utility
         Node currentNode = null;
         Node endNode = null;
 
+        /// <summary>
+        /// Used for setting up the data used for the pathfinding.
+        /// </summary>
+        /// <param name="firstPoint"></param>
+        /// <param name="secondPoint"></param>
+        /// <param name="nodeGrid"></param>
         public DijkstraPathFinding(double[] firstPoint, double[] secondPoint, NodeGrid nodeGrid)
         {
+            //making the begin situasions of data used for finding a path:
             int nodesCount = nodeGrid.nodes.Count;
             prev = new List<Node>();
             dist = new double[nodesCount];
@@ -32,7 +42,7 @@ namespace Utility
             }
             this.nodeGrid = nodeGrid;
 
-            //make the begin situasions and find the nodes by the cordienets: 
+            //finding the nodes by the begin- and endpoint: 
             for (int i = 0; i < nodesCount; i++)
             {
                 if (nodeGrid.nodes[i].position.SequenceEqual(firstPoint))
@@ -47,7 +57,10 @@ namespace Utility
             }
         }
 
-        //get the path
+        /// <summary>
+        /// Get the shothest path with the data profided in the construcor of the class.
+        /// </summary>
+        /// <returns></returns>
         public List<double[]> GetPath()
         {
             //Dijkstra alg:
@@ -66,6 +79,9 @@ namespace Utility
             }
         }
 
+        /// <summary>
+        /// Stores the data form calculating the distance form the current piont to all connected pointand comparinging to already found distances.
+        /// </summary>
         public void Dijkstra()
         {
             double shortest = double.MaxValue;
@@ -90,6 +106,12 @@ namespace Utility
             }
         }
 
+        /// <summary>
+        /// Gets the shortest found path out of the data stored after the dijksta function has looped.
+        /// </summary>
+        /// <param name="next"></param>
+        /// <param name="prev"></param>
+        /// <returns></returns>
         public List<double[]> GetShortestPath(Node next, List<Node> prev)
         {
             if (prev[next.id] == null)
