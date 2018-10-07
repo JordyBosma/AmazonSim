@@ -31,7 +31,9 @@ namespace Utility
         }
 
         /// <summary>
-        /// Runs the ImportVehicleRequest. This will spawn a import vehicle and keeps trys to make a tasks for robots to move a unrefined crate in the cargo of the import vehicle to a empty inport storage node until for all crates in cargo a task for a robot is made. Returns true if succesfully completed.
+        /// Runs the ImportVehicleRequest. 
+        /// This will spawn a import vehicle and keeps trys to make a tasks for robots to move a unrefined crate in the cargo of the import vehicle to a empty inport storage node until for all crates in cargo a task for a robot is made. 
+        /// Returns true if succesfully completed.
         /// </summary>
         /// <param name="w"></param>
         /// <returns></returns>

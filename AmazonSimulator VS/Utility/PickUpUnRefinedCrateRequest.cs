@@ -20,7 +20,9 @@ namespace Utility
         }
 
         /// <summary>
-        /// Runs the PickUpUnRefinedCrateRequest. This will try to make a task for a robot to move a unrefined crate on a inport storage node to a refinery with space left. Returns true if succesfully completed.
+        /// Runs the PickUpUnRefinedCrateRequest. 
+        /// This will try to make a task for a robot to move a unrefined crate on a inport storage node to a refinery with space left. 
+        /// Returns true if succesfully completed.
         /// </summary>
         /// <param name="w"></param>
         /// <returns></returns>

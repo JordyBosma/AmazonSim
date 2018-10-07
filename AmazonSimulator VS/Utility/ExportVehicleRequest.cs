@@ -7,6 +7,9 @@ using Utility;
 
 namespace Utility
 {
+    /// <summary>
+    /// Request to spawn a export vehicle and make tasks for robots to move a refined crates stored on a export storage nodes to the export vehicle to fill it up so closes as posible to its maximal weight capacity.
+    /// </summary>
     public class ExportVehicleRequest : LogicTask, InboundLogicTask
     {
         private double _x;
@@ -35,16 +38,24 @@ namespace Utility
             return rnd.Next(89, 180) * 1000;
         }
 
+        /// <summary>
+        /// Runs the ExportVehicleRequest. 
+        /// This will spawn a export vehicle and will try to make a tasks for robots to move refined crates stored on a export storage nodes to the export vehicle to fill it up so closes as posible to its maximal weight capacity. 
+        /// Returns true if succesfully completed.
+        /// </summary>
         public bool RunTask(Model w)
         {
+            //Spawn export vehicle:
             if (exportVehicle == null)
             {
                 exportVehicle = new ExportVehicle(x, y, z, 0, Math.PI, 0);
                 w.worldObjects.Add(exportVehicle);
                 exportVehicle.Move(exportVehicle.x, exportVehicle.y, exportVehicle.z);
             }
+            //Make tasks for robots if vehicle has arrived:
             if (exportVehicle.CheckArrived())                                                                 
             {
+                //Find filled export storage nodes and order them by the weight of the crates in the nodes:
                 List<StorageNode> filledRefinedStorageNodes = new List<StorageNode>();
                 foreach (Node node in w.nodeGrid.nodes)                 //WARNING!!! could lead to "change to collections" exeption, but i doubt it.
                 {
@@ -56,21 +67,20 @@ namespace Utility
                         }
                     }
                 }
-
                 if (filledRefinedStorageNodes.Count() == 0)
                 {
                     return false;
                 }
-
                 filledRefinedStorageNodes = filledRefinedStorageNodes.OrderBy(node => node.GetCrate().weight).ToList();
 
-                //loop:
+                //Loop that creates tasks for robots to move crates to the export vehicle with the found filled refined storage nodes:
                 int lastWeight = -1;
                 while (filledRefinedStorageNodes.Count() != 0)
                 {
                     bool lowestvalue = true;
                     for (int i = 0; i < filledRefinedStorageNodes.Count(); i++)
                     {
+                        //Export vehicle is almost full, will try fill it as full as possible:
                         if (exportVehicle.assignedWeightLeft <= 10)
                         {
                             bool enoughChoice = filledRefinedStorageNodes.Count() >= 3;
@@ -110,6 +120,8 @@ namespace Utility
                             }
 
                         }
+                        //Export vehicle has more than enough space, fill the export vehicle with biggest weight to smallest weight, a smaller weight each time. 
+                        //this until lowest weight has been found, than this will sart over again:
                         else if (filledRefinedStorageNodes[i].GetCrate().weight < lastWeight || lastWeight == -1)
                         {
                             StorageNode pickUpTarget = filledRefinedStorageNodes[i];

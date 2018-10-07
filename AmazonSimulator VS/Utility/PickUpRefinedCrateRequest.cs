@@ -22,7 +22,9 @@ namespace Utility
         }
 
         /// <summary>
-        /// Runs the PickUpRefinedCrateRequest. This will try to make a task for a robot to move a refined crate in refinery to a empty export storage node. Returns true if succesfully completed.
+        /// Runs the PickUpRefinedCrateRequest. 
+        /// This will try to make a task for a robot to move a refined crate in refinery to a empty export storage node. 
+        /// Returns true if succesfully completed.
         /// </summary>
         /// <param name="w"></param>
         /// <returns></returns>
