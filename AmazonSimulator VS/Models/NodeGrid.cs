@@ -97,7 +97,6 @@ namespace Models
             this._storedCrate = crate;
             crate.Move(position[0], 0.39, position[1]);
             _isDone = true;
-
         }
     }
 }

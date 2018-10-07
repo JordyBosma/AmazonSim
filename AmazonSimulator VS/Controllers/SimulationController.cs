@@ -65,7 +65,7 @@ namespace Controllers
         public void StartLogic()
         {
             running = true;
-
+            Thread.Sleep(10);
             while (running)
             {
                 w.Logic();

@@ -49,7 +49,7 @@ namespace Utility
         {
             Crate refinedCrate = new Crate(-25, 0, -1, unrefined[0].weight, unrefined[0].invetory, true);
             refined.Add(refinedCrate);
-            unrefined[0].Refine();
+            unrefined[0].SetIsDone();
             unrefined.RemoveAt(0);
         }
 
