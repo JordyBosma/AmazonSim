@@ -10,6 +10,8 @@ namespace Models
     {
         public List<Node> nodes;
 
+        //public List<Node> nodes { get { return _nodes; } }
+
         public NodeGrid()
         {
             nodes = new List<Node>();
