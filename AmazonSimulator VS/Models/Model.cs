@@ -67,9 +67,11 @@ namespace Models
         }
 
         // logic down here:
-        Random rnd = new Random();
-        private List<TaskForRobot> tasksForRobot = new List<TaskForRobot>();
+        //Random rnd = new Random();
+        private List<TaskForRobot> _tasksForRobot = new List<TaskForRobot>();
         private List<LogicTask> logicTasks = new List<LogicTask>();
+
+        public List<TaskForRobot> tasksForRobot { get { return _tasksForRobot; } }
 
         /// <summary>
         /// Runs once to all data to find task and will try to execute these. If a task is not succesfully completed it will try it again next time.
@@ -95,7 +97,7 @@ namespace Models
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public bool GetTasks(Object3D obj)
+        public bool GetTasks(Object3D obj)              //There should be a interface for this but for now it will do fine
         {
             if(obj is Robot)
             {
@@ -158,14 +160,10 @@ namespace Models
             //default interval
             int interval = 2500; //milliseconds   
             // Create a timer with other interval.
-            if (task is ExportVehicleRequest)
+            if (task is InboundLogicTask)
             {
-                interval = ((ExportVehicleRequest)task).interval;
+                interval = ((InboundLogicTask)task).GetInterval();
             } 
-            if (task is ImportVehicleRequest)
-            {
-                interval = ((ImportVehicleRequest)task).interval;
-            }
 
             System.Timers.Timer aTimer = new System.Timers.Timer(interval);
             InboundTimers.Add(aTimer);

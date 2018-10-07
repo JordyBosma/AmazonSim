@@ -7,19 +7,24 @@ using Utility;
 
 namespace Utility
 {
-    public class ImportVehicleRequest : LogicTask
+    public class ImportVehicleRequest : LogicTask, InboundLogicTask
     {
-        private int _interval;
         private ImportVehicle importVehicle;
         private int cratesBeingHandeld = -1;
 
-        public int interval { get { return _interval; } }
-
         public ImportVehicleRequest(double x, double y, double z, double rotationX, double rotationY, double rotationZ)
         {
-            Random rnd = new Random();
-            _interval = rnd.Next(30, 70) * 1000;
             importVehicle = new ImportVehicle(x, y, z, rotationX, rotationY, rotationZ);
+        }
+
+        /// <summary>
+        /// Returns time untill timer elapsed.
+        /// </summary>
+        /// <returns></returns>
+        public int GetInterval()
+        {
+            Random rnd = new Random();
+            return rnd.Next(30, 70) * 1000;
         }
 
         public bool RunTask(Model w)

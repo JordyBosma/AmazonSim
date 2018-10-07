@@ -7,26 +7,32 @@ using Utility;
 
 namespace Utility
 {
-    public class ExportVehicleRequest : LogicTask
+    public class ExportVehicleRequest : LogicTask, InboundLogicTask
     {
-        private int _interval;
         private double _x;
         private double _y;
         private double _z;
         private ExportVehicle exportVehicle = null;
 
-        public int interval { get { return _interval; } }
         public double x { get { return _x; } }
         public double y { get { return _y; } }
         public double z { get { return _z; } }
 
         public ExportVehicleRequest(double x, double z)
         {
-            Random rnd = new Random();
-            _interval = rnd.Next(89, 180) * 1000;
             _x = x;
             _y = 400;
             _z = z;
+        }
+
+        /// <summary>
+        /// Returns time untill timer elapsed.
+        /// </summary>
+        /// <returns></returns>
+        public int GetInterval()
+        {
+            Random rnd = new Random();
+            return rnd.Next(89, 180) * 1000;
         }
 
         public bool RunTask(Model w)
@@ -40,7 +46,7 @@ namespace Utility
             if (exportVehicle.CheckArrived())                                                                 
             {
                 List<StorageNode> filledRefinedStorageNodes = new List<StorageNode>();
-                foreach (Node node in w.nodeGrid.nodes)                 //WARNING!!!
+                foreach (Node node in w.nodeGrid.nodes)                 //WARNING!!! could lead to "change to collections" exeption, but i doubt it.
                 {
                     if (node is StorageNode)
                     {
