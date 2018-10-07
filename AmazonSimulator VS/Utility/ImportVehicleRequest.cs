@@ -7,6 +7,9 @@ using Utility;
 
 namespace Utility
 {
+    /// <summary>
+    /// Request to spawn a import vehicle and make a tasks for robots to move cargo of unrefined crates from the import vehicle to a empty inport storage node.
+    /// </summary>
     public class ImportVehicleRequest : LogicTask, InboundLogicTask
     {
         private ImportVehicle importVehicle;
@@ -27,6 +30,11 @@ namespace Utility
             return rnd.Next(30, 70) * 1000;
         }
 
+        /// <summary>
+        /// Runs the ImportVehicleRequest. This will spawn a import vehicle and keeps trys to make a tasks for robots to move a unrefined crate in the cargo of the import vehicle to a empty inport storage node until for all crates in cargo a task for a robot is made. Returns true if succesfully completed.
+        /// </summary>
+        /// <param name="w"></param>
+        /// <returns></returns>
         public bool RunTask(Model w)
         {
             if (cratesBeingHandeld == -1)
