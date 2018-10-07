@@ -347,7 +347,7 @@ function loadOBJModel(objPath, objName, materialPath, materialName, onload) {
                     //Cast shadows
                     if (objName != "Sun.obj" && objName != "Earthchan.obj") {
                         object.traverse(function (child) {
-                            if (objName == "Dome.obj") {
+                            if (objName == "Dome.obj" || objName == "TrainStation.obj") {
                                 child.castShadow = true;
                                 child.receiveShadow = false;
                             }
