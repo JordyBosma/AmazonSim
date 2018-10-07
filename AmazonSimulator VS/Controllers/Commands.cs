@@ -40,6 +40,9 @@ namespace Controllers
         }
     }
 
+    /// <summary>
+    /// Object with a Object3D data for clients connected requesting to remove this object (from the scene).
+    /// </summary>
     public class DeleteModel3DCommand : Model3DCommand
     {
         public DeleteModel3DCommand(Models.Object3D parameters) : base("delete", parameters)
@@ -47,6 +50,9 @@ namespace Controllers
         }
     }
 
+    /// <summary>
+    /// Object with nodeGrid data for clients connected requesting to show the display, this so that the client could display the grid with nodes and his conections.
+    /// </summary>
     public class ShowGridCommand : Command
     {
         public ShowGridCommand(NodeGrid nodeGrid) : base("grid", nodeGrid)
