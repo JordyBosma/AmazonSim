@@ -6,6 +6,9 @@ using Models;
 
 namespace Utility
 {
+    /// <summary>
+    /// Request to give a task to the given robot.
+    /// </summary>
     public class RobotTaskRequest : LogicTask
     {
         private Robot _rqRobot;
@@ -16,6 +19,13 @@ namespace Utility
             _rqRobot = rqRobot;
         }
 
+        /// <summary>
+        /// Runs the RobotTaskRequest. 
+        /// This will try to give a task to the given robot if there is one.
+        /// Returns true if succesfully completed.
+        /// </summary>
+        /// <param name="w"></param>
+        /// <returns></returns>
         public bool RunTask(Model w)
         {
             if (w.tasksForRobot.Count() != 0)
