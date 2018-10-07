@@ -66,15 +66,20 @@ namespace Models
             return true;
         }
 
-        // logic here:
+        // logic down here:
         Random rnd = new Random();
-        public List<TaskForRobot> tasksForRobot = new List<TaskForRobot>();
-        public List<LogicTask> logicTasks = new List<LogicTask>();
+        private List<TaskForRobot> tasksForRobot = new List<TaskForRobot>();
+        private List<LogicTask> logicTasks = new List<LogicTask>();
 
+        /// <summary>
+        /// Runs once to all data to find task and will try to execute these. If a task is not succesfully completed it will try it again next time.
+        /// </summary>
         public void Logic()
         {
+            //Find tasks:
             worldObjects.Where(x => GetTasks(x)).ToList();
             GetPickUpTasks();
+            //Try executing tasks:
             if (logicTasks.Count() != 0)
             {
                 List<LogicTask> finish = logicTasks.Where(x => x != null ? x.RunTask(this) : true).ToList();
@@ -85,6 +90,11 @@ namespace Models
             }
         }
 
+        /// <summary>
+        /// Checks in Object3d data state if there is a task to be done by logic.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public bool GetTasks(Object3D obj)
         {
             if(obj is Robot)
@@ -139,10 +149,14 @@ namespace Models
 
         protected List<System.Timers.Timer> InboundTimers = new List<System.Timers.Timer>();
         
+        /// <summary>
+        /// Adds a timer that when elapsed will add the given task to tasks for logic.
+        /// </summary>
+        /// <param name="task"></param>
         protected void SetInboundTimer(LogicTask task)
         {
             //default interval
-            int interval = 0;   
+            int interval = 2500; //milliseconds   
             // Create a timer with other interval.
             if (task is ExportVehicleRequest)
             {
@@ -164,6 +178,9 @@ namespace Models
             aTimer.Enabled = true;
         }
 
+        /// <summary>
+        /// Checks if there are Crates placed in inport storagenodes who haven't yet been added to the logictask to be transported by a robot to a refinery.
+        /// </summary>
         public void GetPickUpTasks()
         {
             foreach (Node node in _nodeGrid.nodes)

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Utility
 {
+    /// <summary>
+    /// Object with taskdata for a robot to execute.
+    /// </summary>
     public class TaskForRobot
     {
         private double[] _pickUpPoint;
