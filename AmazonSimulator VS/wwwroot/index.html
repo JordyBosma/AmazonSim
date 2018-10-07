@@ -145,8 +145,13 @@
                     ShowGrid(command);
                 }
             }
+
+            /**
+             * updates the loaded models position from the server command.
+             * @param object
+             * @param command
+             */
             function updateModel(object, command) {
-                //var object = worldObjects[command.parameters.guid];
 
                 object.position.x = command.parameters.x;
                 object.position.y = command.parameters.y;
@@ -157,6 +162,11 @@
                 object.rotation.z = command.parameters.rotationZ;
             }
 
+            /**
+             * caseswitch witch checks the server commands type and creates the corrosponding object.
+             * @param command
+             * @param group
+             */
             function newModel(command, group) {
                 switch (command.parameters.type) {
                     case "Robot":
@@ -185,6 +195,10 @@
                 }
             }
 
+            /**
+             * Debug function that shows node posistions in the world, it also shows the direction of the connected nodes 
+             * @param command
+             */
             function ShowGrid(command) {
                 var gridGroup = new THREE.Group();
                 for (var i = 0; i < command.parameters.nodes.length; i++) {

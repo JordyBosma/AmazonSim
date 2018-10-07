@@ -1,5 +1,8 @@
-﻿"use strict";
-
+﻿/**
+ * All the classes in this js file create an object that extends THREE.Group.
+ * in the init the model is loaded and further tweaks are done.
+ * This than gets added to the SelfRef/object.
+ * */
 class Robot extends THREE.Group {
 
     constructor() {
@@ -166,6 +169,10 @@ class Crate extends THREE.Group {
     }
 }
 
+/**
+ * This class creates the sun object, wich also creates the directional light that lights our scene, and casts shadows
+ * this light is added to our sun mesh, wich in turn gets loaded in our scene. Our sun object is literaly our source of light.
+ * */
 class Sun extends THREE.Group {
 
     constructor() {
@@ -321,7 +328,6 @@ class TrainStation extends THREE.Group {
         });
     }
 }
-
 
 /**
  * Load an OBJ model from the server

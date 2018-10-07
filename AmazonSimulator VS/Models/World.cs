@@ -317,17 +317,5 @@ namespace Models {
                     throw new ArgumentException("there is no model that corresponds with that type");
             }
         }
-
-        /*public void MoveRobot(RobotTask rt)
-        {
-            foreach (Object3D r in worldObjects)
-            {
-                if (r.type == "Robot")
-                {
-                    ((Robot)r).GiveTask(rt);
-                    break;
-                }
-            }
-        }*/
     }
 }
