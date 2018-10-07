@@ -145,7 +145,7 @@ namespace Models {
             _nodeGrid.NodesAdd(new double[] { -1, -1 }, new List<int>() { 77, 35 }); // central square 70
             _nodeGrid.NodesAdd(new double[] { -1, -5 }, new List<int>() { 70, 81, 106 }); //storage lane
             _nodeGrid.NodesAdd(new double[] { -1, -12 }, new List<int>() { 71, 93, 107 }); //storage lane
-            _nodeGrid.NodesAdd(new double[] { -1, -16 }, new List<int>() { 72, 112 }); // inner boundry square
+            _nodeGrid.NodesAdd(new double[] { -1, -16 }, new List<int>() { 72, 108 }); // inner boundry square
             _nodeGrid.NodesAdd(new double[] { -1, -18 }, new List<int>() { 73, 75 }); // outer boundry square
 
             // outer circle
