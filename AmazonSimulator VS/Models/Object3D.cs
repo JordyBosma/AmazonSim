@@ -10,13 +10,13 @@ namespace Models
     /// </summary>
     public abstract class Object3D
     {
+        private string _type = "";
         private double _x = 0;
         private double _y = 0;
         private double _z = 0;
         private double _rX = 0;
         private double _rY = 0;
         private double _rZ = 0;
-        private string _type = "";
 
         public Guid guid { get; }
         public string type { get { return _type; } }

@@ -30,7 +30,7 @@ namespace Models
         /// <summary>
         /// Creates crates that are being imported for exporting.
         /// </summary>
-        public void CreateCrates()
+        private void CreateCrates()
         {
             for (int i = 0; i < 10; i++)
             {

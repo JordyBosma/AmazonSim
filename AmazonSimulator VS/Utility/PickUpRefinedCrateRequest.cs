@@ -13,12 +13,12 @@ namespace Utility
     public class PickUpRefinedCrateRequest : LogicTask
     {
         private PickUpTarget refinery;
-        private Crate crate;
+        private Crate pickUpCrate;
 
-        public PickUpRefinedCrateRequest(PickUpTarget refinery, Crate crate)
+        public PickUpRefinedCrateRequest(PickUpTarget refinery, Crate pickUpCrate)
         {
             this.refinery = refinery;
-            this.crate = crate;
+            this.pickUpCrate = pickUpCrate;
         }
 
         /// <summary>
@@ -48,9 +48,9 @@ namespace Utility
             {
                 return false;
             }
-            w.tasksForRobot.Add(new TaskForRobot(new double[] { -25, 1 }, ((Node)emptyStorageNode).position, crate, refinery, (DropOffTarget)emptyStorageNode));
-            w.worldObjects.Add(crate);
-            crate.Move(crate.x, crate.y, crate.z);
+            w.tasksForRobot.Add(new TaskForRobot(new double[] { -25, 1 }, ((Node)emptyStorageNode).position, pickUpCrate, refinery, (DropOffTarget)emptyStorageNode));
+            w.worldObjects.Add(pickUpCrate);
+            pickUpCrate.Move(pickUpCrate.x, pickUpCrate.y, pickUpCrate.z);
             return true;
         }
     }

@@ -11,12 +11,12 @@ namespace Models
     public class Crate : Object3D, IUpdatable
     {
         private int _weight;
-        private string _invetory;
+        private string _inventory;
         private bool _refined = false;
         private bool _isDone = false;
 
         public int weight { get { return _weight; } }
-        public string invetory { get { return _invetory; } }
+        public string inventory { get { return _inventory; } }
         public bool refined { get { return _refined; } }
         public bool isDone { get { return _isDone; } }
 
@@ -32,7 +32,7 @@ namespace Models
             int[] pWeights = new int[] { 1, 2, 3, 4, 5, 10 };
             string[] pInvetory = new string[] {"MoonMilk","Krypto", "Beryllium", "Uranium","Moonrock"};
             _weight = pWeights[random.Next(6)];
-            _invetory = pInvetory[random.Next(5)];
+            _inventory = pInvetory[random.Next(5)];
         }
 
         /// <summary>
@@ -42,12 +42,12 @@ namespace Models
         /// <param name="y"></param>
         /// <param name="z"></param>
         /// <param name="weight"></param>
-        /// <param name="invetory"></param>
+        /// <param name="inventory"></param>
         /// <param name="refined"></param>
-        public Crate(double x, double y, double z, int weight, string invetory, bool refined) : base(x, y, z, 0, 0, 0, "Crate")
+        public Crate(double x, double y, double z, int weight, string inventory, bool refined) : base(x, y, z, 0, 0, 0, "Crate")
         {
             this._weight = weight;
-            this._invetory = invetory;
+            this._inventory = inventory;
             this._refined = refined;
         }
 

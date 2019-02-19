@@ -98,8 +98,7 @@ class Crate extends THREE.Group {
         var CrateMtl;
         var CrateObj;
 
-
-        switch (command.parameters.invetory) {
+        switch (command.parameters.inventory) {
 
             case "MoonMilk":
                 if (command.parameters.refined) {
@@ -109,7 +108,6 @@ class Crate extends THREE.Group {
                 else {
                     CrateObj = "Crate_Milk.obj";
                     CrateMtl = "Crate_Milk.mtl";
-                    //debugger;
                 }
                 break;
             case "Krypto":
@@ -120,7 +118,6 @@ class Crate extends THREE.Group {
                 else {
                     CrateObj = "Crate_Krypto.obj";
                     CrateMtl = "Crate_Krypto.mtl";
-                    //debugger;
                 }
                 break;
             case "Beryllium":
@@ -131,7 +128,6 @@ class Crate extends THREE.Group {
                 else {
                     CrateObj = "Crate_Beryl.obj";
                     CrateMtl = "Crate_Beryl.mtl";
-                    //debugger;
                 }
                 break;
             case "Uranium":
@@ -142,7 +138,6 @@ class Crate extends THREE.Group {
                 else {
                     CrateObj = "Crate_Uranium.obj";
                     CrateMtl = "Crate_Uranium.mtl";
-                    //debugger;
                 }
                 break;
             case "Moonrock":
@@ -153,11 +148,10 @@ class Crate extends THREE.Group {
                 else {
                     CrateObj = "Crate_Moonrock.obj";
                     CrateMtl = "Crate_Moonrock.mtl";
-                    //debugger;
                 }
                 break;
             default:
-                CrateObj = "Crate.obj"
+                CrateObj = "Crate.obj";
                 CrateMtl = "Crate.mtl";
                 break;
         }
@@ -286,27 +280,27 @@ class Dome extends THREE.Group {
 
 class Plane extends THREE.Group {
 	
-	    constructor() {
+	constructor() {
         super();
 
         this.init();
-		}
+	}
 		
-		init() {
-			var SelfRef = this;
+	init() {
+		var SelfRef = this;
 			
-			var geometry = new THREE.PlaneGeometry(4000, 2000, 32);
-			var material = new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load("/textures/8k_moon.png"), side: THREE.DoubleSide });
-			var plane = new THREE.Mesh(geometry, material);
-			plane.rotation.x = Math.PI / 2.0;
-			plane.position.x = 15;
-			plane.position.z = 15;
-			plane.position.y = -0.07;
+		var geometry = new THREE.PlaneGeometry(4000, 2000, 32);
+		var material = new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load("/textures/8k_moon.png"), side: THREE.DoubleSide });
+		var plane = new THREE.Mesh(geometry, material);
+		plane.rotation.x = Math.PI / 2.0;
+		plane.position.x = 15;
+		plane.position.z = 15;
+		plane.position.y = -0.07;
 			
-			plane.receiveShadow = true;
-			SelfRef.add(plane);
-		}
-    }
+		plane.receiveShadow = true;
+		SelfRef.add(plane);
+	}
+}
 	
 class TrainStation extends THREE.Group {
 

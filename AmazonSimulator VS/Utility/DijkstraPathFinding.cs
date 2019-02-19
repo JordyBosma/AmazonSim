@@ -15,8 +15,8 @@ namespace Utility
         private List<Node> prev;
         private List<Node> unvisited;
         private NodeGrid nodeGrid;
-        Node currentNode = null;
-        Node endNode = null;
+        private Node currentNode = null;
+        private Node endNode = null;
 
         /// <summary>
         /// Used for setting up the data used for the pathfinding.
@@ -82,7 +82,7 @@ namespace Utility
         /// <summary>
         /// Stores the data form calculating the distance form the current piont to all connected pointand comparinging to already found distances.
         /// </summary>
-        public void Dijkstra()
+        private void Dijkstra()
         {
             double shortest = double.MaxValue;
             foreach (Node node in unvisited)
@@ -112,7 +112,7 @@ namespace Utility
         /// <param name="next"></param>
         /// <param name="prev"></param>
         /// <returns></returns>
-        public List<double[]> GetShortestPath(Node next, List<Node> prev)
+        private List<double[]> GetShortestPath(Node next, List<Node> prev)
         {
             if (prev[next.id] == null)
             {

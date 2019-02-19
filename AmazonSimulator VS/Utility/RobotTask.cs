@@ -11,23 +11,23 @@ namespace Utility
     /// </summary>
     public class RobotTask
     {
-        private List<double[]> _pickupTask;
-        private List<double[]> _dropoffTask;
-        private Crate _pickupCrate;
+        private List<double[]> _pickUpTask;
+        private List<double[]> _dropOffTask;
+        private Crate _pickUpCrate;
         private PickUpTarget _pickUpTarget;
         private DropOffTarget _dropOffTarget;
 
-        public List<double[]> pickupTask { get { return _pickupTask; } }
-        public List<double[]> dropoffTask { get { return _dropoffTask; } }
-        public Crate pickupCrate { get { return _pickupCrate; } }
+        public List<double[]> pickUpTask { get { return _pickUpTask; } }
+        public List<double[]> dropOffTask { get { return _dropOffTask; } }
+        public Crate pickUpCrate { get { return _pickUpCrate; } }
         public PickUpTarget pickUpTarget { get { return _pickUpTarget; } }
         public DropOffTarget dropOffTarget { get { return _dropOffTarget; } }
 
-        public RobotTask(List<double[]> pickupTask, List<double[]> dropoffTask, Crate pickupCrate, PickUpTarget pickUpTarget, DropOffTarget dropOffTarget)
+        public RobotTask(List<double[]> pickUpTask, List<double[]> dropOffTask, Crate pickUpCrate, PickUpTarget pickUpTarget, DropOffTarget dropOffTarget)
         {
-            this._pickupTask = pickupTask;
-            this._dropoffTask = dropoffTask;
-            this._pickupCrate = pickupCrate;
+            this._pickUpTask = pickUpTask;
+            this._dropOffTask = dropOffTask;
+            this._pickUpCrate = pickUpCrate;
             this._pickUpTarget = pickUpTarget;
             this._dropOffTarget = dropOffTarget;
         }

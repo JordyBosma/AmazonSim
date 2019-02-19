@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Views
 {
-    abstract public class View : IObserver<Command>
+    public abstract class View : IObserver<Command>
     {
 
         protected WebSocket socket;

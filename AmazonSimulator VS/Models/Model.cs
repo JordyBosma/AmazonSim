@@ -179,7 +179,7 @@ namespace Models
         /// <summary>
         /// Checks if there are Crates placed in inport storagenodes who haven't yet been added to the logictask to be transported by a robot to a refinery.
         /// </summary>
-        public void GetPickUpTasks()
+        protected void GetPickUpTasks()
         {
             foreach (Node node in _nodeGrid.nodes)
             {

@@ -66,9 +66,9 @@ namespace Models
 
         public void GiveTask(RobotTask rt)
         {
-            pickupTask = rt.pickupTask;
-            dropoffTask = rt.dropoffTask;
-            _pickupCrate = rt.pickupCrate;
+            pickupTask = rt.pickUpTask;
+            dropoffTask = rt.dropOffTask;
+            _pickupCrate = rt.pickUpCrate;
             _pickUpTarget = rt.pickUpTarget;
             _dropOffTarget = rt.dropOffTarget;
             HandleTask();
